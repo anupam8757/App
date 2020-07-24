@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "830820054998",
+    "firebase_url": "https://loginproject-bda0f.firebaseio.com",
+    "project_id": "loginproject-bda0f",
+    "storage_bucket": "loginproject-bda0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830820054998:android:5011b957e1cc01588b1677",
+        "android_client_info": {
+          "package_name": "com.me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830820054998-59rap3hlt0s507mprrgjt0cn1ab9s0ca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8XHPbvhDoSIvjGNkNnV9gn2zhfVOa25Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830820054998-59rap3hlt0s507mprrgjt0cn1ab9s0ca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
