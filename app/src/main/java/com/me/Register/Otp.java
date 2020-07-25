@@ -1,11 +1,11 @@
-package com.me;
+package com.me.Register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,16 +20,23 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
+import com.me.R;
+import com.me.home.MainActivity;
+import com.me.pojo.User;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Otp extends AppCompatActivity {
 
-    private String verificationId;
+    private String verificationId, userId;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private EditText editText;
     TextView tv;
+    String phonenumber;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +48,7 @@ public class Otp extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar);
         editText = findViewById(R.id.editTextNumber);
 
-        String phonenumber = getIntent().getStringExtra("phonenumber");
+        phonenumber = getIntent().getStringExtra("phonenumber");
         tv.setText(phonenumber);
         sendVerificationCode(phonenumber);
 
@@ -67,20 +74,32 @@ public class Otp extends AppCompatActivity {
 
     private void signInWithCredential(PhoneAuthCredential credential) {
         progressBar.setVisibility(View.VISIBLE);
+        Log.d("Otp Activity","signInWithCredential gets invoked..........");
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-                            Intent intent = new Intent(Otp.this, profile.class);
+                            userId = mAuth.getUid();
+                            user = new User("please enter value","please enter value","please enter value");
+                            user.setPhone(phonenumber);
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(Objects.requireNonNull(mAuth.getUid()))
+                                    .setValue(user);
+                            Log.d("Otp Activity","Setting Intent MainActivity.............");
+                            Intent intent;
+                            intent = new Intent(Otp.this, MainActivity.class);
+                            intent.putExtra("userId",userId);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                             startActivity(intent);
 
                         } else {
-                            Toast.makeText(Otp.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            try{
+                            Toast.makeText(Otp.this,task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            }catch (Exception e){
+                                Log.d("Otp"," "+e.getMessage());}
                         }
                     }
                 });
@@ -101,6 +120,7 @@ public class Otp extends AppCompatActivity {
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
             verificationId = s;
+
         }
 
         //auto verification
