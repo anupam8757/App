@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search"
+        android:title="search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/notification"
+        android:title="notofication"
+        android:icon="@drawable/ic_notifications"
+        app:showAsAction="always"/>
+    <item
+        android:title="mycart"
+        android:id="@+id/share"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_shopping_cart"/>
+
+
+</menu>
