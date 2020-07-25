@@ -89,7 +89,7 @@ public class Otp extends AppCompatActivity {
                                     .setValue(user);
                             Log.d("Otp Activity","Setting Intent MainActivity.............");
                             Intent intent;
-                            intent = new Intent(Otp.this, MainActivity.class);
+                            intent = new Intent(Otp.this, profile.class);
                             intent.putExtra("userId",userId);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
