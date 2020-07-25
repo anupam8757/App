@@ -11,6 +11,16 @@
     tools:context="com.me.home.MainActivity"
     tools:openDrawer="start">
 
+    <!--    adding the navigation drawer here -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu"
+        />
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -71,14 +81,6 @@
 </LinearLayout>
 
 
-<!--    adding the navigation drawer here -->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu"
-        />
+
 </androidx.drawerlayout.widget.DrawerLayout>
 
