@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -17,11 +18,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.home.MainActivity;
 import com.me.login;
 
 import java.util.HashMap;
+
+import io.paperdb.Paper;
 
 public class register extends AppCompatActivity {
 
@@ -29,9 +33,11 @@ public class register extends AppCompatActivity {
     private ProgressBar progressBar;
     @Override
     protected void onStart() {
+        Paper.init(this);
         super.onStart();
-
-        if (FirebaseDatabase.getInstance().getReference() != null) {
+        String phone = Paper.book().read(Prevalent.userPhone);
+        String password = Paper.book().read(Prevalent.userPassword);
+        if (phone != null && password!= null) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -81,10 +87,8 @@ public class register extends AppCompatActivity {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-        String phonenumber = number;
-        String strongPassword = password;
 
-        validatePhoneNumber(phonenumber, strongPassword);
+        validatePhoneNumber(number, password);
     }
 
     private void validatePhoneNumber(final String number, final String password) {

@@ -22,6 +22,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.home.MainActivity;
 import com.me.Model.User;
@@ -29,6 +30,8 @@ import com.me.Model.User;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import io.paperdb.Paper;
 
 public class Otp extends AppCompatActivity {
 
@@ -43,6 +46,8 @@ public class Otp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
+
+        Paper.init(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -86,6 +91,10 @@ public class Otp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             userId = mAuth.getUid();
+
+                            Paper.book().write(Prevalent.userPhone, phonenumber);
+                            Paper.book().write(Prevalent.userPassword, pass);
+
                             HashMap<String, Object> userdataMap = new HashMap<>();
                             userdataMap.put("phone",phonenumber);
                             userdataMap.put("password",pass);
