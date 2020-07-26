@@ -31,11 +31,9 @@ public class register extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if (FirebaseDatabase.getInstance().getReference() != null) {
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("userId",FirebaseAuth.getInstance().getCurrentUser().getUid());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
             startActivity(intent);
         }
     }
