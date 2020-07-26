@@ -7,7 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-
+import com.google.android.material.navigation.NavigationView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -19,9 +19,15 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.me.R;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -31,14 +37,16 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawer;
+    private static final String TAG = "MainActivity";
+    private TextView name,email;
+    private DatabaseReference FetchDataRef;
 
     //main list view
     private GridView main_list_View;
      //    caeouselview variable
 
     private CarouselView carouselView;
-
-    int[] sampleImages={R.drawable.carousel_image,R.drawable.carousel_image,R.drawable.vegetable};
+    int[] sampleImages={R.drawable.backgroundgreen,R.drawable.backgroundgreen,R.drawable.backgroundgreen};
 
 
     @Override
@@ -49,9 +57,24 @@ public class MainActivity extends AppCompatActivity {
          toolbar = findViewById(R.id.toolbar);
          setSupportActionBar(toolbar);
 
-         // get the userId
+    // setting the name and email from database
         final String userId = getIntent().getStringExtra("userId");
         Log.d("Mainactivity","   .............   "+userId);
+        FetchDataRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        FetchDataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String n = snapshot.child("email").getValue().toString();
+                Log.d("Mainactivity","   .............   "+n);
+                n = snapshot.child("name").getValue().toString();
+                Log.d("Mainactivity","   .............   "+n);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         // reference of the main layout ie drawer layout
         drawer = findViewById(R.id.drawer_layout);
@@ -69,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
 //        adapter knows how to create list items for each item in the list.
         com.me.home.MainAdapter adapter = new com.me.home.MainAdapter(this, main_list_items);
 
-
-
         main_list_View=findViewById(R.id.gridview);
 
         main_list_View.setAdapter(adapter);
@@ -87,14 +108,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
         //taking the reference of caouselView
         carouselView =findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
-
-
     }
 
     ImageListener imageListener = new ImageListener() {
@@ -110,20 +127,18 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Main_list_item> assign_main_item() {
 
         ArrayList<Main_list_item> main_list_items=new ArrayList<Main_list_item>();
-        main_list_items.add(new Main_list_item(R.drawable.vegetable,"VEGETABLE"));
-        main_list_items.add(new Main_list_item(R.drawable.fruits,"FRUITS"));
-        main_list_items.add(new Main_list_item(R.drawable.grocery,"GROCERIES"));
-        main_list_items.add(new Main_list_item(R.drawable.water_bottel,"WATER BOTTLES & DRINKS"));
-        main_list_items.add(new Main_list_item(R.drawable.dairy_milk,"MILK,DAIRY & BAKERY"));
-        main_list_items.add(new Main_list_item(R.drawable.spices,"MASALAS & MUSTARD OIL"));
+        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"VEGETABLE"));
+        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"FRUITS"));
+        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"GROCERIES"));
+        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"WATER BOTTLES & DRINKS"));
+        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"MILK,DAIRY & BAKERY"));
+        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"MASALAS & MUSTARD OIL"));
 
         Toast.makeText(this,"Completed",Toast.LENGTH_SHORT).show();
         return main_list_items;
     }
 
 //    to close the navigation bar when the task is completed
-
-
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START))
@@ -131,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
         else{
             super.onBackPressed();
         }
-
     }
 
     @Override

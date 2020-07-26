@@ -8,7 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
-    tools:context="com.me.home.MainActivity"
+    tools:context=".home.MainActivity"
     tools:openDrawer="start">
 
     <!--    adding the navigation drawer here -->
