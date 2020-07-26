@@ -20,11 +20,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.me.R;
 import com.me.home.MainActivity;
-import com.me.pojo.User;
+import com.me.Model.User;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -34,8 +36,8 @@ public class Otp extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private EditText editText;
-    TextView tv;
-    String phonenumber;
+    private TextView tv;
+    private String phonenumber, pass;
     private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class Otp extends AppCompatActivity {
         editText = findViewById(R.id.editTextNumber);
 
         phonenumber = getIntent().getStringExtra("phonenumber");
+        pass = getIntent().getStringExtra("password");
         tv.setText(phonenumber);
         sendVerificationCode(phonenumber);
 
@@ -74,7 +77,8 @@ public class Otp extends AppCompatActivity {
 
     private void signInWithCredential(PhoneAuthCredential credential) {
         progressBar.setVisibility(View.VISIBLE);
-        Log.d("Otp Activity","signInWithCredential gets invoked..........");
+        final DatabaseReference rootRef;
+        rootRef = FirebaseDatabase.getInstance().getReference();
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
 
@@ -82,19 +86,27 @@ public class Otp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             userId = mAuth.getUid();
-                            user = new User("please enter value","please enter value","please enter value");
-                            user.setPhone(phonenumber);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(Objects.requireNonNull(mAuth.getUid()))
-                                    .setValue(user);
-                            Log.d("Otp Activity","Setting Intent MainActivity.............");
-                            Intent intent;
-                            intent = new Intent(Otp.this, MainActivity.class);
-                            intent.putExtra("userId",userId);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                            startActivity(intent);
-
+                            HashMap<String, Object> userdataMap = new HashMap<>();
+                            userdataMap.put("phone",phonenumber);
+                            userdataMap.put("password",pass);
+                            userdataMap.put("name","no value");
+                            userdataMap.put("address","no value");
+                            userdataMap.put("email","no value");
+                            rootRef.child("Users").child(phonenumber).updateChildren(userdataMap)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isComplete()){
+                                                progressBar.setVisibility(View.GONE);
+                                                Intent intent = new Intent(Otp.this, MainActivity.class);
+                                                startActivity(intent);
+                                            }
+                                            else{
+                                                progressBar.setVisibility(View.GONE);
+                                                return;
+                                            }
+                                        }
+                                    });
                         } else {
                             try{
                             Toast.makeText(Otp.this,task.getException().getMessage(), Toast.LENGTH_LONG).show();

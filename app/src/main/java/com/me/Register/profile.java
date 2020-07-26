@@ -15,7 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.me.R;
-import com.me.pojo.User;
+import com.me.Model.User;
 
 public class profile extends AppCompatActivity {
 

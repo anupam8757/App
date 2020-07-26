@@ -57,24 +57,6 @@ public class MainActivity extends AppCompatActivity {
          toolbar = findViewById(R.id.toolbar);
          setSupportActionBar(toolbar);
 
-    // setting the name and email from database
-        final String userId = getIntent().getStringExtra("userId");
-        Log.d("Mainactivity","   .............   "+userId);
-        FetchDataRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-        FetchDataRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String n = snapshot.child("email").getValue().toString();
-                Log.d("Mainactivity","   .............   "+n);
-                n = snapshot.child("name").getValue().toString();
-                Log.d("Mainactivity","   .............   "+n);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         // reference of the main layout ie drawer layout
         drawer = findViewById(R.id.drawer_layout);

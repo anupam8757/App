@@ -15,10 +15,10 @@
         android:textColor="#b2b2b2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.109"
+        app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.146" />
+        app:layout_constraintVertical_bias="0.083" />
 
     <EditText
         android:id="@+id/editTextNumber"
@@ -36,10 +36,10 @@
 
     <Button
         android:id="@+id/Otpbutton"
-        android:layout_width="294dp"
-        android:layout_height="57dp"
+        android:layout_width="330dp"
+        android:layout_height="46dp"
         android:layout_marginTop="108dp"
-        android:background="#17FF20"
+        android:background="@drawable/buttons"
         android:text="@string/next"
         android:textColor="#FFF"
         android:textSize="18sp"
@@ -64,15 +64,15 @@
 
     <TextView
         android:id="@+id/pno"
-        android:layout_width="138dp"
-        android:layout_height="32dp"
+        android:layout_width="124dp"
+        android:layout_height="39dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#b2b2b2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.929"
+        app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187" />
+        app:layout_constraintVertical_bias="0.083" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
