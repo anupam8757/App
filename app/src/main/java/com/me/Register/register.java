@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -107,6 +108,9 @@ public class register extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
+                    Toast.makeText(register.this,"Phone number already exists....",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(register.this,"Please Login....",Toast.LENGTH_SHORT).show();
+
                     progressBar.setVisibility(View.GONE);
                     Intent intent = new Intent(register.this, login.class);
                     intent.putExtra("phonenumber", number);

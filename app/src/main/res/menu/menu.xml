@@ -6,11 +6,11 @@
         android:id="@+id/search"
         android:title="search"
         android:icon="@drawable/ic_search"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/notification"
-        android:title="notofication"
+        android:title="notification"
         android:icon="@drawable/ic_notifications"
         app:showAsAction="always"/>
     <item
@@ -18,6 +18,5 @@
         android:id="@+id/share"
         app:showAsAction="always"
         android:icon="@drawable/ic_shopping_cart"/>
-
 
 </menu>
