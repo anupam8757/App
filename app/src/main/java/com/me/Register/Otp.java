@@ -20,12 +20,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.home.MainActivity;
 import com.me.Model.User;
+import com.me.login;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -99,6 +103,21 @@ public class Otp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             userId = mAuth.getUid();
+                            final DatabaseReference rootRef;
+                            rootRef = FirebaseDatabase.getInstance().getReference();
+                            rootRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.child("Users").child(phonenumber).exists()) {
+                                        User userData = snapshot.child("Users").child(phonenumber).getValue(User.class);
+                                        Prevalent.currentOnlineUser = userData;
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
 
                             Paper.book().write(Prevalent.userPhone, phonenumber);
                             Paper.book().write(Prevalent.userPassword, pass);
@@ -120,7 +139,10 @@ public class Otp extends AppCompatActivity {
                                             }
                                             else{
                                                 progressBar.setVisibility(View.GONE);
-                                                return;
+                                                Toast.makeText(Otp.this,"Something went wrong",Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(Intent.ACTION_MAIN);
+                                                intent.addCategory(Intent.CATEGORY_HOME);
+                                                startActivity(intent);
                                             }
                                         }
                                     });

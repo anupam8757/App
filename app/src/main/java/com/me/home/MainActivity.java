@@ -8,6 +8,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,28 +24,37 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Register.profile;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+import io.paperdb.Paper;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
     private DrawerLayout drawer;
-    private static final String TAG = "MainActivity";
-    private TextView name,email;
-    private DatabaseReference FetchDataRef;
+    private String presentName,presentEmail;
 
-    //main list view
-    private GridView main_list_View;
-     //    caeouselview variable
+    //    caeouselview variable
 
-    private CarouselView carouselView;
     int[] sampleImages={R.drawable.backgroundgreen,R.drawable.backgroundgreen,R.drawable.backgroundgreen};
+
+    public MainActivity() throws IOException {
+    }
 
 
     @Override
@@ -51,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
          toolbar = findViewById(R.id.toolbar);
          setSupportActionBar(toolbar);
 
+         Paper.init(this);
 
         // reference of the main layout ie drawer layout
         drawer = findViewById(R.id.drawer_layout);
@@ -61,14 +76,34 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-//        creating the arraylist of type Main_list_item
+//      Accessing the navigation drawer
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView userNameHeaderView = headerView.findViewById(R.id.nav_header_name);
+        TextView userEmailHeaderView = headerView.findViewById(R.id.nav_header_email);
+       try{
+           presentName = Prevalent.currentOnlineUser.getName();
+           presentEmail = Prevalent.currentOnlineUser.getEmail();
+       }catch(NullPointerException e) {
+           System.out.println("NullPointerException thrown!");
+       }catch (RuntimeException e){
+           System.out.println("RuntimeException thrown!");
+       }
+            userNameHeaderView.setText(presentName);
+            userEmailHeaderView.setText(presentEmail);
+
+
+//        creating the array_list of type Main_list_item
         final ArrayList<Main_list_item> main_list_items=assign_main_item();
 
 //
 //        adapter knows how to create list items for each item in the list.
         com.me.home.MainAdapter adapter = new com.me.home.MainAdapter(this, main_list_items);
 
-        main_list_View=findViewById(R.id.gridview);
+        //main list view
+        GridView main_list_View = findViewById(R.id.gridview);
 
         main_list_View.setAdapter(adapter);
         //  setting the adapter class
@@ -85,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //taking the reference of caouselView
-        carouselView =findViewById(R.id.carouselView);
+        CarouselView carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
     }
@@ -97,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "carouselView clicked"+position, Toast.LENGTH_SHORT).show();
         }
         };
-
 
 
     private ArrayList<Main_list_item> assign_main_item() {
@@ -114,7 +148,12 @@ public class MainActivity extends AppCompatActivity {
         return main_list_items;
     }
 
-//    to close the navigation bar when the task is completed
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    //    to close the navigation bar when the task is completed
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START))
@@ -135,12 +174,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.user_profile){
             Intent intent = new Intent(MainActivity.this, profile.class);
             startActivity(intent);
         }
-        return super.onOptionsItemSelected(item);
+        if(id == R.id.app_logout){
+            Paper.book().destroy();
+            Toast.makeText(MainActivity.this,"Bye-Bye",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+        }
+        return true;
     }
-
 }

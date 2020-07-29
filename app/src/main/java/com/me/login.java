@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.Admin.AdminCategoryActivity;
 import com.me.Model.User;
 import com.me.Prevalent.Prevalent;
 import com.me.home.MainActivity;
@@ -86,20 +87,27 @@ public class login extends AppCompatActivity {
     }
 
     private void validatePhone_Password(final String number, final String password) {
-
-        Paper.book().write(Prevalent.userPhone, number);
-        Paper.book().write(Prevalent.userPassword, password);
-
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(parentDBname).child(number).exists()){
+                String adminPass = snapshot.child("Admin").child(number).child("password").getValue().toString();
+                if(snapshot.child("Admin").child(number).exists() && adminPass.equals(password)){
+                    Paper.book().write(Prevalent.userPhone, password);
+                    Paper.book().write(Prevalent.userPassword, number);
+                        progressBar.setVisibility(View.GONE);
+                        Intent intent = new Intent(login.this, AdminCategoryActivity.class);
+                        startActivity(intent);
+                    }
+                else if(snapshot.child(parentDBname).child(number).exists()){
                     User userData = snapshot.child(parentDBname).child(number).getValue(User.class);
                     if(userData.getPhone().equals(number)){
                         if(userData.getPassword().equals(password)){
+                            Paper.book().write(Prevalent.userPhone, password);
+                            Paper.book().write(Prevalent.userPassword, number);
                             progressBar.setVisibility(View.GONE);
+                            Prevalent.currentOnlineUser = userData;
                             Intent intent = new Intent(login.this, MainActivity.class);
                             startActivity(intent);
                         }else {
@@ -108,11 +116,9 @@ public class login extends AppCompatActivity {
                         }
                     }
                 }
-                else
-                {
+                else{
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(login.this,"Incorrect Number! Please register first.",Toast.LENGTH_SHORT).show();
-
                 }
 
             }

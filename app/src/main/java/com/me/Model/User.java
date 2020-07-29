@@ -2,6 +2,7 @@ package com.me.Model;
 
 public class User {
     public User() {
+
     }
 
     public User(String password, String name, String email, String address, String phone) {
@@ -52,10 +53,10 @@ public class User {
         this.phone = phone;
     }
 
-    private String password;
-    private String name;
-    private String email;
-    private String address;
-    private String phone;
+    private String password = "Unknown";
+    private String name = "Unknown";
+    private String email = "Unknown";
+    private String address = "Unknown";
+    private String phone = "Unknown";
 }
 

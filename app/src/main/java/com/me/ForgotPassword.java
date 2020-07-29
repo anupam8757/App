@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.me.Prevalent.Prevalent;
 import com.me.Register.Otp;
 import com.me.Register.register;
+
+import io.paperdb.Paper;
 
 public class ForgotPassword extends AppCompatActivity {
 
@@ -55,6 +58,9 @@ public class ForgotPassword extends AppCompatActivity {
                     pass.requestFocus();
                     return;
                 }
+                Paper.book().write(Prevalent.userPhone, phone_number);
+                Paper.book().write(Prevalent.userPassword, password);
+
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(ForgotPassword.this, Otp.class);
                 intent.putExtra("phonenumber", phone_number);

@@ -59,9 +59,7 @@ public class register extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 createAccount();
-
             }
         });
 
@@ -88,7 +86,6 @@ public class register extends AppCompatActivity {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-
         validatePhoneNumber(number, password);
     }
 
@@ -96,25 +93,19 @@ public class register extends AppCompatActivity {
 
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();
-
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if(!snapshot.child("Users").child(number).exists()){
+                    progressBar.setVisibility(View.GONE);
                     Intent intent = new Intent(register.this, Otp.class);
                     intent.putExtra("phonenumber", number);
                     intent.putExtra("password", password);
                     startActivity(intent);
                 }
-                else{
-                    Toast.makeText(register.this,"Phone number already exists....",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(register.this,"Please Login....",Toast.LENGTH_SHORT).show();
-
-                    progressBar.setVisibility(View.GONE);
+                else if(snapshot.child("Users").child(number).exists()){
                     Intent intent = new Intent(register.this, login.class);
-                    intent.putExtra("phonenumber", number);
-                    intent.putExtra("password", password);
                     startActivity(intent);
                 }
             }
