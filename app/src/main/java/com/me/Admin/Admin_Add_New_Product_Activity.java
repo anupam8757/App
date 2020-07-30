@@ -144,9 +144,8 @@ public class Admin_Add_New_Product_Activity extends AppCompatActivity {
         productdataMap.put("price",product_price);
         productdataMap.put("description",product_description);
         productdataMap.put("image",downloadImageURL);
-        productdataMap.put("category",category);
 
-        productRef.child(randomKey).updateChildren(productdataMap).
+        productRef.child(category).child(randomKey).updateChildren(productdataMap).
                 addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
