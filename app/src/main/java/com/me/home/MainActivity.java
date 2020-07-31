@@ -8,33 +8,20 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Register.profile;
@@ -42,29 +29,27 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,MainAdapter.OnItemClickListener {
     private Toolbar toolbar;
     private DrawerLayout drawer;
-    private String presentName,presentEmail;
+    private String presentName, presentEmail;
 
     private MainAdapter mAdapter;
-    private CarouselView carouselView;
+
     private List<Main_list_item> main_list_items;
     RecyclerView main_list_View;
 
     //    caeouselview variable
+    CarouselView carouselView;
 
-    int[] sampleImages={R.drawable.backgroundgreen,R.drawable.backgroundgreen,R.drawable.backgroundgreen};
+    int[] sampleImages = {R.drawable.backgroundgreen, R.drawable.backgroundgreen, R.drawable.backgroundgreen};
 
     public MainActivity() throws IOException {
+
     }
 
 
@@ -74,20 +59,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
 //       toolbar in main Activity is added
-         toolbar = findViewById(R.id.toolbar);
-         setSupportActionBar(toolbar);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-         Paper.init(this);
+        Paper.init(this);
 
         // reference of the main layout ie drawer layout
         drawer = findViewById(R.id.drawer_layout);
 //   the reference of the navigation bar
-        NavigationView navigationView=findViewById(R.id.navigation);
+        NavigationView navigationView = findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
 
         //   navigation bar toogling functionality
-        ActionBarDrawerToggle toggle =new ActionBarDrawerToggle(this,drawer,toolbar,
-                R.string.open_drawer,R.string.close_drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.open_drawer, R.string.close_drawer);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -95,50 +80,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         TextView userNameHeaderView = headerView.findViewById(R.id.nav_header_name);
         TextView userEmailHeaderView = headerView.findViewById(R.id.nav_header_email);
-       try{
-           presentName = Prevalent.currentOnlineUser.getName();
-           presentEmail = Prevalent.currentOnlineUser.getEmail();
-       }catch(NullPointerException e) {
-           System.out.println("NullPointerException thrown!");
-       }catch (RuntimeException e){
-           System.out.println("RuntimeException thrown!");
-       }
-            userNameHeaderView.setText(presentName);
-            userEmailHeaderView.setText(presentEmail);
+        try {
+            presentName = Prevalent.currentOnlineUser.getName();
+            presentEmail = Prevalent.currentOnlineUser.getEmail();
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException thrown!");
+        } catch (RuntimeException e) {
+            System.out.println("RuntimeException thrown!");
+        }
+        userNameHeaderView.setText(presentName);
+        userEmailHeaderView.setText(presentEmail);
 
         main_list_View = findViewById(R.id.main_recyclerView);
         main_list_View.setHasFixedSize(true);
 
 
 //       setting the column of the gridView
-        int number_of_column=2;
+        int number_of_column = 2;
 //        assigning the reciclerView as GridView
-        main_list_View.setLayoutManager(new GridLayoutManager(this,number_of_column));
+        main_list_View.setLayoutManager(new GridLayoutManager(this, number_of_column));
 //        assign the list as arraylist
-        main_list_items=new ArrayList<>();
+        main_list_items = new ArrayList<>();
 
 //         assigning the value into the main_list_item
-        main_list_items=Data.assign_main_item();
+        main_list_items = Data.assign_main_item();
 
-        mAdapter =new MainAdapter(MainActivity.this,main_list_items);
+        mAdapter = new MainAdapter(MainActivity.this, main_list_items);
 
 
         main_list_View.setAdapter(mAdapter);
         //  setting the adapter class
         mAdapter.setOnItemClickListener(this);
+
+
         //taking the reference of caouselView
-        CarouselView carouselView = findViewById(R.id.carouselView);
+        carouselView =findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
+
     }
+
 
     ImageListener imageListener = new ImageListener() {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
-           imageView.setImageResource(sampleImages[position]);
-            Toast.makeText(MainActivity.this, "carouselView clicked"+position, Toast.LENGTH_SHORT).show();
+            imageView.setImageResource(sampleImages[position]);
+//            Toast.makeText(MainActivity.this, "carouselView clicked"+position, Toast.LENGTH_SHORT).show();
         }
-        };
+    };
+
 
 
     @Override
@@ -151,20 +141,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START))
             drawer.closeDrawer(GravityCompat.START);
-        else{
+        else {
             super.onBackPressed();
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             startActivity(intent);
         }
     }
-// starting line og the menu item
+
+    // starting line og the menu item
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
 //        reference of the serch item
-        MenuItem searchItem=menu.findItem(R.id.search);
-        SearchView searchView= (SearchView) searchItem.getActionView();
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -180,9 +171,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
         }
 
@@ -192,22 +184,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    end of the menu item
 
 
-//  this is for the overridden function to implement the functionality
+    //  this is for the overridden function to implement the functionality
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
 
-        switch (item.getItemId() ){
+        switch (item.getItemId()) {
 
             case R.id.user_profile:
-                 intent= new Intent(MainActivity.this, profile.class);
+                intent = new Intent(MainActivity.this, profile.class);
                 startActivity(intent);
                 break;
             case R.id.app_logout:
                 showPopup();
                 break;
-            case  R.id.app_login:
-                intent=new Intent(MainActivity.this,com.me.login.class);
+            case R.id.app_login:
+                intent = new Intent(MainActivity.this, com.me.login.class);
                 startActivity(intent);
                 break;
             case R.id.app_share:
@@ -219,12 +211,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return true;
     }
-//    this will show the pop up message into the item
+
+    //    this will show the pop up message into the item
     private void showPopup() {
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
         alert.setMessage("Are you sure?")
                 .setCancelable(false)
-                .setPositiveButton("Logout", new DialogInterface.OnClickListener()                 {
+                .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -246,9 +239,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //   what to do when the the item is clicked
     @Override
     public void onItemClick(int position, TextView main_name) {
-        Intent intent=new Intent(MainActivity.this,Catagories.class);
+        Intent intent = new Intent(MainActivity.this, Catagories.class);
 
-        intent.putExtra("cat_name",main_name.getText());
+        intent.putExtra("cat_name", main_name.getText());
         startActivity(intent);
     }
+
+
 }
