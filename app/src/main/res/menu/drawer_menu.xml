@@ -7,35 +7,34 @@
 <group android:checkableBehavior="single"
     android:id="@+id/menu_top">
     <item
-        android:id="@+id/search"
-        android:title="search"
-        android:icon="@drawable/ic_search"
-        app:showAsAction="always"
-        />
-    <item
-        android:id="@+id/notification"
-        android:icon="@drawable/ic_notifications"
-        android:title="notification"
-        app:showAsAction="always" />
-    <item
-        android:title="mycart"
-        android:id="@+id/share"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_shopping_cart"/>
-    <item
         android:title="profile"
         android:id="@+id/user_profile"
         app:showAsAction="always"
         android:icon="@drawable/profile"/>
-</group>
+    <item
+        android:title="login"
+        android:id="@+id/app_login"
+        app:showAsAction="always"
+        android:icon="@drawable/login"
+        />
+    <item
+        android:title="logout"
+        android:id="@+id/app_logout"
+        app:showAsAction="always"
+        android:icon="@drawable/logout"/>
 
-    <group android:checkableBehavior="none"
-        android:id="@+id/menu_bottom">
-        <item
-            android:title="logout"
-            android:id="@+id/app_logout"
-            app:showAsAction="always"
-            android:icon="@drawable/logout"/>
+
+    <item
+        android:title="share"
+        android:id="@+id/app_share"
+        app:showAsAction="always"
+        android:icon="@drawable/share"/>
+    <item
+        android:title="about"
+        android:id="@+id/app_about"
+        app:showAsAction="always"
+        android:icon="@drawable/about"/>
+
     </group>
 
 </menu>

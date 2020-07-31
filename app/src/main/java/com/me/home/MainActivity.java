@@ -6,7 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -41,13 +45,19 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.paperdb.Paper;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,MainAdapter.OnItemClickListener {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private String presentName,presentEmail;
+
+    private MainAdapter mAdapter;
+    private CarouselView carouselView;
+    private List<Main_list_item> main_list_items;
+    RecyclerView main_list_View;
 
     //    caeouselview variable
 
@@ -62,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//       toolbar in main Activity is added
          toolbar = findViewById(R.id.toolbar);
          setSupportActionBar(toolbar);
 
@@ -69,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // reference of the main layout ie drawer layout
         drawer = findViewById(R.id.drawer_layout);
+//   the reference of the navigation bar
+        NavigationView navigationView=findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(this);
 
         //   navigation bar toogling functionality
         ActionBarDrawerToggle toggle =new ActionBarDrawerToggle(this,drawer,toolbar,
@@ -76,10 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-//      Accessing the navigation drawer
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
-        navigationView.setNavigationItemSelectedListener(this);
-
+//
         View headerView = navigationView.getHeaderView(0);
         TextView userNameHeaderView = headerView.findViewById(R.id.nav_header_name);
         TextView userEmailHeaderView = headerView.findViewById(R.id.nav_header_email);
@@ -94,31 +105,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             userNameHeaderView.setText(presentName);
             userEmailHeaderView.setText(presentEmail);
 
+        main_list_View = findViewById(R.id.main_recyclerView);
+        main_list_View.setHasFixedSize(true);
 
-//        creating the array_list of type Main_list_item
-        final ArrayList<Main_list_item> main_list_items=assign_main_item();
 
-//
-//        adapter knows how to create list items for each item in the list.
-        com.me.home.MainAdapter adapter = new com.me.home.MainAdapter(this, main_list_items);
+//       setting the column of the gridView
+        int number_of_column=2;
+//        assigning the reciclerView as GridView
+        main_list_View.setLayoutManager(new GridLayoutManager(this,number_of_column));
+//        assign the list as arraylist
+        main_list_items=new ArrayList<>();
 
-        //main list view
-        GridView main_list_View = findViewById(R.id.gridview);
+//         assigning the value into the main_list_item
+        main_list_items=Data.assign_main_item();
 
-        main_list_View.setAdapter(adapter);
+        mAdapter =new MainAdapter(MainActivity.this,main_list_items);
+
+
+        main_list_View.setAdapter(mAdapter);
         //  setting the adapter class
-        main_list_View.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-
-                com.me.home.Main_list_item main_list_item=main_list_items.get(position);
-                String cat_name=main_list_item.getMain_item_name();
-                Intent intent =new Intent(MainActivity.this, com.me.home.Catagories.class);
-                intent.putExtra("cat_name",cat_name);
-                startActivity(intent);
-            }
-        });
+        mAdapter.setOnItemClickListener(this);
         //taking the reference of caouselView
         CarouselView carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
@@ -133,20 +139,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         };
 
-
-    private ArrayList<Main_list_item> assign_main_item() {
-
-        ArrayList<Main_list_item> main_list_items=new ArrayList<Main_list_item>();
-        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"VEGETABLE"));
-        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"FRUITS"));
-        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"GROCERIES"));
-        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"WATER BOTTLES & DRINKS"));
-        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"MILK,DAIRY & BAKERY"));
-        main_list_items.add(new Main_list_item(R.drawable.backgroundgreen,"MASALAS & MUSTARD OIL"));
-
-        Toast.makeText(this,"Completed",Toast.LENGTH_SHORT).show();
-        return main_list_items;
-    }
 
     @Override
     protected void onStart() {
@@ -165,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
     }
-
+// starting line og the menu item
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
@@ -178,20 +170,66 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+//    end of the menu item
+
+
+//  this is for the overridden function to implement the functionality
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.user_profile){
-            Intent intent = new Intent(MainActivity.this, profile.class);
-            startActivity(intent);
-        }
-        if(id == R.id.app_logout){
-            Paper.book().destroy();
-            Toast.makeText(MainActivity.this,"Bye-Bye",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            startActivity(intent);
+        Intent intent;
+
+        switch (item.getItemId() ){
+
+            case R.id.user_profile:
+                 intent= new Intent(MainActivity.this, profile.class);
+                startActivity(intent);
+                break;
+            case R.id.app_logout:
+                showPopup();
+                break;
+            case  R.id.app_login:
+                intent=new Intent(MainActivity.this,com.me.login.class);
+                startActivity(intent);
+                break;
+            case R.id.app_share:
+                Toast.makeText(this, "here i will give the link of google play ", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.app_about:
+                Toast.makeText(this, "this is app of e comerse", Toast.LENGTH_SHORT).show();
+
         }
         return true;
+    }
+//    this will show the pop up message into the item
+    private void showPopup() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+        alert.setMessage("Are you sure?")
+                .setCancelable(false)
+                .setPositiveButton("Logout", new DialogInterface.OnClickListener()                 {
+
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        logout(); // Last step. Logout function
+
+                    }
+                }).setNegativeButton("Cancel", null);
+
+        AlertDialog alert1 = alert.create();
+        alert1.show();
+    }
+
+    private void logout() {
+        startActivity(new Intent(this, com.me.login.class));
+
+    }
+//  this is end of the navigation functionality
+
+    //   what to do when the the item is clicked
+    @Override
+    public void onItemClick(int position, TextView main_name) {
+        Intent intent=new Intent(MainActivity.this,Catagories.class);
+
+        intent.putExtra("cat_name",main_name.getText());
+        startActivity(intent);
     }
 }

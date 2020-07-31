@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {  // Changes activity after 2 seconds
             @Override
             public void run() {
-                Intent i = new Intent(SplashActivity.this, register.class);
+                Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
             }

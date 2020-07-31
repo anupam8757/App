@@ -49,14 +49,25 @@ public class Admin_Add_New_Product_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+//        getting the intent from the  AdminCategoriesActivity
+
         category = getIntent().getStringExtra("category");
+
+//        reference all the view which is used in the layout
+
         pName = findViewById(R.id.product_name);
         pDescription = findViewById(R.id.product_description);
         pPrice = findViewById(R.id.product_price);
         imageView = (ImageView) findViewById(R.id.select_product_image);
         upload_product = (Button) findViewById(R.id.add_new_product);
 
+//      reference of the firebase storage and it will make the foldr of Product image
+//      if there not exits previously ;
         productImageRef = FirebaseStorage.getInstance().getReference().child("Product Images");
+
+
+        // get the reference of the database
+
         productRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -108,10 +119,12 @@ public class Admin_Add_New_Product_Activity extends AppCompatActivity {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
                 String message = e.toString();
                 Toast.makeText(Admin_Add_New_Product_Activity.this,"Error: "+message,Toast.LENGTH_SHORT);
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        })
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(Admin_Add_New_Product_Activity.this,"Image Uploaded Successfully.",Toast.LENGTH_SHORT);
@@ -139,6 +152,7 @@ public class Admin_Add_New_Product_Activity extends AppCompatActivity {
     }
     private void saveProductDatatoDatabase(){
         HashMap<String, Object> productdataMap = new HashMap<>();
+
         productdataMap.put("pid",randomKey);
         productdataMap.put("name",product_name);
         productdataMap.put("price",product_price);
@@ -146,6 +160,7 @@ public class Admin_Add_New_Product_Activity extends AppCompatActivity {
         productdataMap.put("image",downloadImageURL);
 
         productRef.child(category).child(randomKey).updateChildren(productdataMap).
+
                 addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -161,14 +176,14 @@ public class Admin_Add_New_Product_Activity extends AppCompatActivity {
                     }
                 });
     }
-
+//     this methd is called to choose the image from the local device
     private void openGallary() {
         Intent gallaryIntent = new Intent();
         gallaryIntent.setAction(Intent.ACTION_GET_CONTENT);
         gallaryIntent.setType("image/*");
         startActivityForResult(gallaryIntent, GALLARY_PICK);
     }
-
+//       this line of code is used for display the image in the ImageView
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
