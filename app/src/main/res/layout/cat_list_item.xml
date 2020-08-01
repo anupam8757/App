@@ -51,6 +51,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/description"
                 android:text="Small size, 86 count"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="14sp"
                 android:layout_gravity="center"
                 />
