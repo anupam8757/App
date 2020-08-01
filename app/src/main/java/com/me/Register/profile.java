@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +24,7 @@ public class profile extends AppCompatActivity {
     private EditText name,email,phone,address;
     private Button register;
     private User user;
+    private ImageView imageView;
 
     private DatabaseReference FetchDataRef, UploadDataRef;
 
@@ -38,6 +40,7 @@ public class profile extends AppCompatActivity {
         phone = findViewById(R.id.number);
         address = findViewById(R.id.address);
         register = findViewById(R.id.register);
+        imageView = findViewById(R.id.image_profile);
         final String userId = getIntent().getStringExtra("userId");
 
 
