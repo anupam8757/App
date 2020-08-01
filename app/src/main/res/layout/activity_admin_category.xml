@@ -27,22 +27,49 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_below="@id/slogan_category"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="35dp"
         >
 
-        <ImageView
+        <TextView
             android:id="@+id/grocery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/grocery"
+            android:text="Groceries"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
             android:layout_marginRight="30dp"
             />
 
-        <ImageView
+        <TextView
             android:id="@+id/vegetables"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/vegetables" />
+            android:text="Vegetables"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginRight="30dp"/>
+
+        <TextView
+            android:id="@+id/fruits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fruits"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginRight="30dp"/>
+        <TextView
+            android:id="@+id/beverages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beverages"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+           />
+
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linear_category_layout2"
@@ -52,22 +79,129 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_below="@id/linear_category_layout"
-        android:layout_marginTop="30dp"
         >
 
-        <ImageView
-            android:id="@+id/fruits"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="25dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/fruits" />
-
-        <ImageView
-            android:id="@+id/other"
+        <TextView
+            android:id="@+id/snacks_packed_food"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/other_items" />
+            android:text="Snacks_Packed Food"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginRight="30dp"/>
+        <TextView
+            android:id="@+id/beauty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beauty_Hygiene"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_category_layout3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@id/linear_category_layout2"
+        >
+
+        <TextView
+            android:id="@+id/cleaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CLEANING,HOUSEHOLD"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"/>
+        <TextView
+            android:id="@+id/kgp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KITCHEN,GARDEN,PETS"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14sp"
+           />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_category_layout4"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@id/linear_category_layout3"
+        >
+
+        <TextView
+            android:id="@+id/non_veg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EGG,MEAT_FISH"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginRight="30dp"/>
+        <TextView
+            android:id="@+id/baby_care"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Baby Care"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_category_layout5"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@id/linear_category_layout4"
+        >
+
+        <TextView
+            android:id="@+id/bcd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BAKERY,CAKES_DAIRY"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"/>
+        <TextView
+            android:id="@+id/rfc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RESTAURANT_FOODS"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_category_layout5"
+        android:text="Other_Items"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:padding="20dp"
+        android:textStyle="bold"
+        />
 
 </RelativeLayout>
 
