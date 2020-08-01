@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,11 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Register.profile;
@@ -47,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     CarouselView carouselView;
 
     int[] sampleImages = {R.drawable.backgroundgreen, R.drawable.backgroundgreen, R.drawable.backgroundgreen};
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference carousel_Reference;
 
     public MainActivity() throws IOException {
 
@@ -118,7 +127,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
 
+//    getting he reference of the FirebaseData base
+        firebaseDatabase =FirebaseDatabase.getInstance();
+
+//        getting the reference of the database carousel
+        carousel_Reference=firebaseDatabase.getReference("carousel");
+
+        carousel_Reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("Count " ,""+snapshot.getChildrenCount());
+                for (DataSnapshot dataSnapshot :snapshot.getChildren()){
+                  Log.d("image",dataSnapshot.getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("The read failed: " ,error.getMessage());
+
+            }
+        });
+
     }
+
 
 
     ImageListener imageListener = new ImageListener() {
@@ -134,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
+
     }
 
     //    to close the navigation bar when the task is completed
