@@ -13,11 +13,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -247,25 +250,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //    this will show the pop up message into the item
     private void showPopup() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-        alert.setMessage("Are you sure?")
-                .setCancelable(false)
-                .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        logout(); // Last step. Logout function
-
-                    }
-                }).setNegativeButton("Cancel", null);
-
-        AlertDialog alert1 = alert.create();
-        alert1.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage(Html.fromHtml("<font color='#FF7F27'>Want to Logout?</font>"));
+        builder.setCancelable(false);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+        Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+        //Set negative button background
+        nbutton.setBackgroundColor(Color.parseColor("#1704FF"));
+        //Set negative button text color
+        nbutton.setTextColor(Color.parseColor("#ffffff"));
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        //Set positive button background
+        pbutton.setBackgroundColor(Color.parseColor("#1704FF"));
+        //Set positive button text color
+        pbutton.setTextColor(Color.parseColor("#ffffff"));
     }
 
     private void logout() {
-        startActivity(new Intent(this, com.me.login.class));
-
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
     }
 //  this is end of the navigation functionality
 
@@ -273,7 +284,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onItemClick(int position, TextView main_name) {
         Intent intent = new Intent(MainActivity.this, Catagories.class);
-
         intent.putExtra("cat_name", main_name.getText());
         startActivity(intent);
     }
