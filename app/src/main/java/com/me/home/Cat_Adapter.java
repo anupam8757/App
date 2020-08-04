@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_Holder> implements Filterable {
+public class Cat_Adapter<pid> extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_Holder> implements Filterable {
 
         private static final String LOG_TAG = MainAdapter.class.getSimpleName();
 //        DatabaseReference storageReference= FirebaseDatabase.getInstance().getReference("main");
@@ -29,6 +29,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
 
         List<Cat_list> cat_list;
         List<Cat_list> cat_list_full;
+        private static String pid;
 
         private LayoutInflater mInflater;
         Context context;
@@ -40,7 +41,6 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
             this.cat_list = cat_list;
 //        to create a new list
             this.cat_list_full=new ArrayList<>(cat_list);
-
         }
 
         @NonNull
@@ -55,7 +55,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
         public void onBindViewHolder(@NonNull MainAdapter_Holder holder, int position) {
            Cat_list currentPosition=cat_list.get(position);
 
-            Log.d("name",currentPosition.getName());
+           this.pid = currentPosition.getPid();
             holder.name.setText(currentPosition.getName());
             holder.price.setText(currentPosition.getPrice());
             holder.description.setText(currentPosition.getDescription());
@@ -92,7 +92,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
                 if(mListener !=null){
                     int position=getAdapterPosition();
                     if(position !=RecyclerView.NO_POSITION){
-                        mListener.onItemClick(position,name);
+                        mListener.onItemClick(position,name,pid);
                     }
                 }
             }
@@ -136,7 +136,8 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
             }
         };
         public interface OnItemClickListener{
-            void onItemClick(int position, TextView main_name);
+
+            void onItemClick(int position, TextView main_name, String pid);
         }
         public void setOnItemClickListener(OnItemClickListener listener){
             mListener =listener;

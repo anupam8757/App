@@ -7,6 +7,7 @@ import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.me.R;
+import com.me.cart.Cart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -186,7 +188,14 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     }
 
     @Override
-    public void onItemClick(int position, TextView main_name) {
-        Toast.makeText(this, "you have added "+main_name.getText(), Toast.LENGTH_SHORT).show();
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onItemClick(int position, TextView main_name, String pid) {
+        Intent intent = new Intent(Catagories.this, Cart.class);
+        intent.putExtra("pid",pid);
+        startActivity(intent);
     }
 }

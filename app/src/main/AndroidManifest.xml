@@ -34,6 +34,7 @@
             <!-- main activity -->
         </activity>
         <activity android:name=".home.MainActivity" />
+        <activity android:name=".cart.Cart" />
     </application>
 
 </manifest>
