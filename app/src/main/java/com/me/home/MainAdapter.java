@@ -51,14 +51,12 @@ public class MainAdapter extends RecyclerView.Adapter <MainAdapter.MainAdapter_H
         Main_list_item currentPosition=main_list_items.get(position);
         holder.main_name.setText(currentPosition.getMain_item_name());
         holder.main_image.setImageResource(currentPosition.getMain_item_image());
-
     }
 
     @Override
     public int getItemCount() {
         return main_list_items.size();
     }
-
 
 
 

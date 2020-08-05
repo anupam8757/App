@@ -4,8 +4,10 @@ public class Cat_list {
     private String image;
     private String price;
     private String name;
-    private String  description;
+    private String description;
     private String pid;
+
+
 
 //    empty constructor
     public Cat_list(){}

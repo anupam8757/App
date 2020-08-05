@@ -55,7 +55,6 @@ public class Cat_Adapter<pid> extends RecyclerView.Adapter <Cat_Adapter.MainAdap
         public void onBindViewHolder(@NonNull MainAdapter_Holder holder, int position) {
            Cat_list currentPosition=cat_list.get(position);
 
-           this.pid = currentPosition.getPid();
             holder.name.setText(currentPosition.getName());
             holder.price.setText(currentPosition.getPrice());
             holder.description.setText(currentPosition.getDescription());
@@ -91,8 +90,10 @@ public class Cat_Adapter<pid> extends RecyclerView.Adapter <Cat_Adapter.MainAdap
             public void onClick(View v) {
                 if(mListener !=null){
                     int position=getAdapterPosition();
-                    if(position !=RecyclerView.NO_POSITION){
-                        mListener.onItemClick(position,name,pid);
+                    if(position != RecyclerView.NO_POSITION){
+                        try {
+                            mListener.onItemClick(position, name, price);
+                        }catch (Exception e){}
                     }
                 }
             }
@@ -137,9 +138,9 @@ public class Cat_Adapter<pid> extends RecyclerView.Adapter <Cat_Adapter.MainAdap
         };
         public interface OnItemClickListener{
 
-            void onItemClick(int position, TextView main_name, String pid);
+            void onItemClick(int position, TextView main_name, TextView price);
         }
         public void setOnItemClickListener(OnItemClickListener listener){
-            mListener =listener;
+            mListener = listener;
         }
     }

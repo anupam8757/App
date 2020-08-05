@@ -263,14 +263,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         alert.show();
         Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
         //Set negative button background
-        nbutton.setBackgroundColor(Color.parseColor("#1704FF"));
+        nbutton.setBackgroundColor(Color.parseColor("#ffffff"));
         //Set negative button text color
-        nbutton.setTextColor(Color.parseColor("#ffffff"));
+        nbutton.setTextColor(Color.parseColor("#1704FF"));
         Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
         //Set positive button background
-        pbutton.setBackgroundColor(Color.parseColor("#1704FF"));
+        pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
         //Set positive button text color
-        pbutton.setTextColor(Color.parseColor("#ffffff"));
+        pbutton.setTextColor(Color.parseColor("#1704FF"));
     }
 
     private void logout() {
