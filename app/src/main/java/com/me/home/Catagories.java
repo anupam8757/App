@@ -7,47 +7,57 @@ import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.Admin.AdminCategoryActivity;
+import com.me.Admin.Admin_Add_New_Product_Activity;
+import com.me.Prevalent.Prevalent;
 import com.me.R;
+import com.me.cart.Cart;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+
+import io.paperdb.Paper;
 
 public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemClickListener {
     private Toolbar  cat_toolbar;
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference productrefence;
+    private DatabaseReference productrefence, cart;
     private DatabaseReference product_child;
     private RecyclerView cat_recyclerView;
     private List<Cat_list> cat_lists;
     private Cat_Adapter cat_Adapter;
-
+    private  String cat_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catagories);
 
+        Paper.init(this);
 
         cat_toolbar=findViewById(R.id.cat_toolbar);
         setSupportActionBar(cat_toolbar);
 //        adding the title which we will get from the main activity
-        String cat_name = getIntent().getStringExtra("cat_name");
+        cat_name = getIntent().getStringExtra("cat_name");
         Objects.requireNonNull(getSupportActionBar()).setTitle(cat_name);
 
 //        display the back button on the activity to go back to home
@@ -170,22 +180,6 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_categaries, menu);
-//        reference of the serch item
-        MenuItem searchItem=menu.findItem(R.id.search);
-        SearchView searchView= (SearchView) searchItem.getActionView();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                cat_Adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
         return true;
     }
     @Override
@@ -204,13 +198,44 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     }
 
     @Override
-    public void onItemClick(int position,String pid) {
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
-        TextView add=findViewById(R.id.add);
-        add.setText("Added");
-        add.setTextColor( getResources().getColor(R.color.green));
-
-
-//        Toast.makeText(this, "you have added "+name.getText(), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onItemClick(int position, TextView main_name, TextView price) {
+        cart = FirebaseDatabase.getInstance().getReference().child("Cart");
+        String pid = main_name.getText().toString() + price.getText().toString();
+        int amount = 1;
+        Log.d("............",cat_name);
+        Log.d("............",pid);
+        String user_phone = Paper.book().read(Prevalent.userPhone);
+        Log.d("............","phone "+user_phone);
+        if(user_phone == null){
+            Toast.makeText(Catagories.this,"You must Login First...",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            final HashMap<String,Object> cartMap = new HashMap<>();
+            cartMap.put("pid",pid);
+            cartMap.put("name",main_name.getText().toString());
+            cartMap.put("price",price.getText().toString());
+            cartMap.put("categories",cat_name);
+            cartMap.put("amount",amount);
+
+            cart.child(user_phone).child(pid).updateChildren(cartMap)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(Catagories.this,"Product added....",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            else {
+                                Toast.makeText(Catagories.this,"Please try again.....",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+    }
+
 }

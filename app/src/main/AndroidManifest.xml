@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.me">
-
+<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/myicon"
@@ -11,10 +12,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Admin.AdminCategoryActivity" />
         <activity android:name=".Admin.Admin_Add_New_Product_Activity" />
-        <activity
-            android:name=".home2.MainActivity2"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".login" />
         <activity
@@ -37,6 +34,7 @@
             <!-- main activity -->
         </activity>
         <activity android:name=".home.MainActivity" />
+        <activity android:name=".cart.Cart" />
     </application>
 
 </manifest>

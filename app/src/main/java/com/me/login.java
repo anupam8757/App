@@ -92,7 +92,11 @@ public class login extends AppCompatActivity {
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String adminPass = snapshot.child("Admin").child(number).child("password").getValue().toString();
+                String adminPass = "";
+                try{
+                adminPass = snapshot.child("Admin").child(number).child("password").getValue().toString();
+                }
+                catch (Exception e){}
                 if(snapshot.child("Admin").child(number).exists() && adminPass.equals(password)){
                     Paper.book().write(Prevalent.userPhone, password);
                     Paper.book().write(Prevalent.userPassword, number);
