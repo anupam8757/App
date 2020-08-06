@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -168,6 +170,22 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_categaries, menu);
+//        reference of the serch item
+        MenuItem searchItem=menu.findItem(R.id.search);
+        SearchView searchView= (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                cat_Adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         return true;
     }
     @Override
@@ -186,7 +204,13 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     }
 
     @Override
-    public void onItemClick(int position, TextView main_name) {
-        Toast.makeText(this, "you have added "+main_name.getText(), Toast.LENGTH_SHORT).show();
+    public void onItemClick(int position,String pid) {
+
+        TextView add=findViewById(R.id.add);
+        add.setText("Added");
+        add.setTextColor( getResources().getColor(R.color.green));
+
+
+//        Toast.makeText(this, "you have added "+name.getText(), Toast.LENGTH_SHORT).show();
     }
 }

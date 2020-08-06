@@ -33,6 +33,9 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
         private LayoutInflater mInflater;
         Context context;
         private static OnItemClickListener mListener;
+        public static String pid;
+
+
 
         public Cat_Adapter(Context context, List<Cat_list> cat_list) {
             this.context=context;
@@ -54,12 +57,12 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
         @Override
         public void onBindViewHolder(@NonNull MainAdapter_Holder holder, int position) {
            Cat_list currentPosition=cat_list.get(position);
-
             Log.d("name",currentPosition.getName());
             holder.name.setText(currentPosition.getName());
             holder.price.setText(currentPosition.getPrice());
             holder.description.setText(currentPosition.getDescription());
             Picasso.with(context).load(currentPosition.getImage()).into(holder.image);
+            pid=currentPosition.getPid();
 
         }
 
@@ -67,9 +70,6 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
         public int getItemCount() {
             return cat_list.size();
         }
-
-
-
 
         public static class MainAdapter_Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
             public ImageView image;
@@ -91,7 +91,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
                 if(mListener !=null){
                     int position=getAdapterPosition();
                     if(position !=RecyclerView.NO_POSITION){
-                        mListener.onItemClick(position,name);
+                        mListener.onItemClick(position,pid);
                     }
                 }
             }
@@ -135,7 +135,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
             }
         };
         public interface OnItemClickListener{
-            void onItemClick(int position, TextView main_name);
+            void onItemClick(int position,String pid);
         }
         public void setOnItemClickListener(OnItemClickListener listener){
             mListener =listener;
