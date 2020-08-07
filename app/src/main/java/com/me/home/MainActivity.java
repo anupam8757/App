@@ -103,13 +103,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try {
             presentName = Prevalent.currentOnlineUser.getName();
             presentEmail = Prevalent.currentOnlineUser.getEmail();
+            userNameHeaderView.setText(presentName);
+            userEmailHeaderView.setText(presentEmail);
+
         } catch (NullPointerException e) {
             System.out.println("NullPointerException thrown!");
         } catch (RuntimeException e) {
             System.out.println("RuntimeException thrown!");
         }
-        userNameHeaderView.setText(presentName);
-        userEmailHeaderView.setText(presentEmail);
+
 
         main_list_View = findViewById(R.id.main_recyclerView);
         main_list_View.setHasFixedSize(true);

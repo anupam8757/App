@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,8 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.me.Admin.AdminCategoryActivity;
-import com.me.Admin.Admin_Add_New_Product_Activity;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import java.util.ArrayList;
@@ -289,6 +286,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                 cartMap.put("price", price.getText().toString());
                 cartMap.put("categories", cat_name);
                 cartMap.put("amount", amount);
+                cartMap.put("total_price",price.getText().toString());
 
                 cart.child(user_phone).child(pid).updateChildren(cartMap)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -296,7 +294,6 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
-                                    return;
                                 } else {
                                     Toast.makeText(Catagories.this, "Please try again.....", Toast.LENGTH_SHORT).show();
                                 }

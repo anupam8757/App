@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.Model.User;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.home.MainActivity;
@@ -32,13 +33,37 @@ public class register extends AppCompatActivity {
 
     private EditText phone,pass;
     private ProgressBar progressBar;
+    private DatabaseReference user_data;
+    private User user;
+    private String name = "", email = "";
+
     @Override
     protected void onStart() {
         Paper.init(this);
         super.onStart();
-        String phone = Paper.book().read(Prevalent.userPhone);
+        final String phone = Paper.book().read(Prevalent.userPhone);
         String password = Paper.book().read(Prevalent.userPassword);
+
+        // Getting the Online User
+        user_data = FirebaseDatabase.getInstance().getReference().child("Users");
+
         if (phone != null && password!= null) {
+
+            user_data.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.child(phone).exists()){
+                        user = dataSnapshot.child(phone).getValue(User.class);
+                        Prevalent.currentOnlineUser = user;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
