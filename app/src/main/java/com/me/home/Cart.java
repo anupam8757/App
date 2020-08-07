@@ -49,7 +49,7 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
-
+                updateDetailsToCart();
             }
         });
 
@@ -75,14 +75,14 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot :snapshot.getChildren()){
-                    Cart_list cart_list =postSnapshot.getValue(Cart_list.class);
+                    Cart_list cart_list = postSnapshot.getValue(Cart_list.class);
 //                    adding the item to the list which we get from the data base
                     cart_lists.add(cart_list);
                     Log.d("fetched",cart_list.getName());
                 }
                 cartAdapter =new CartAdapter(Cart.this,cart_lists);
                 cartRecyclerView.setAdapter(cartAdapter);
-//                Log.d("adpter","data is fetched in adapter");
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -106,4 +106,8 @@ public class Cart extends AppCompatActivity {
                 }
             };
 
+    public void updateDetailsToCart(){
+        // Update total_price and amount to cart db table
+
+    }
 }
