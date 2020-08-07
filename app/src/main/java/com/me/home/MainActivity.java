@@ -11,15 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -69,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkconnection();
+        // for internet connection lost
+
 
 //       toolbar in main Activity is added
         toolbar = findViewById(R.id.toolbar);
@@ -287,6 +295,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra("cat_name", main_name.getText());
         startActivity(intent);
     }
-
+    public void checkconnection()
+    {
+     ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+     NetworkInfo networkInfo =  connectivityManager.getActiveNetworkInfo();
+     if(networkInfo== null || !networkInfo.isConnected() || !networkInfo.isAvailable())
+     {
+         Dialog dialog= new Dialog(this);
+         dialog.setContentView(R.layout.alert_dailog);
+         dialog.setCancelable(false);
+         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+         dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+         Button button=dialog.findViewById(R.id.internet_lost);
+         button.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 recreate();
+             }
+         });
+         dialog.show();
+     }
+    }
 
 }
