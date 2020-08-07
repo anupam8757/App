@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          dialog.setCancelable(false);
          dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
          dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
-         Button button=dialog.findViewById(R.id.internet_lost);
+         Button button = dialog.findViewById(R.id.internet_lost);
          button.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {

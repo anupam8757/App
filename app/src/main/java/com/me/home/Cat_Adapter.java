@@ -56,8 +56,9 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
             holder.name.setText(currentPosition.getName());
             holder.price.setText(currentPosition.getPrice());
             holder.description.setText(currentPosition.getDescription());
-            Picasso.with(context).load(currentPosition.getImage()).into(holder.image);
-
+            Picasso.with(context).load(currentPosition.getImage())
+                    .placeholder(R.drawable.loading)
+                    .into(holder.image);
         }
 
         @Override
