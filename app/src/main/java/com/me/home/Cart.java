@@ -62,6 +62,7 @@ public class Cart extends AppCompatActivity {
         cart_lists=new  ArrayList<>();
 
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
 
 //        implement the database
         firebaseDatabase= FirebaseDatabase.getInstance();
@@ -100,6 +101,7 @@ public class Cart extends AppCompatActivity {
                 @Override
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                    cart_lists.remove(viewHolder.getAdapterPosition());
+
                    cartAdapter.notifyDataSetChanged();
                 }
             };
