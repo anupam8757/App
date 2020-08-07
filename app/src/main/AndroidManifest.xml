@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.me">
-
     <application
         tools:replace="android:icon"
         android:allowBackup="true"
