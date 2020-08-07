@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="2"
+       android:paddingLeft="20dp"
+        >
+        <TextView
+            android:id="@+id/cart_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:textSize="20sp"
+            android:textColor="#2E3033"
+            />
+        <TextView
+            android:id="@+id/cart_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="price"
+            android:textSize="10sp"
+            android:textColor="#5EED3A"
+            />
+
+    </LinearLayout>
+    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:initialNumber="1"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:paddingTop="8dp"
+        android:layout_weight="1"
+        android:id="@+id/amount"
+        android:background="#FFFFFF"
+        >
+
+    </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+    <TextView
+        android:id="@+id/total_amount"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="100"
+        android:textColor="#171717"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:layout_gravity="center"
+        android:padding="10dp"/>
+</LinearLayout>

@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.me.R;
 import com.squareup.picasso.Picasso;
 
@@ -31,14 +28,14 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
         List<Cat_list> cat_list_full;
 
         private LayoutInflater mInflater;
-        Context context;
+        private Context context;
         private static OnItemClickListener mListener;
 
         public Cat_Adapter(Context context, List<Cat_list> cat_list) {
             this.context=context;
             this.mInflater = LayoutInflater.from(context);
             this.cat_list = cat_list;
-//        to create a new list
+//           to create a new list
             this.cat_list_full=new ArrayList<>(cat_list);
 
         }
@@ -68,14 +65,12 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
             return cat_list.size();
         }
 
-
-
-
         public static class MainAdapter_Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
             public ImageView image;
             public TextView name;
             private TextView price;
             private TextView description;
+            private TextView add;
 
             public MainAdapter_Holder(@NonNull View itemView) {
                 super(itemView);
@@ -83,6 +78,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
                 this.name = itemView.findViewById(R.id.name);
                 this.description=itemView.findViewById(R.id.description);
                 this.price=itemView.findViewById(R.id.price);
+                this.add=itemView.findViewById(R.id.add);
                 itemView.setOnClickListener(this);
             }
 
@@ -91,7 +87,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
                 if(mListener !=null){
                     int position=getAdapterPosition();
                     if(position !=RecyclerView.NO_POSITION){
-                        mListener.onItemClick(position,name);
+                        mListener.onItemClick(position,name,price,add);
                     }
                 }
             }
@@ -135,7 +131,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
             }
         };
         public interface OnItemClickListener{
-            void onItemClick(int position, TextView main_name);
+            void onItemClick(int position, TextView main_name,TextView price,TextView add);
         }
         public void setOnItemClickListener(OnItemClickListener listener){
             mListener =listener;

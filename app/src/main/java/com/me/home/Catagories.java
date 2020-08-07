@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +30,6 @@ import com.me.Admin.AdminCategoryActivity;
 import com.me.Admin.Admin_Add_New_Product_Activity;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
-import com.me.cart.Cart;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +47,9 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     private List<Cat_list> cat_lists;
     private Cat_Adapter cat_Adapter;
     private  String cat_name;
+    TextView textCartItemCount;
+    int mCartItemCount = 0;
+    String user_phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +60,10 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
         cat_toolbar=findViewById(R.id.cat_toolbar);
         setSupportActionBar(cat_toolbar);
+
 //        adding the title which we will get from the main activity
         cat_name = getIntent().getStringExtra("cat_name");
+//
         Objects.requireNonNull(getSupportActionBar()).setTitle(cat_name);
 
 //        display the back button on the activity to go back to home
@@ -77,6 +83,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
 //        implement the database
         firebaseDatabase=FirebaseDatabase.getInstance();
+//        getting the reference of the products
         productrefence=firebaseDatabase.getReference("Products");
 
         switch (cat_name){
@@ -180,6 +187,33 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_categaries, menu);
+        final MenuItem cartItem = menu.findItem(R.id.action_cart);
+        View actionView = cartItem.getActionView();
+        textCartItemCount =actionView.findViewById(R.id.cart_badge);
+        setupBadge();
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(cartItem);
+            }
+        });
+//        this code is for the searching the item in the layout
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                cat_Adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         return true;
     }
     @Override
@@ -187,6 +221,17 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "cart" menu option
+            case R.id.action_cart:
+                if (user_phone == null) {
+                    Toast.makeText(Catagories.this, "You must Login First...", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(Catagories.this, Cart.class);
+                    intent.putExtra("user_phone", user_phone);
+                    startActivity(intent);
+                }
+                break;
+
 
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
@@ -196,6 +241,22 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         }
         return super.onOptionsItemSelected(item);
     }
+    private void setupBadge() {
+
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
@@ -203,38 +264,46 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     }
 
     @Override
-    public void onItemClick(int position, TextView main_name, TextView price) {
-        cart = FirebaseDatabase.getInstance().getReference().child("Cart");
-        String pid = main_name.getText().toString() + price.getText().toString();
-        int amount = 1;
-        Log.d("............",cat_name);
-        Log.d("............",pid);
-        String user_phone = Paper.book().read(Prevalent.userPhone);
-        Log.d("............","phone "+user_phone);
-        if(user_phone == null){
-            Toast.makeText(Catagories.this,"You must Login First...",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            final HashMap<String,Object> cartMap = new HashMap<>();
-            cartMap.put("pid",pid);
-            cartMap.put("name",main_name.getText().toString());
-            cartMap.put("price",price.getText().toString());
-            cartMap.put("categories",cat_name);
-            cartMap.put("amount",amount);
+    public void onItemClick(int position, TextView main_name, TextView price,TextView add) {
+        Log.d("catogaries", "onclick pressed");
+        if (add.getText().toString().trim().equals("added")) {
+            Toast.makeText(this, "Item is already added", Toast.LENGTH_SHORT).show();
+        } else {
+            add.setText("added");
+            add.setTextColor(Color.GREEN);
+            mCartItemCount++;
+            setupBadge();
+            cart = FirebaseDatabase.getInstance().getReference().child("Cart");
+            String pid = main_name.getText().toString() + price.getText().toString();
+            int amount = 1;
+            Log.d("............", cat_name);
+            Log.d("............", pid);
+            user_phone = Paper.book().read(Prevalent.userPhone);
+            Log.d("............", "phone " + user_phone);
+            if (user_phone == null) {
+                Toast.makeText(Catagories.this, "You must Login First...", Toast.LENGTH_SHORT).show();
+            } else {
+                final HashMap<String, Object> cartMap = new HashMap<>();
+                cartMap.put("pid", pid);
+                cartMap.put("name", main_name.getText().toString());
+                cartMap.put("price", price.getText().toString());
+                cartMap.put("categories", cat_name);
+                cartMap.put("amount", amount);
 
-            cart.child(user_phone).child(pid).updateChildren(cartMap)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(Catagories.this,"Product added....",Toast.LENGTH_SHORT).show();
-                                return;
+                cart.child(user_phone).child(pid).updateChildren(cartMap)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
+                                    return;
+                                } else {
+                                    Toast.makeText(Catagories.this, "Please try again.....", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                            else {
-                                Toast.makeText(Catagories.this,"Please try again.....",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                        });
+            }
+
         }
     }
 
