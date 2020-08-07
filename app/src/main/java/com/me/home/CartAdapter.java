@@ -44,8 +44,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         holder.name.setText(current_position.getName());
 //        setting the final price for the each item in layout
         final int price=Integer.parseInt(current_position.getPrice());
-        String newprice="Rs"+current_position.getPrice();
+        String newprice="Rs. "+current_position.getPrice();
         holder.price.setText(newprice);
+        holder.total_price.setText("Rs. "+current_position.getPrice());
 
 //        her we will set the final price according to the amount
         final int[] getamount = new int[1];
@@ -59,8 +60,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
 //            this method is called every time when the elegant button is onclick
             private void setprice(int i) {
                 int total_price=price*i;
-
-                holder.total_price.setText("Rs"+total_price);
+                holder.total_price.setText("Rs. "+total_price);
             }
         });
 
@@ -77,14 +77,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         private TextView price;
         private TextView total_price;
 
-
         public CartAdapter_Holder(@NonNull View itemView) {
             super(itemView);
             this.name = itemView.findViewById(R.id.cart_name);
             this.price = itemView.findViewById(R.id.cart_price);
             this.amount=itemView.findViewById(R.id.amount);
             this.total_price =itemView.findViewById(R.id.total_amount);
-
         }
 
     }
