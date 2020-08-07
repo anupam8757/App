@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#C1D2D2">
+
+
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="90dp"
+        android:src="@drawable/ic_baseline_signal_wifi_off_24"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NO INTERNET"
+        android:layout_margin="5dp"
+        android:textColor="#000"
+        android:textStyle="bold|italic"
+        android:textSize="25sp"/>
+    <TextView
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textStyle="bold|italic"
+        android:text="Connect To Internet"
+        android:textSize="25sp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="TRY AGAIN"
+        android:textColor="#000"
+        android:textStyle="italic"
+        android:layout_marginTop="5dp"
+        android:id="@+id/internet_lost"
+        android:layout_marginBottom="5dp"
+        android:background="#B13EB1"/>
+</LinearLayout>
