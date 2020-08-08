@@ -44,9 +44,10 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     private List<Cat_list> cat_lists;
     private Cat_Adapter cat_Adapter;
     private  String cat_name;
-    TextView textCartItemCount;
-    int mCartItemCount = 0;
-    String user_phone;
+    private TextView textCartItemCount;
+    private int mCartItemCount = 0;
+    private String user_phone;
+    private DatabaseReference user_reference;
 
     @Override
     protected void onStart() {
@@ -56,7 +57,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
 //        here we will pass the user phone number and from that we fetch of
 //        particular user
-        DatabaseReference user_reference = cartrefence.child(user_phone);
+       user_reference = cartrefence.child(user_phone);
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -179,26 +180,6 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
         }
 
-//        firebaseDatabase= FirebaseDatabase.getInstance();
-////        getting the reference of the Cart
-//        DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
-////        here we will pass the user phone number and from that we fetch of
-////        particular user
-//        DatabaseReference user_reference = cartrefence.child(user_phone);
-//        user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // get total available quest
-//                int size = (int) dataSnapshot.getChildrenCount();
-//                mCartItemCount=size;
-//                setupBadge();
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
     }
 // this is method which will fetch the data from the server according to its child
     private void fetchdata(DatabaseReference product_child) {
@@ -300,47 +281,60 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     }
 
     @Override
-    public void onItemClick(int position, TextView main_name, TextView price,TextView add) {
+    public void onItemClick(int position, final TextView main_name, final TextView price, final TextView add) {
 
-        if (add.getText().toString().trim().equals("added")) {
-            Toast.makeText(this, "Item is already added", Toast.LENGTH_SHORT).show();
-        } else {
-            add.setText("added");
-            add.setTextColor(Color.GREEN);
-            mCartItemCount++;
-            setupBadge();
-            cart = FirebaseDatabase.getInstance().getReference().child("Cart");
-            String pid = main_name.getText().toString() + price.getText().toString();
-            int amount = 1;
-            Log.d("............", cat_name);
-            Log.d("............", pid);
+        final String pressed_item=main_name.getText().toString().trim()+price.getText().toString().trim();
+//        checking for the data item is already added or not
+        user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(pressed_item)) {
+                    add.setText("added");
+                    add.setTextColor(Color.GREEN);
+                    Toast.makeText(Catagories.this, "Item is already added", Toast.LENGTH_SHORT).show();
+                }
+//                if item which is pressed is not present then add this to the cart
+                else {
+                    mCartItemCount++;
+                    setupBadge();
+                    cart = FirebaseDatabase.getInstance().getReference().child("Cart");
+                    String pid = main_name.getText().toString() + price.getText().toString();
+                    int amount = 1;
+                    Log.d("............", cat_name);
+                    Log.d("............", pid);
 //            user_phone = Paper.book().read(Prevalent.userPhone);
-            Log.d("............", "phone " + user_phone);
-            if (user_phone == null) {
-                Toast.makeText(Catagories.this, "You must Login First...", Toast.LENGTH_SHORT).show();
-            } else {
-                final HashMap<String, Object> cartMap = new HashMap<>();
-                cartMap.put("pid", pid);
-                cartMap.put("name", main_name.getText().toString());
-                cartMap.put("price", price.getText().toString());
-                cartMap.put("categories", cat_name);
-                cartMap.put("amount", amount);
-                cartMap.put("total_price",price.getText().toString());
+                    Log.d("............", "phone " + user_phone);
+                    if (user_phone == null) {
+                        Toast.makeText(Catagories.this, "You must Login First...", Toast.LENGTH_SHORT).show();
+                    } else {
+                        final HashMap<String, Object> cartMap = new HashMap<>();
+                        cartMap.put("pid", pid);
+                        cartMap.put("name", main_name.getText().toString());
+                        cartMap.put("price", price.getText().toString());
+                        cartMap.put("categories", cat_name);
+                        cartMap.put("amount", amount);
+                        cartMap.put("total_price",price.getText().toString());
 
-                cart.child(user_phone).child(pid).updateChildren(cartMap)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(Catagories.this, "Please try again.....", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                        cart.child(user_phone).child(pid).updateChildren(cartMap)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(Catagories.this, "Please try again.....", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    }
+
+                }
             }
 
-        }
-    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+        }
 }

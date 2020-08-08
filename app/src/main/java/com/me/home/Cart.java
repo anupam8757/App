@@ -59,7 +59,7 @@ public class Cart extends AppCompatActivity {
         setSupportActionBar(cart_toolbar);
 
         cartRecyclerView=findViewById(R.id.cartRecyclerView);
-        cartRecyclerView.setHasFixedSize(true);
+        cartRecyclerView.setHasFixedSize(false);
         cart_lists=new  ArrayList<>();
 
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -69,9 +69,13 @@ public class Cart extends AppCompatActivity {
         firebaseDatabase= FirebaseDatabase.getInstance();
 //        getting the reference of the Cart
         cartrefence = firebaseDatabase.getReference("Cart");
+
 //        here we will pass the user phone number and from that we fetch of
 //        particular user
         user_reference= cartrefence.child(user_phone);
+
+//        fetch the item from the firebase cart node according to there phone number
+
         user_reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -88,13 +92,11 @@ public class Cart extends AppCompatActivity {
                 cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
                     @Override
                     public void onDeleteClick(int position) {
-                        cart_lists.remove(position);
-                        cartAdapter.notifyItemRemoved(position);
-
+//                        cart_lists.remove(position);
+//                        cartAdapter.notifyItemRemoved(position);
                         String id=cart_lists.get(position).getName().trim()+cart_lists.get(position).getPrice().trim();
                         Log.d("deleted item ",id);
                         DatabaseReference driverRef = user_reference.child(id);
-                        Log.d("driverReference", String.valueOf(driverRef));
                         driverRef.removeValue();
                     }
                 });
@@ -106,23 +108,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-
-
     }
-//    deleting the item from the cart by swapping it
-
-//    ItemTouchHelper.SimpleCallback itemTouchHelperCallback=new
-//            ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT|ItemTouchHelper.LEFT) {
-//                @Override
-//                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                    return false;
-//                }
-//                @Override
-//                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                   cart_lists.remove(viewHolder.getAdapterPosition());
-//                   cartAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-//                }
-//            };
 
     public void updateDetailsToCart(){
         // Update total_price and amount to cart db table
