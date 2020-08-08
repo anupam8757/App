@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,9 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Holder> {
 
+
     List<Cart_list> cart_list;
+    private OnItemClickListener mListener;
 
     private LayoutInflater mInflater;
     Context context;
@@ -32,7 +35,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
     public CartAdapter_Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.cart_item, parent, false);
-        return new CartAdapter.CartAdapter_Holder(listItem);
+        return new CartAdapter.CartAdapter_Holder(listItem,mListener);
     }
 
     @Override
@@ -76,14 +79,38 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         public TextView name;
         private TextView price;
         private TextView total_price;
+        private ImageView cart_delete_btn;
 
-        public CartAdapter_Holder(@NonNull View itemView) {
+        public CartAdapter_Holder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             this.name = itemView.findViewById(R.id.cart_name);
             this.price = itemView.findViewById(R.id.cart_price);
             this.amount=itemView.findViewById(R.id.amount);
             this.total_price =itemView.findViewById(R.id.total_amount);
+            this.cart_delete_btn=itemView.findViewById(R.id.delete_cart_item);
+//            itemView.setOnClickListener(this);
+
+
+            cart_delete_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDeleteClick(position,price,name);
+                        }
+                    }
+                }
+            });
+
         }
 
+
+    }
+    public interface OnItemClickListener {
+        void onDeleteClick(int position, TextView price, TextView name);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
     }
 }

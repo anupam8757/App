@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -62,7 +63,7 @@ public class Cart extends AppCompatActivity {
         cart_lists=new  ArrayList<>();
 
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
+//        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
 
 //        implement the database
         firebaseDatabase= FirebaseDatabase.getInstance();
@@ -83,6 +84,20 @@ public class Cart extends AppCompatActivity {
                 cartAdapter =new CartAdapter(Cart.this,cart_lists);
                 cartRecyclerView.setAdapter(cartAdapter);
 
+//                this is code for deleting the item from the cart
+                cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
+                    @Override
+                    public void onDeleteClick(int position, TextView price, TextView name) {
+                        cart_lists.remove(position);
+                        cartAdapter.notifyItemRemoved(position);
+                        String id=cart_lists.get(position).getName().trim()+cart_lists.get(position).getPrice().trim();
+                        Log.d("deleted item ",id);
+                        DatabaseReference driverRef = user_reference.child(id);
+                        Log.d("driverReference", String.valueOf(driverRef));
+                        driverRef.removeValue();
+                    }
+                });
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -90,21 +105,21 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-
     }
-    ItemTouchHelper.SimpleCallback itemTouchHelperCallback=new
-            ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT|ItemTouchHelper.LEFT) {
-                @Override
-                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                    return false;
-                }
-                @Override
-                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                   cart_lists.remove(viewHolder.getAdapterPosition());
+//    deleting the item from the cart by swapping it
 
-                   cartAdapter.notifyDataSetChanged();
-                }
-            };
+//    ItemTouchHelper.SimpleCallback itemTouchHelperCallback=new
+//            ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT|ItemTouchHelper.LEFT) {
+//                @Override
+//                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                    return false;
+//                }
+//                @Override
+//                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                   cart_lists.remove(viewHolder.getAdapterPosition());
+//                   cartAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+//                }
+//            };
 
     public void updateDetailsToCart(){
         // Update total_price and amount to cart db table
@@ -120,4 +135,5 @@ public class Cart extends AppCompatActivity {
             }
         });
     }
+
 }
