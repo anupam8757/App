@@ -49,6 +49,30 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     String user_phone;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseDatabase= FirebaseDatabase.getInstance();
+//        getting the reference of the Cart
+        DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
+//        here we will pass the user phone number and from that we fetch of
+//        particular user
+        DatabaseReference user_reference = cartrefence.child(user_phone);
+        user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // get total available quest
+                int size = (int) dataSnapshot.getChildrenCount();
+                mCartItemCount=size;
+                setupBadge();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catagories);
@@ -57,6 +81,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
         cat_toolbar=findViewById(R.id.cat_toolbar);
         setSupportActionBar(cat_toolbar);
+        user_phone = Paper.book().read(Prevalent.userPhone);
 
 //        adding the title which we will get from the main activity
         cat_name = getIntent().getStringExtra("cat_name");
@@ -154,6 +179,26 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
         }
 
+//        firebaseDatabase= FirebaseDatabase.getInstance();
+////        getting the reference of the Cart
+//        DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
+////        here we will pass the user phone number and from that we fetch of
+////        particular user
+//        DatabaseReference user_reference = cartrefence.child(user_phone);
+//        user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // get total available quest
+//                int size = (int) dataSnapshot.getChildrenCount();
+//                mCartItemCount=size;
+//                setupBadge();
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
     }
 // this is method which will fetch the data from the server according to its child
     private void fetchdata(DatabaseReference product_child) {
@@ -187,7 +232,6 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         final MenuItem cartItem = menu.findItem(R.id.action_cart);
         View actionView = cartItem.getActionView();
         textCartItemCount =actionView.findViewById(R.id.cart_badge);
-        setupBadge();
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,14 +263,9 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         switch (item.getItemId()) {
             // Respond to a click on the "cart" menu option
             case R.id.action_cart:
-                if (user_phone == null) {
-                    Toast.makeText(Catagories.this, "You must Login First...", Toast.LENGTH_SHORT).show();
-                }
-                else {
                     Intent intent = new Intent(Catagories.this, Cart.class);
                     intent.putExtra("user_phone", user_phone);
                     startActivity(intent);
-                }
                 break;
 
 
@@ -262,7 +301,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
     @Override
     public void onItemClick(int position, TextView main_name, TextView price,TextView add) {
-        Log.d("catogaries", "onclick pressed");
+
         if (add.getText().toString().trim().equals("added")) {
             Toast.makeText(this, "Item is already added", Toast.LENGTH_SHORT).show();
         } else {
@@ -275,7 +314,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
             int amount = 1;
             Log.d("............", cat_name);
             Log.d("............", pid);
-            user_phone = Paper.book().read(Prevalent.userPhone);
+//            user_phone = Paper.book().read(Prevalent.userPhone);
             Log.d("............", "phone " + user_phone);
             if (user_phone == null) {
                 Toast.makeText(Catagories.this, "You must Login First...", Toast.LENGTH_SHORT).show();

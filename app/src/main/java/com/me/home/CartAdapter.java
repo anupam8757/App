@@ -97,7 +97,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onDeleteClick(position,price,name);
+                            listener.onDeleteClick(position);
                         }
                     }
                 }
@@ -108,7 +108,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
 
     }
     public interface OnItemClickListener {
-        void onDeleteClick(int position, TextView price, TextView name);
+        void onDeleteClick(int position);
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
