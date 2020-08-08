@@ -108,6 +108,16 @@ public class Cart extends AppCompatActivity {
 
     public void updateDetailsToCart(){
         // Update total_price and amount to cart db table
+        user_reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
