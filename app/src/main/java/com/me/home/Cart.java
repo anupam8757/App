@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import maes.tech.intentanim.CustomIntent;
+
 public class Cart extends AppCompatActivity {
     private Toolbar cart_toolbar;
     private RecyclerView cartRecyclerView;
@@ -60,7 +62,7 @@ public class Cart extends AppCompatActivity {
 
         cartRecyclerView=findViewById(R.id.cartRecyclerView);
         cartRecyclerView.setHasFixedSize(false);
-        cart_lists=new  ArrayList<>();
+        cart_lists = new  ArrayList<>();
 
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
@@ -94,10 +96,19 @@ public class Cart extends AppCompatActivity {
                     public void onDeleteClick(int position) {
 //                        cart_lists.remove(position);
 //                        cartAdapter.notifyItemRemoved(position);
-                        String id=cart_lists.get(position).getName().trim()+cart_lists.get(position).getPrice().trim();
-                        Log.d("deleted item ",id);
+                        String id=cart_lists.get(position).getName().trim()+
+                                cart_lists.get(position).getPrice().trim();
+                        Log.d("deleted item ",cart_lists.get(position).getPid());
+                        Toast.makeText(Cart.this,cart_lists.get(position).getName()+" deleted from cart...",Toast.LENGTH_SHORT).show();
                         DatabaseReference driverRef = user_reference.child(id);
                         driverRef.removeValue();
+                        Intent intent = new Intent(Cart.this, Cart.class);
+                        intent.putExtra("user_phone",user_phone);
+                        finish();
+                        overridePendingTransition(0,0);
+                        startActivity(intent);
+                        CustomIntent.customType(Cart.this,"fadein-to-fadeout");
+                        overridePendingTransition(0,0);
                     }
                 });
 
