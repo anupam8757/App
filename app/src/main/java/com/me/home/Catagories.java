@@ -284,13 +284,13 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     public void onItemClick(int position, final TextView main_name, final TextView price, final TextView add) {
 
         final String pressed_item=main_name.getText().toString().trim()+price.getText().toString().trim();
+         add.setText("added");
+         add.setTextColor(Color.GREEN);
 //        checking for the data item is already added or not
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChild(pressed_item)) {
-                    add.setText("added");
-                    add.setTextColor(Color.GREEN);
                     Toast.makeText(Catagories.this, "Item is already added", Toast.LENGTH_SHORT).show();
                 }
 //                if item which is pressed is not present then add this to the cart

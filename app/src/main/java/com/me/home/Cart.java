@@ -92,12 +92,13 @@ public class Cart extends AppCompatActivity {
                 cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
                     @Override
                     public void onDeleteClick(int position) {
-//                        cart_lists.remove(position);
-//                        cartAdapter.notifyItemRemoved(position);
+
                         String id=cart_lists.get(position).getName().trim()+cart_lists.get(position).getPrice().trim();
                         Log.d("deleted item ",id);
                         DatabaseReference driverRef = user_reference.child(id);
                         driverRef.removeValue();
+                        cart_lists.remove(position);
+                        cartAdapter.notifyItemRemoved(position);
                     }
                 });
 
