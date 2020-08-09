@@ -321,6 +321,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
+                                            return;
                                         } else {
                                             Toast.makeText(Catagories.this, "Please try again.....", Toast.LENGTH_SHORT).show();
                                         }
