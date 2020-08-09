@@ -30,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import maes.tech.intentanim.CustomIntent;
-
 public class Cart extends AppCompatActivity {
     private Toolbar cart_toolbar;
     private RecyclerView cartRecyclerView;
@@ -62,7 +60,7 @@ public class Cart extends AppCompatActivity {
 
         cartRecyclerView=findViewById(R.id.cartRecyclerView);
         cartRecyclerView.setHasFixedSize(false);
-        cart_lists = new  ArrayList<>();
+        cart_lists=new  ArrayList<>();
 
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
@@ -94,38 +92,13 @@ public class Cart extends AppCompatActivity {
                 cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
                     @Override
                     public void onDeleteClick(int position) {
-<<<<<<< HEAD
 
                         String id=cart_lists.get(position).getName().trim()+cart_lists.get(position).getPrice().trim();
                         Log.d("deleted item ",id);
-||||||| merged common ancestors
-//                        cart_lists.remove(position);
-//                        cartAdapter.notifyItemRemoved(position);
-                        String id=cart_lists.get(position).getName().trim()+cart_lists.get(position).getPrice().trim();
-                        Log.d("deleted item ",id);
-=======
-//                        cart_lists.remove(position);
-//                        cartAdapter.notifyItemRemoved(position);
-                        String id=cart_lists.get(position).getName().trim()+
-                                cart_lists.get(position).getPrice().trim();
-                        Log.d("deleted item ",cart_lists.get(position).getPid());
-                        Toast.makeText(Cart.this,cart_lists.get(position).getName()+" deleted from cart...",Toast.LENGTH_SHORT).show();
->>>>>>> 4502c5293e0eb02156ec760c5a0541c9b2b93632
                         DatabaseReference driverRef = user_reference.child(id);
                         driverRef.removeValue();
-<<<<<<< HEAD
                         cart_lists.remove(position);
                         cartAdapter.notifyItemRemoved(position);
-||||||| merged common ancestors
-=======
-                        Intent intent = new Intent(Cart.this, Cart.class);
-                        intent.putExtra("user_phone",user_phone);
-                        finish();
-                        overridePendingTransition(0,0);
-                        startActivity(intent);
-                        CustomIntent.customType(Cart.this,"fadein-to-fadeout");
-                        overridePendingTransition(0,0);
->>>>>>> 4502c5293e0eb02156ec760c5a0541c9b2b93632
                     }
                 });
 
