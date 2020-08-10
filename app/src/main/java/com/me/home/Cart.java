@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,14 +43,14 @@ public class Cart extends AppCompatActivity {
     List<Cart_list> cart_lists;
     CartAdapter cartAdapter;
     String user_phone;
-    private Button order_button;
+    private FloatingActionButton  order_button;
     private int total_price_of_all_items = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        order_button=findViewById(R.id.order_btn);
+        order_button=findViewById(R.id.fab);
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

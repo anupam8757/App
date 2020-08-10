@@ -26,14 +26,11 @@ import io.paperdb.Paper;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Holder> {
 
-
     List<Cart_list> cart_list;
     private OnItemClickListener mListener;
     public String user_phone = Catagories.user_phone;
     private DatabaseReference cartRefence;
     private String pid;
-
-
     private LayoutInflater mInflater;
 
     Context context;
@@ -63,8 +60,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         final int price=Integer.parseInt(current_position.getPrice());
         String newprice="Rs. "+current_position.getPrice();
         holder.price.setText(newprice);
-        holder.total_price.setText("Rs. "+current_position.getPrice());
-
+        holder.total_price.setText(newprice);
 //        her we will set the final price according to the amount
         final int[] getamount = new int[1];
         holder.amount.setOnClickListener(new ElegantNumberButton.OnClickListener() {
@@ -73,7 +69,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
                getamount[0] = Integer.parseInt(holder.amount.getNumber());
                setprice(getamount[0]);
                 holder.amount.setNumber(String.valueOf(getamount[0]));
-               current_position.setAmount(getamount[0]);
             }
 
 //            this method is called every time when the elegant button is onclick
@@ -82,7 +77,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
                 holder.total_price.setText("Rs. "+total_price);
                 current_position.setTotal_price(Integer.toString(total_price));
 
-                updateDetailsToCart(getamount[0],total_price);
             }
         });
 
@@ -92,7 +86,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
     public int getItemCount() {
         return cart_list.size();
     }
-
     public static class CartAdapter_Holder extends RecyclerView.ViewHolder {
         public ElegantNumberButton amount;
         public TextView name;
@@ -107,8 +100,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
             this.amount=itemView.findViewById(R.id.amount);
             this.total_price =itemView.findViewById(R.id.total_amount);
             this.cart_delete_btn=itemView.findViewById(R.id.delete_cart_item);
-//            itemView.setOnClickListener(this);
-
 
             cart_delete_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,10 +112,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
                     }
                 }
             });
-
         }
-
-
     }
     public interface OnItemClickListener {
         void onDeleteClick(int position);
@@ -133,20 +121,4 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         mListener = listener;
     }
 
-
-    public void updateDetailsToCart(final int amount, final int total_price){
-        cartRefence.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataSnapshot.getRef().child(pid).child("amount").setValue(amount);
-                dataSnapshot.getRef().child(pid).child("total_price").setValue(Integer.toString(total_price));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 }
