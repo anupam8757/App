@@ -72,7 +72,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
             public void onClick(View view) {
                getamount[0] = Integer.parseInt(holder.amount.getNumber());
                setprice(getamount[0]);
-                holder.amount.setNumber(String.valueOf(getamount[0]));
                current_position.setAmount(getamount[0]);
             }
 
@@ -81,8 +80,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
                 int total_price = price*i;
                 holder.total_price.setText("Rs. "+total_price);
                 current_position.setTotal_price(Integer.toString(total_price));
-
-                updateDetailsToCart(getamount[0],total_price);
             }
         });
 
@@ -133,20 +130,4 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         mListener = listener;
     }
 
-
-    public void updateDetailsToCart(final int amount, final int total_price){
-        cartRefence.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataSnapshot.getRef().child(pid).child("amount").setValue(amount);
-                dataSnapshot.getRef().child(pid).child("total_price").setValue(Integer.toString(total_price));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 }

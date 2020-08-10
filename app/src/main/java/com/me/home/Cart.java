@@ -53,7 +53,6 @@ public class Cart extends AppCompatActivity {
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
                 updateDetailsToCart();
             }
         });
@@ -129,6 +128,14 @@ public class Cart extends AppCompatActivity {
         for(Cart_list cartList : cart_lists){
             int total_price = Integer.parseInt(cartList.getTotal_price());
             total_price_of_all_items += total_price;
+            user_reference.child(cartList.getPid()).setValue(cartList);
+            Intent intent = new Intent(Cart.this,Cart.class);
+            Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
+            finish();
+            overridePendingTransition(0,0);
+            intent.putExtra("user_phone",user_phone);
+            startActivity(intent);
+            overridePendingTransition(0,0);
         }
     }
 }
