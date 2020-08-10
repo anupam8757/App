@@ -12,10 +12,10 @@
         app:showAsAction="always"
         android:icon="@drawable/profile"/>
     <item
-        android:title="login"
-        android:id="@+id/app_login"
+        android:title="My Orders"
+        android:id="@+id/app_Orders"
         app:showAsAction="always"
-        android:icon="@drawable/login"
+        android:icon="@drawable/ic_shopping_cart"
         />
     <item
         android:title="logout"

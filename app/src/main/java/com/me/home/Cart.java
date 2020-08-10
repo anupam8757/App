@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.Orders.OrderActivity;
 import com.me.R;
 
 import java.util.ArrayList;
@@ -129,7 +130,7 @@ public class Cart extends AppCompatActivity {
             int total_price = Integer.parseInt(cartList.getTotal_price());
             total_price_of_all_items += total_price;
             user_reference.child(cartList.getPid()).setValue(cartList);
-            Intent intent = new Intent(Cart.this,MainActivity.class);
+            Intent intent = new Intent(Cart.this, OrderActivity.class);
             Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
             finish();
             overridePendingTransition(0,0);

@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.Orders.OrderActivity;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Register.profile;
@@ -244,8 +245,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.app_logout:
                 showPopup();
                 break;
-            case R.id.app_login:
-                intent = new Intent(MainActivity.this, com.me.login.class);
+            case R.id.app_Orders:
+                intent = new Intent(MainActivity.this, OrderActivity.class);
                 startActivity(intent);
                 break;
             case R.id.app_share:
