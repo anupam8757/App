@@ -43,7 +43,6 @@ public class Cart extends AppCompatActivity {
     CartAdapter cartAdapter;
     String user_phone;
     private Button order_button;
-    private int total_price_of_all_items = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,6 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
-                updateDetailsToCart();
             }
         });
 
@@ -91,8 +89,6 @@ public class Cart extends AppCompatActivity {
                 }
                 cartAdapter =new CartAdapter(Cart.this,cart_lists);
                 cartRecyclerView.setAdapter(cartAdapter);
-
-
 //                this is code for deleting the item from the cart
                 cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
                     @Override
@@ -100,16 +96,13 @@ public class Cart extends AppCompatActivity {
                         Intent intent = new Intent(Cart.this,Cart.class);
                         String id=cart_lists.get(position).getPid().trim();
                         Log.d("deleted item ",id);
-
                         DatabaseReference driverRef = user_reference.child(id);
                         driverRef.removeValue();
-
                         finish();
                         overridePendingTransition(0,0);
                         intent.putExtra("user_phone",user_phone);
                         startActivity(intent);
                         overridePendingTransition(0,0);
-
                         cart_lists.remove(position);
                         cartAdapter.notifyItemRemoved(position);
                         return;
@@ -125,10 +118,5 @@ public class Cart extends AppCompatActivity {
 
     }
 
-    public void updateDetailsToCart(){
-        for(Cart_list cartList : cart_lists){
-            int total_price = Integer.parseInt(cartList.getTotal_price());
-            total_price_of_all_items += total_price;
-        }
-    }
+
 }
