@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,18 +42,17 @@ public class Cart extends AppCompatActivity {
     List<Cart_list> cart_lists;
     CartAdapter cartAdapter;
     String user_phone;
-    private FloatingActionButton  order_button;
+    private Button order_button;
     private int total_price_of_all_items = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        order_button=findViewById(R.id.fab);
+        order_button=findViewById(R.id.order_btn);
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
                 updateDetailsToCart();
             }
         });
@@ -130,6 +128,14 @@ public class Cart extends AppCompatActivity {
         for(Cart_list cartList : cart_lists){
             int total_price = Integer.parseInt(cartList.getTotal_price());
             total_price_of_all_items += total_price;
+            user_reference.child(cartList.getPid()).setValue(cartList);
+            Intent intent = new Intent(Cart.this,Cart.class);
+            Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
+            finish();
+            overridePendingTransition(0,0);
+            intent.putExtra("user_phone",user_phone);
+            startActivity(intent);
+            overridePendingTransition(0,0);
         }
     }
 }

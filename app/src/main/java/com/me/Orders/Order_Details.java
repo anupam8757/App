@@ -1,0 +1,73 @@
+package com.me.Orders;
+
+public class Order_Details {
+    private int amount;
+    private String name;
+    private String price;
+
+    public Order_Details() {
+
+    }
+
+    public Order_Details(int amount, String name, String price, String categories, String pid, String total_price) {
+        this.amount = amount;
+        this.name = name;
+        this.price = price;
+        this.categories = categories;
+        this.pid = pid;
+        this.total_price = total_price;
+    }
+
+    private String categories;
+    private String pid;
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    public String getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(String total_price) {
+        this.total_price = total_price;
+    }
+
+    private String total_price;
+}
