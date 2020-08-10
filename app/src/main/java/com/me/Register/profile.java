@@ -78,7 +78,6 @@ public class profile extends AppCompatActivity {
             }
         });
         UploadDataRef=FirebaseDatabase.getInstance().getReference().child("Users");
-
          UploadDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -129,6 +128,7 @@ public class profile extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"DATA UPDATED SUCCESSFULLY ",Toast.LENGTH_LONG).show();
             }
         });
+
         final String userId = getIntent().getStringExtra("userId");
 
 

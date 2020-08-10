@@ -92,10 +92,6 @@ public class Cart extends AppCompatActivity {
                 cartAdapter =new CartAdapter(Cart.this,cart_lists);
                 cartRecyclerView.setAdapter(cartAdapter);
 
-                for(Cart_list cartList : cart_lists){
-                    int total_price = Integer.parseInt(cartList.getTotal_price());
-                    total_price_of_all_items += total_price;
-                }
 
 //                this is code for deleting the item from the cart
                 cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
@@ -130,19 +126,9 @@ public class Cart extends AppCompatActivity {
     }
 
     public void updateDetailsToCart(){
-       user_reference = FirebaseDatabase.getInstance().getReference().child(user_phone);
-        user_reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        for(Cart_list cartList : cart_lists){
+            int total_price = Integer.parseInt(cartList.getTotal_price());
+            total_price_of_all_items += total_price;
+        }
     }
-
-
 }

@@ -13,8 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.me.R;
 
 import java.util.List;
@@ -26,13 +29,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
 
     List<Cart_list> cart_list;
     private OnItemClickListener mListener;
+    public String user_phone = Catagories.user_phone;
+    private DatabaseReference cartRefence;
+    private String pid;
+
 
     private LayoutInflater mInflater;
+
     Context context;
     public CartAdapter(Context context, List<Cart_list> cart_lists) {
         this.context=context;
         this.mInflater = LayoutInflater.from(context);
         this.cart_list = cart_lists;
+        cartRefence = FirebaseDatabase.getInstance().getReference().child("Cart").child(user_phone);
     }
 
     @NonNull
@@ -46,7 +55,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
     @Override
     public void onBindViewHolder(@NonNull final CartAdapter_Holder holder, int position) {
         final Cart_list current_position = cart_list.get(position);
-
+        pid = current_position.getPid();
         Log.d("name",current_position.getName());
 //        setting the name
         holder.name.setText(current_position.getName());
@@ -63,6 +72,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
             public void onClick(View view) {
                getamount[0] = Integer.parseInt(holder.amount.getNumber());
                setprice(getamount[0]);
+                holder.amount.setNumber(String.valueOf(getamount[0]));
                current_position.setAmount(getamount[0]);
             }
 
@@ -71,6 +81,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
                 int total_price = price*i;
                 holder.total_price.setText("Rs. "+total_price);
                 current_position.setTotal_price(Integer.toString(total_price));
+
+                updateDetailsToCart(getamount[0],total_price);
             }
         });
 
@@ -121,4 +133,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         mListener = listener;
     }
 
+
+    public void updateDetailsToCart(final int amount, final int total_price){
+        cartRefence.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child(pid).child("amount").setValue(amount);
+                dataSnapshot.getRef().child(pid).child("total_price").setValue(Integer.toString(total_price));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 }

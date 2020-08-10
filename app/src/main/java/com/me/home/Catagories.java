@@ -46,7 +46,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     private  String cat_name;
     private TextView textCartItemCount;
     private int mCartItemCount = 0;
-    private String user_phone;
+    public static String user_phone;
     private DatabaseReference user_reference;
 
     @Override
