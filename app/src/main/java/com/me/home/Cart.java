@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,8 @@ import com.me.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Cart extends AppCompatActivity {
     private Toolbar cart_toolbar;
@@ -40,6 +43,7 @@ public class Cart extends AppCompatActivity {
     CartAdapter cartAdapter;
     String user_phone;
     private Button order_button;
+    private int total_price_of_all_items = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,17 +92,31 @@ public class Cart extends AppCompatActivity {
                 cartAdapter =new CartAdapter(Cart.this,cart_lists);
                 cartRecyclerView.setAdapter(cartAdapter);
 
+                for(Cart_list cartList : cart_lists){
+                    int total_price = Integer.parseInt(cartList.getTotal_price());
+                    total_price_of_all_items += total_price;
+                }
+
 //                this is code for deleting the item from the cart
                 cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
                     @Override
                     public void onDeleteClick(int position) {
-
-                        String id=cart_lists.get(position).getName().trim()+cart_lists.get(position).getPrice().trim();
+                        Intent intent = new Intent(Cart.this,Cart.class);
+                        String id=cart_lists.get(position).getPid().trim();
                         Log.d("deleted item ",id);
+
                         DatabaseReference driverRef = user_reference.child(id);
                         driverRef.removeValue();
+
+                        finish();
+                        overridePendingTransition(0,0);
+                        intent.putExtra("user_phone",user_phone);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+
                         cart_lists.remove(position);
                         cartAdapter.notifyItemRemoved(position);
+                        return;
                     }
                 });
 
@@ -112,11 +130,11 @@ public class Cart extends AppCompatActivity {
     }
 
     public void updateDetailsToCart(){
-        // Update total_price and amount to cart db table
+       user_reference = FirebaseDatabase.getInstance().getReference().child(user_phone);
         user_reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                
+
             }
 
             @Override

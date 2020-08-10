@@ -1,6 +1,7 @@
 package com.me.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.me.R;
 
 import java.util.List;
+
+import io.paperdb.Paper;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Holder> {
 
@@ -40,7 +45,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
 
     @Override
     public void onBindViewHolder(@NonNull final CartAdapter_Holder holder, int position) {
-        Cart_list current_position=cart_list.get(position);
+        final Cart_list current_position = cart_list.get(position);
 
         Log.d("name",current_position.getName());
 //        setting the name
@@ -58,12 +63,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
             public void onClick(View view) {
                getamount[0] = Integer.parseInt(holder.amount.getNumber());
                setprice(getamount[0]);
+               current_position.setAmount(getamount[0]);
             }
 
 //            this method is called every time when the elegant button is onclick
             private void setprice(int i) {
-                int total_price=price*i;
+                int total_price = price*i;
                 holder.total_price.setText("Rs. "+total_price);
+                current_position.setTotal_price(Integer.toString(total_price));
             }
         });
 
@@ -113,4 +120,5 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
+
 }
