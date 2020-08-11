@@ -86,6 +86,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
     public int getItemCount() {
         return cart_list.size();
     }
+
     public static class CartAdapter_Holder extends RecyclerView.ViewHolder {
         public ElegantNumberButton amount;
         public TextView name;

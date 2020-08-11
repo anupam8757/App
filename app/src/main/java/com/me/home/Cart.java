@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,8 +31,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.me.Orders.OrderActivity;
 import com.me.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,11 +45,12 @@ public class Cart extends AppCompatActivity {
     private Toolbar cart_toolbar;
     private RecyclerView cartRecyclerView;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference cartrefence;
+    private DatabaseReference cartrefence , orderRef;
     DatabaseReference user_reference;
     List<Cart_list> cart_lists;
     CartAdapter cartAdapter;
     String user_phone;
+    String currentDate, currentTime;
     FloatingActionButton order_button;
     private int total_price_of_all_items = 0;
 
@@ -57,9 +64,7 @@ public class Cart extends AppCompatActivity {
             public void onClick(View v) {
                 cartRecyclerView.setAdapter(null);
                 updateDetailsToCart();
-                Intent intent = new Intent(Cart.this, OrderActivity.class);
-                intent.putExtra("total_price",Integer.toString(total_price_of_all_items));
-                startActivity(intent);
+
 
                 Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
             }
@@ -80,6 +85,7 @@ public class Cart extends AppCompatActivity {
         firebaseDatabase= FirebaseDatabase.getInstance();
 //        getting the reference of the Cart
         cartrefence = firebaseDatabase.getReference("Cart");
+        orderRef = FirebaseDatabase.getInstance().getReference();
 
 //        here we will pass the user phone number and from that we fetch of
 //        particular user
@@ -138,5 +144,25 @@ public class Cart extends AppCompatActivity {
             total_price_of_all_items += total_price;
             user_reference.child(cartList.getPid()).setValue(cartList);
         }
+            user_reference.removeValue();
+        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        HashMap<String, Object> orderDetails = new HashMap<>();
+        orderDetails.put("total_price",total_price_of_all_items);
+        orderDetails.put("Cart",cart_lists);
+        orderRef.child("Orders").child(user_phone).child(currentDate+" "+currentTime).updateChildren(orderDetails)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Intent intent = new Intent(Cart.this, OrderActivity.class);
+                            intent.putExtra("total_price",Integer.toString(total_price_of_all_items));
+                            startActivity(intent);
+                        }
+                        return;
+                    }
+                });
+        return;
     }
 }
