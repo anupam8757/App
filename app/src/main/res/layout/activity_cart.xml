@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -60,19 +60,19 @@
         android:background="@color/common_google_signin_btn_text_light_focused"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
         android:id="@+id/cartRecyclerView"/>
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:id="@+id/order_btn"
-        android:textSize="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="#F2F5F8"
-        android:text="Place Order"
-        android:background="@drawable/buttons"
-        android:layout_gravity="center_horizontal"
-        />
+        android:layout_gravity="end|bottom"
+        app:rippleColor="@color/primaryColor"
+        android:src="@drawable/cart_done"
+        app:backgroundTint="@color/primaryColor"
+        android:contentDescription="@string/submit"
+        android:layout_margin="16dp" />
 
-</LinearLayout>
+
+</FrameLayout>

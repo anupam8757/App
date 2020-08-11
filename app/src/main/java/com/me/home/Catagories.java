@@ -219,6 +219,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                 onOptionsItemSelected(cartItem);
             }
         });
+
 //        this code is for the searching the item in the layout
         MenuItem searchItem = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) searchItem.getActionView();
@@ -258,10 +259,10 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         }
         return super.onOptionsItemSelected(item);
     }
-    private void setupBadge() {
+     private void setupBadge() {
 
         if (textCartItemCount != null) {
-            if (mCartItemCount == 0) {
+            if (mCartItemCount ==0) {
                 if (textCartItemCount.getVisibility() != View.GONE) {
                     textCartItemCount.setVisibility(View.GONE);
                 }
@@ -284,13 +285,13 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     public void onItemClick(int position, final TextView main_name, final TextView price, final TextView add) {
 
         final String pressed_item=main_name.getText().toString().trim()+price.getText().toString().trim();
-         add.setText("added");
-         add.setTextColor(Color.GREEN);
 //        checking for the data item is already added or not
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(pressed_item)) {
+                if (snapshot.hasChild(pressed_item)){
+                    add.setText("added");
+                    add.setTextColor(Color.GREEN);
                     Toast.makeText(Catagories.this, "Item is already added", Toast.LENGTH_SHORT).show();
                 }
 //                if item which is pressed is not present then add this to the cart
@@ -309,6 +310,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                         Toast.makeText(Catagories.this, "You must Login First...", Toast.LENGTH_SHORT).show();
 
                     } else {
+
                         final HashMap<String, Object> cartMap = new HashMap<>();
                         cartMap.put("pid", pid);
                         cartMap.put("name", main_name.getText().toString());
