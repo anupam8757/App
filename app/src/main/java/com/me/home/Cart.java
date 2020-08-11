@@ -52,7 +52,7 @@ public class Cart extends AppCompatActivity {
     String user_phone;
     String currentDate, currentTime;
     FloatingActionButton order_button;
-    private int total_price_of_all_items = 0;
+    private int total_price_of_all_items = 0,total_items = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +62,8 @@ public class Cart extends AppCompatActivity {
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartRecyclerView.setAdapter(null);
                 updateDetailsToCart();
-
-
+                cartRecyclerView.setAdapter(null);
                 Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
             }
         });
@@ -93,7 +91,7 @@ public class Cart extends AppCompatActivity {
 
 //        fetch the item from the firebase cart node according to there phone number
 
-        user_reference.addValueEventListener(new ValueEventListener() {
+        user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot :snapshot.getChildren()){
@@ -144,13 +142,17 @@ public class Cart extends AppCompatActivity {
             total_price_of_all_items += total_price;
             user_reference.child(cartList.getPid()).setValue(cartList);
         }
+            total_items = cart_lists.size();
             user_reference.removeValue();
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        currentTime = new SimpleDateFormat("hh:mm:ss", Locale.getDefault()).format(new Date());
 
         HashMap<String, Object> orderDetails = new HashMap<>();
-        orderDetails.put("total_price",total_price_of_all_items);
+        orderDetails.put("total_price",Integer.toString(total_price_of_all_items));
         orderDetails.put("Cart",cart_lists);
+        orderDetails.put("date_time",currentDate+" "+currentTime);
+        orderDetails.put("total_items",Integer.toString(total_items));
+
         orderRef.child("Orders").child(user_phone).child(currentDate+" "+currentTime).updateChildren(orderDetails)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

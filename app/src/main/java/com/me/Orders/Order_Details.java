@@ -1,64 +1,46 @@
 package com.me.Orders;
 
+import com.me.home.Cart_list;
+
 public class Order_Details {
-    private int amount;
-    private String name;
-    private String price;
+    private String total_price;
+    private String date_time;
+
+    public String getDate_time() {
+        return date_time;
+    }
+
+    public void setDate_time(String date_time) {
+        this.date_time = date_time;
+    }
+
+    public String getTotal_items() {
+        return total_items;
+    }
+
+    public void setTotal_items(String total_items) {
+        this.total_items = total_items;
+    }
+
+    private String total_items;
+    private Cart_list cart_list;
+
+    public Order_Details(String total_price, String date_time, String total_items, Cart_list cart_list) {
+        this.total_price = total_price;
+        this.date_time = date_time;
+        this.total_items = total_items;
+        this.cart_list = cart_list;
+    }
 
     public Order_Details() {
-
     }
 
-    public Order_Details(int amount, String name, String price, String categories, String pid, String total_price) {
-        this.amount = amount;
-        this.name = name;
-        this.price = price;
-        this.categories = categories;
-        this.pid = pid;
-        this.total_price = total_price;
+    public Cart_list getCart_list() {
+        return cart_list;
     }
 
-    private String categories;
-    private String pid;
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getCategories() {
-        return categories;
-    }
-
-    public void setCategories(String categories) {
-        this.categories = categories;
-    }
-
-    public String getPid() {
-        return pid;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid;
+    public void setCart_list(Cart_list cart_list) {
+        this.cart_list = cart_list;
     }
 
     public String getTotal_price() {
@@ -69,5 +51,5 @@ public class Order_Details {
         this.total_price = total_price;
     }
 
-    private String total_price;
+
 }

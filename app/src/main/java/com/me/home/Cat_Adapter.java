@@ -50,7 +50,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
 
         @Override
         public void onBindViewHolder(@NonNull MainAdapter_Holder holder, int position) {
-           Cat_list currentPosition=cat_list.get(position);
+           Cat_list currentPosition = cat_list.get(position);
 
             Log.d("name",currentPosition.getName());
             holder.name.setText(currentPosition.getName());

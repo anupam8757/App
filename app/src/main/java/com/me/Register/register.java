@@ -34,7 +34,6 @@ public class register extends AppCompatActivity {
     private EditText phone,pass;
     private ProgressBar progressBar;
     private DatabaseReference user_data;
-    private User user;
     private String name = "", email = "";
 
     @Override
@@ -53,7 +52,7 @@ public class register extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.child(phone).exists()){
-                        user = dataSnapshot.child(phone).getValue(User.class);
+                        User user = dataSnapshot.child(phone).getValue(User.class);
                         Prevalent.currentOnlineUser = user;
                     }
                 }
