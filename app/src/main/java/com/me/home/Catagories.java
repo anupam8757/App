@@ -302,10 +302,12 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                     int amount = 1;
                     Log.d("............", cat_name);
                     Log.d("............", pid);
-//            user_phone = Paper.book().read(Prevalent.userPhone);
+
                     Log.d("............", "phone " + user_phone);
+
                     if (user_phone == null) {
                         Toast.makeText(Catagories.this, "You must Login First...", Toast.LENGTH_SHORT).show();
+
                     } else {
                         final HashMap<String, Object> cartMap = new HashMap<>();
                         cartMap.put("pid", pid);
