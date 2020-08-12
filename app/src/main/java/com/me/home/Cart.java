@@ -53,6 +53,7 @@ public class Cart extends AppCompatActivity {
     String currentDate, currentTime;
     FloatingActionButton order_button;
     private int total_price_of_all_items = 0,total_items = 0;
+    TextView emptyText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,6 @@ public class Cart extends AppCompatActivity {
         cartRecyclerView=findViewById(R.id.cartRecyclerView);
         cartRecyclerView.setHasFixedSize(false);
         cart_lists=new  ArrayList<>();
-
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
 
@@ -97,6 +97,7 @@ public class Cart extends AppCompatActivity {
                     Cart_list cart_list = postSnapshot.getValue(Cart_list.class);
 //                    adding the item to the list which we get from the data base
                     cart_lists.add(cart_list);
+                    assert cart_list != null;
                     Log.d("fetched",cart_list.getName());
                 }
                 cartAdapter =new CartAdapter(Cart.this,cart_lists);

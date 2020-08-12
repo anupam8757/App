@@ -57,7 +57,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
 //        here we will pass the user phone number and from that we fetch of
 //        particular user
-       user_reference = cartrefence.child(user_phone);
+        user_reference = cartrefence.child(user_phone);
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,6 +71,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
             }
         });
+
     }
 
     @Override
@@ -179,9 +180,34 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                 break;
 
         }
+        setcart();
+
 
     }
-// this is method which will fetch the data from the server according to its child
+
+    private void setcart() {
+        firebaseDatabase= FirebaseDatabase.getInstance();
+//        getting the reference of the Cart
+        DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
+//        here we will pass the user phone number and from that we fetch of
+//        particular user
+        user_reference = cartrefence.child(user_phone);
+        user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // get total available quest
+                int size = (int) dataSnapshot.getChildrenCount();
+                mCartItemCount=size;
+                setupBadge();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    // this is method which will fetch the data from the server according to its child
     private void fetchdata(DatabaseReference product_child) {
         product_child.addValueEventListener(new ValueEventListener() {
             @Override

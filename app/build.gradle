@@ -52,6 +52,6 @@ dependencies {
     implementation 'io.paperdb:paperdb:2.7.1'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.3'
 
-    compile 'com.github.hajiyevelnur92:intentanimation:1.0'
+    implementation'com.github.hajiyevelnur92:intentanimation:1.0'
 
 }

@@ -40,12 +40,15 @@ import com.me.Orders.OrderActivity;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Register.profile;
+import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,MainAdapter.OnItemClickListener {
@@ -61,7 +64,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //    caeouselview variable
     CarouselView carouselView;
 
-    int[] sampleImages = {R.drawable.backgroundgreen, R.drawable.backgroundgreen, R.drawable.backgroundgreen};
+//    int[] sampleImages = {R.drawable.backgroundgreen, R.drawable.backgroundgreen, R.drawable.backgroundgreen};
+    private List<String> sampleImages;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference carousel_Reference;
@@ -112,10 +116,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (RuntimeException e) {
             System.out.println("RuntimeException thrown!");
         }
-
-
         main_list_View = findViewById(R.id.main_recyclerView);
         main_list_View.setHasFixedSize(true);
+
+        sampleImages=new ArrayList<>();
 
 
 //       setting the column of the gridView
@@ -135,24 +139,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //  setting the adapter class
         mAdapter.setOnItemClickListener(this);
 
-
-        //taking the reference of caouselView
-        carouselView =findViewById(R.id.carouselView);
-        carouselView.setPageCount(sampleImages.length);
-        carouselView.setImageListener(imageListener);
-
-//    getting he reference of the FirebaseData base
-        firebaseDatabase =FirebaseDatabase.getInstance();
+        //    getting he reference of the FirebaseData base
+            firebaseDatabase =FirebaseDatabase.getInstance();
 
 //        getting the reference of the database carousel
-        carousel_Reference=firebaseDatabase.getReference("carousel");
+         carousel_Reference=firebaseDatabase.getReference("carousel");
 
         carousel_Reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("Count " ,""+snapshot.getChildrenCount());
                 for (DataSnapshot dataSnapshot :snapshot.getChildren()){
-                  Log.d("image",dataSnapshot.getValue().toString());
+                    String current_url= Objects.requireNonNull(dataSnapshot.child("image").getValue()).toString();
+                    Log.d("image",current_url);
+                    sampleImages.add(current_url);
+                    Log.d("sample_size", String.valueOf(sampleImages.size()));
                 }
             }
 
@@ -162,15 +163,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+        Log.d("sample_size", String.valueOf(sampleImages.size()));
+        //taking the reference of caouselView
+        carouselView =findViewById(R.id.carouselView);
+        carouselView.setPageCount(sampleImages.size());
+        Log.d("sample_size", String.valueOf(sampleImages.size()));
+        carouselView.setImageListener(imageListener);
 
     }
-
-
 
     ImageListener imageListener = new ImageListener() {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(sampleImages[position]);
+//            imageView.setImageResource(Integer.parseInt(sampleImages.get(position)));
+            Picasso.with(MainActivity.this).load(sampleImages.get(position)).into(imageView);
+            Log.d("image_from array",sampleImages.get(position));
 //            Toast.makeText(MainActivity.this, "carouselView clicked"+position, Toast.LENGTH_SHORT).show();
         }
     };
