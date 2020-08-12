@@ -63,7 +63,6 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateDetailsToCart();
-                cartRecyclerView.setAdapter(null);
                 Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
             }
         });
