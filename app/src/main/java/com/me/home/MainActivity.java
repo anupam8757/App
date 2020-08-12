@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Process;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         TextView userNameHeaderView = headerView.findViewById(R.id.nav_header_name);
         TextView userEmailHeaderView = headerView.findViewById(R.id.nav_header_email);
-        Log.d("Register","In onCreate");
+
         try {
             presentName = Prevalent.currentOnlineUser.getName();
             presentEmail = Prevalent.currentOnlineUser.getEmail();
@@ -188,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onStart() {
-        Log.d("Register","In onStart");
         super.onStart();
         try{
             presentName = Prevalent.currentOnlineUser.getName();
@@ -301,9 +301,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logout() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
+        Paper.book().delete(Prevalent.userPhone);
+        Paper.book().delete(Prevalent.userPassword);
+        moveTaskToBack(true);
+        android.os.Process.killProcess(Process.myPid());
+        System.exit(1);
     }
 //  this is end of the navigation functionality
 

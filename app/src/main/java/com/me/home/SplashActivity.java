@@ -42,7 +42,6 @@ public class SplashActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.child("Users").child(phone).getValue(User.class);
                     Prevalent.currentOnlineUser = user;
-                    Log.d("SplashActivity"," "+user.getName());
                 }
 
                 @Override
