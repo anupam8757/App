@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private String presentName, presentEmail;
-
+    TextView userEmailHeaderView, userNameHeaderView;
     private MainAdapter mAdapter;
 
     private List<Main_list_item> main_list_items;
@@ -105,9 +105,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         TextView userNameHeaderView = headerView.findViewById(R.id.nav_header_name);
         TextView userEmailHeaderView = headerView.findViewById(R.id.nav_header_email);
+        Log.d("Register","In onCreate");
         try {
             presentName = Prevalent.currentOnlineUser.getName();
             presentEmail = Prevalent.currentOnlineUser.getEmail();
+            Log.d("user name",presentName);
             userNameHeaderView.setText(presentName);
             userEmailHeaderView.setText(presentEmail);
 
@@ -186,8 +188,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onStart() {
+        Log.d("Register","In onStart");
         super.onStart();
-
+        try{
+            presentName = Prevalent.currentOnlineUser.getName();
+            presentEmail = Prevalent.currentOnlineUser.getEmail();
+            Log.d("user name",presentName);
+            userNameHeaderView.setText(presentName);
+            userEmailHeaderView.setText(presentEmail);
+        }catch (Exception e){}
     }
 
     //    to close the navigation bar when the task is completed
