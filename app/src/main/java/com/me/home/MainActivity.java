@@ -30,6 +30,11 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,25 +60,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private String presentName, presentEmail;
-
     private MainAdapter mAdapter;
-
     private List<Main_list_item> main_list_items;
-    RecyclerView main_list_View;
-
-    //    caeouselview variable
-    CarouselView carouselView;
-
-//    int[] sampleImages = {R.drawable.backgroundgreen, R.drawable.backgroundgreen, R.drawable.backgroundgreen};
-    private List<String> sampleImages;
+    private RecyclerView main_list_View;
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference carousel_Reference;
-
+    private ImageSlider image_slider;
     public MainActivity() throws IOException {
 
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,9 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         main_list_View = findViewById(R.id.main_recyclerView);
         main_list_View.setHasFixedSize(true);
 
-        sampleImages=new ArrayList<>();
-
-
 //       setting the column of the gridView
         int number_of_column = 2;
 //        assigning the reciclerView as GridView
@@ -143,44 +135,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             firebaseDatabase =FirebaseDatabase.getInstance();
 
 //        getting the reference of the database carousel
-         carousel_Reference=firebaseDatabase.getReference("carousel");
+        image_slider=findViewById(R.id.image_slider);
+        final List<SlideModel> slideArray=new ArrayList<>();
+         firebaseDatabase.getReference().child("carousel")
+                 .addListenerForSingleValueEvent(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                         for(final DataSnapshot data :snapshot.getChildren()){
+                           slideArray.add(new SlideModel(data.child("url").getValue().toString(),data.child("title").getValue().toString(), ScaleTypes.FIT));
+                           image_slider.setImageList(slideArray,ScaleTypes.FIT);
+//                           add the listener
+                             image_slider.setItemClickListener(new ItemClickListener() {
+                                 @Override
+                                 public void onItemSelected(int i) {
+                                     Toast.makeText(MainActivity.this, slideArray.get(i).getTitle().toString(), Toast.LENGTH_LONG).show();
+                                 }
+                             });
 
-        carousel_Reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("Count " ,""+snapshot.getChildrenCount());
-                for (DataSnapshot dataSnapshot :snapshot.getChildren()){
-                    String current_url= Objects.requireNonNull(dataSnapshot.child("image").getValue()).toString();
-                    Log.d("image",current_url);
-                    sampleImages.add(current_url);
-                    Log.d("sample_size", String.valueOf(sampleImages.size()));
-                }
-            }
+                         }
+                     }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("The read failed: " ,error.getMessage());
+                     @Override
+                     public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-        Log.d("sample_size", String.valueOf(sampleImages.size()));
-        //taking the reference of caouselView
-        carouselView =findViewById(R.id.carouselView);
-        carouselView.setPageCount(sampleImages.size());
-        Log.d("sample_size", String.valueOf(sampleImages.size()));
-        carouselView.setImageListener(imageListener);
+                     }
+                 });
+
+
 
     }
-
-    ImageListener imageListener = new ImageListener() {
-        @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-//            imageView.setImageResource(Integer.parseInt(sampleImages.get(position)));
-            Picasso.with(MainActivity.this).load(sampleImages.get(position)).into(imageView);
-            Log.d("image_from array",sampleImages.get(position));
-//            Toast.makeText(MainActivity.this, "carouselView clicked"+position, Toast.LENGTH_SHORT).show();
-        }
-    };
 
 
 
