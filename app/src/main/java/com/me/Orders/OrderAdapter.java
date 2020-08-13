@@ -40,7 +40,9 @@ public class OrderAdapter extends RecyclerView.Adapter {
         String[] dateTime = date_time.split(" ",2);
 
         ((ViewHolderClass) holder).date.setText(dateTime[0]);
-        ((ViewHolderClass) holder).time.setText(dateTime[1].substring(0,5));
+
+        String time = time_12_format(dateTime[1]);
+        ((ViewHolderClass) holder).time.setText(time);
 
         ((ViewHolderClass) holder).total_items.setText(current_order.getTotal_items());
     }
@@ -61,5 +63,40 @@ public class OrderAdapter extends RecyclerView.Adapter {
             total_price = itemView.findViewById(R.id.order_total_price);
             total_items = itemView.findViewById(R.id.order_total_items);
         }
+    }
+
+    public String time_12_format(String str){
+        String time = "";
+        int h1 = (int)str.charAt(0) - '0';
+        int h2 = (int)str.charAt(1)- '0';
+
+        int hh = h1 * 10 + h2;
+
+        String Meridien;
+        if (hh < 12) {
+            Meridien = "AM";
+        }
+        else{
+            Meridien = "PM";
+        }
+
+        hh %= 12;
+
+        if (hh == 0) {
+            System.out.print("12");
+            time += "12";
+
+            for (int i = 2; i < 8; ++i) {
+                System.out.print(str.charAt(i));
+                time += str.charAt(i);
+            }
+        }
+        else {
+            time += hh;
+            for (int i = 2; i < 8; ++i) {
+                time += str.charAt(i);
+            }
+        }
+        return time.substring(0,4) +" "+ Meridien;
     }
 }

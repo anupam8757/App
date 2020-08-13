@@ -73,18 +73,9 @@ public class OrderActivity extends AppCompatActivity {
                     Order_Details data = dataSnapshot.getValue(Order_Details.class);
                     order_details.add(data);
                 }
+                Collections.reverse(order_details);
                 orderAdapter = new OrderAdapter(order_details);
                 orderRecyclerView.setAdapter(orderAdapter);
-
-                // for sorting of recyclerview based on order date and time
-//                Collections.sort(order_details, new Comparator<Order_Details>() {
-//                    @Override
-//                    public int compare(Order_Details o1, Order_Details o2) {
-//                        String date1,date2,time1,time2;
-//                        date1 = o1.getDate_time();
-//                        return 0;
-//                    }
-//                });
             }
 
             @Override

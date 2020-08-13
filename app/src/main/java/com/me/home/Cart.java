@@ -120,10 +120,9 @@ public class Cart extends AppCompatActivity {
                         intent.putExtra("user_phone",user_phone);
                         startActivity(intent);
                         overridePendingTransition(0,0);
-
                         cart_lists.remove(position);
                         cartAdapter.notifyItemRemoved(position);
-                        return;
+
                     }
                 });
 
@@ -145,7 +144,7 @@ public class Cart extends AppCompatActivity {
             total_items = cart_lists.size();
             user_reference.removeValue();
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        currentTime = new SimpleDateFormat("hh:mm:ss", Locale.getDefault()).format(new Date());
+        currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
 
         HashMap<String, Object> orderDetails = new HashMap<>();
         orderDetails.put("total_price",Integer.toString(total_price_of_all_items));
@@ -166,5 +165,12 @@ public class Cart extends AppCompatActivity {
                     }
                 });
         return;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Cart.this,Catagories.class);
+        startActivity(intent);
     }
 }

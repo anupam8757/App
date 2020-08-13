@@ -35,7 +35,7 @@ import java.util.Objects;
 import io.paperdb.Paper;
 
 public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemClickListener {
-    private Toolbar  cat_toolbar;
+    private Toolbar cat_toolbar;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference productrefence, cart;
@@ -182,8 +182,6 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
         }
         setcart();
-
-
     }
 
     private void setcart() {
@@ -214,11 +212,12 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot :snapshot.getChildren()){
-                    Cat_list cat_list=postSnapshot.getValue(Cat_list.class);
+                    Cat_list cat_list = postSnapshot.getValue(Cat_list.class);
 //                    adding the item to the list which we get from the data base
                     cat_lists.add(cat_list);
                     Log.d("fetched",cat_list.getName());
                 }
+
                 cat_Adapter=new Cat_Adapter(Catagories.this,cat_lists);
                 cat_recyclerView.setAdapter(cat_Adapter);
                 cat_Adapter.setOnItemClickListener(Catagories.this);
@@ -330,7 +329,6 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                     int amount = 1;
                     Log.d("............", cat_name);
                     Log.d("............", pid);
-
                     Log.d("............", "phone " + user_phone);
 
                     if (user_phone == null) {
@@ -352,7 +350,6 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
-                                            return;
                                         } else {
                                             Toast.makeText(Catagories.this, "Please try again.....", Toast.LENGTH_SHORT).show();
                                         }

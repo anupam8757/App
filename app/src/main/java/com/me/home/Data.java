@@ -12,11 +12,11 @@ public class  Data {
     public static   ArrayList<Main_list_item> assign_main_item() {
 
         ArrayList<Main_list_item> main_list_items=new ArrayList<Main_list_item>();
-        main_list_items.add(new Main_list_item(R.drawable.grocery_min,"GROCERIES"));
         main_list_items.add(new Main_list_item(R.drawable.food_min_min,"RESTAURANT FOODS & CUISINES"));
-        main_list_items.add(new Main_list_item(R.drawable.vegetables_min,"VEGETABLE"));
-        main_list_items.add(new Main_list_item(R.drawable.fruits_min,"FRUITS"));
         main_list_items.add(new Main_list_item(R.drawable.bakerycakesanddairy_min,"BAKERY,CAKES & DAIRY"));
+        main_list_items.add(new Main_list_item(R.drawable.vegetables_min,"VEGETABLE"));
+        main_list_items.add(new Main_list_item(R.drawable.grocery_min,"GROCERIES"));
+        main_list_items.add(new Main_list_item(R.drawable.fruits_min,"FRUITS"));
         main_list_items.add(new Main_list_item(R.drawable.beverages_min,"BEVERAGES"));
         main_list_items.add(new Main_list_item(R.drawable.snacks_min,"SNACKS & PACKED FOOD"));
         main_list_items.add(new Main_list_item(R.drawable.beautyhygiene_min,"BEAUTY & HYGIENE"));
