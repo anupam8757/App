@@ -7,37 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".Orders.OrderActivity">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wait to get Order Details"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:id="@+id/date_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text"
-        android:text="Time and Date"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:id="@+id/Orderprice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/date_time"
-        android:text="Total_price"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/order_toolbar"
+        android:background="@color/primaryColor"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="4dp"
+        app:title="History">
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/Orderprice">
+        android:layout_below="@id/order_toolbar">
 
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

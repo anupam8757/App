@@ -34,7 +34,7 @@ public class OrderAdapter extends RecyclerView.Adapter {
         ViewHolderClass viewHolderClass = (ViewHolderClass) holder;
         Order_Details current_order = order_details.get(position);
 
-        ((ViewHolderClass) holder).total_price.setText(current_order.getTotal_price());
+        ((ViewHolderClass) holder).total_price.setText("Total price: "+current_order.getTotal_price());
 
         date_time = current_order.getDate_time();
         String[] dateTime = date_time.split(" ",2);
@@ -44,7 +44,7 @@ public class OrderAdapter extends RecyclerView.Adapter {
         String time = time_12_format(dateTime[1]);
         ((ViewHolderClass) holder).time.setText(time);
 
-        ((ViewHolderClass) holder).total_items.setText(current_order.getTotal_items());
+        ((ViewHolderClass) holder).total_items.setText("Total No of items: "+current_order.getTotal_items());
     }
 
     @Override
