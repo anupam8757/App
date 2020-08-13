@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +30,7 @@ import io.paperdb.Paper;
 public class login extends AppCompatActivity {
 
     private Button loginBtn;
-    private TextView forget_password;
+    private TextView forget_password,error_text;
     private EditText phone, pass;
     private ProgressBar progressBar;
     private final static String parentDBname = "Users";
@@ -55,6 +58,7 @@ public class login extends AppCompatActivity {
 
         pass = findViewById(R.id.editTextPassword);
         phone = findViewById(R.id.Phone);
+        error_text=findViewById(R.id.error_text);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +78,41 @@ public class login extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.VISIBLE);
                 validatePhone_Password(number,password);
+            }
+        });
+        phone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                error_text.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+//                error_text.setVisibility(View.GONE);
+
+            }
+        });
+        pass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                error_text.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -101,6 +140,7 @@ public class login extends AppCompatActivity {
                     Paper.book().write(Prevalent.userPhone, password);
                     Paper.book().write(Prevalent.userPassword, number);
                         progressBar.setVisibility(View.GONE);
+                        error_text.setVisibility(View.GONE);
                         Intent intent = new Intent(login.this, AdminCategoryActivity.class);
                         startActivity(intent);
                     }
@@ -115,14 +155,20 @@ public class login extends AppCompatActivity {
                             Intent intent = new Intent(login.this, MainActivity.class);
                             startActivity(intent);
                         }else {
-                            Toast.makeText(login.this,"Incorrect Password! Please try Again.",Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(login.this,"Incorrect Password! Please try Again.",Toast.LENGTH_SHORT).show();
+                            error_text.setVisibility(View.VISIBLE);
+                            error_text.setTextColor(Color.RED);
+                            error_text.setText("Incorrect Password! Please try Again");
                             progressBar.setVisibility(View.GONE);
                         }
                     }
                 }
                 else{
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(login.this,"Incorrect Number! Please register first.",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(login.this,"Incorrect Number! Please register first.",Toast.LENGTH_SHORT).show();
+                    error_text.setVisibility(View.VISIBLE);
+                    error_text.setTextColor(Color.RED);
+                    error_text.setText("Incorrect Number! Please register first");
                 }
 
             }

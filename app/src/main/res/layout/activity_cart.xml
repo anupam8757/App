@@ -20,7 +20,6 @@
         android:layout_width="match_parent"
         android:id="@+id/linear_text"
         android:layout_height="wrap_content"
-        android:background="@color/primaryTextColor"
         android:layout_below="@id/cart_toolbar"
 
         >
