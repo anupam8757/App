@@ -89,7 +89,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
                 if(mListener !=null){
                     int position=getAdapterPosition();
                     if(position !=RecyclerView.NO_POSITION){
-                        mListener.onItemClick(position,name,price,add);
+                        mListener.onItemClick(position);
                     }
                 }
             }
@@ -133,7 +133,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
             }
         };
         public interface OnItemClickListener{
-            void onItemClick(int position, TextView main_name,TextView price,TextView add);
+            void onItemClick(int position);
         }
         public void setOnItemClickListener(OnItemClickListener listener){
             mListener =listener;

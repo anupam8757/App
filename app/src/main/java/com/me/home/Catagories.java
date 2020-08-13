@@ -52,6 +52,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d("catogaroes","in onstart");
         firebaseDatabase= FirebaseDatabase.getInstance();
 //        getting the reference of the Cart
         DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
@@ -78,12 +79,12 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catagories);
-
         Paper.init(this);
-
         cat_toolbar=findViewById(R.id.cat_toolbar);
         setSupportActionBar(cat_toolbar);
         user_phone = Paper.book().read(Prevalent.userPhone);
+
+        Log.d("catogaroes","in oncreate");
 
 //        adding the title which we will get from the main activity
         cat_name = getIntent().getStringExtra("cat_name");
@@ -308,16 +309,16 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     }
 
     @Override
-    public void onItemClick(int position, final TextView main_name, final TextView price, final TextView add) {
+    public void onItemClick(final int position) {
 
-        final String pressed_item=main_name.getText().toString().trim()+price.getText().toString().trim();
+        final String pressed_item=cat_lists.get(position).getName().trim()+cat_lists.get(position).getPrice().trim();
 //        checking for the data item is already added or not
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChild(pressed_item)){
-                    add.setText("added");
-                    add.setTextColor(Color.GREEN);
+//                    add.setText("added");
+//                    add.setTextColor(Color.GREEN);
                     Toast.makeText(Catagories.this, "Item is already added", Toast.LENGTH_SHORT).show();
                 }
 //                if item which is pressed is not present then add this to the cart
@@ -325,7 +326,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                     mCartItemCount++;
                     setupBadge();
                     cart = FirebaseDatabase.getInstance().getReference().child("Cart");
-                    String pid = main_name.getText().toString() + price.getText().toString();
+                    String pid = cat_lists.get(position).getName().trim() +cat_lists.get(position).getPrice().trim();
                     int amount = 1;
                     Log.d("............", cat_name);
                     Log.d("............", pid);
@@ -339,11 +340,11 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
                         final HashMap<String, Object> cartMap = new HashMap<>();
                         cartMap.put("pid", pid);
-                        cartMap.put("name", main_name.getText().toString());
-                        cartMap.put("price", price.getText().toString());
+                        cartMap.put("name",cat_lists.get(position).getName().trim());
+                        cartMap.put("price",cat_lists.get(position).getPrice().trim());
                         cartMap.put("categories", cat_name);
                         cartMap.put("amount", amount);
-                        cartMap.put("total_price",price.getText().toString());
+                        cartMap.put("total_price",cat_lists.get(position).getPrice().trim());
 
                         cart.child(user_phone).child(pid).updateChildren(cartMap)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
