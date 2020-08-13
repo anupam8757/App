@@ -161,16 +161,12 @@ public class Cart extends AppCompatActivity {
                             intent.putExtra("total_price",Integer.toString(total_price_of_all_items));
                             startActivity(intent);
                         }
-                        return;
                     }
                 });
-        return;
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(Cart.this,Catagories.class);
-        startActivity(intent);
     }
 }

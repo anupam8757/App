@@ -45,6 +45,7 @@ import com.me.Orders.OrderActivity;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Register.profile;
+import com.me.login;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -275,8 +276,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logout() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
+        Paper.book().delete(Prevalent.userPhone);
+        Paper.book().delete(Prevalent.userPassword);
+        Prevalent.currentOnlineUser = null;
+        Intent intent = new Intent(MainActivity.this, login.class);
         startActivity(intent);
     }
 //  this is end of the navigation functionality
