@@ -104,7 +104,7 @@ public class profile extends AppCompatActivity {
                 final String Email = email.getText().toString().trim();
                 if(TextUtils.isEmpty(Email))
                 {
-                    email.setError("Please Enter Valid Height");
+                    email.setError("Please Enter Valid Email");
                     email.requestFocus();
 
                     return;
@@ -114,7 +114,7 @@ public class profile extends AppCompatActivity {
                 final String Address= address.getText().toString().trim();
                 if(TextUtils.isEmpty(Address))
                 {
-                    address.setError("Address Can't be negative ");
+                    address.setError("Address Can't be Empty ");
                     address.requestFocus();
                     //  Name.setText("Name");
                     return;

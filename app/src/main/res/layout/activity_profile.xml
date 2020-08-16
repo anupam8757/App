@@ -1,37 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    >
+    android:background="#FFFFFF">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6591DC"
+        >
+
+        <TextView
+            android:id="@+id/userId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/image_profile"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="-134dp"
+            android:drawablePadding="10dp"
+            android:text="Welcome"
+            android:textColor="#000"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/image_profile"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="170dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/myprofilee" />
+    </RelativeLayout>
+
+
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_more_details"
-        android:textSize="35sp"
-        android:textAlignment="center"
+        android:layout_gravity="center"
         android:layout_marginTop="35dp"
-        android:layout_centerHorizontal="true"
-        />
-    <TextView
-        android:layout_marginTop="10dp"
-        android:id="@+id/userId"
-        android:layout_width="wrap_content"
+        android:textColor="#000"
+        android:text="@string/enter_more_details"
+        android:textAlignment="center"
+        android:textSize="35sp"
+        android:textStyle="normal" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text"
-        android:layout_centerHorizontal="true"
-        />
-
-    <ImageView
-        android:id="@+id/image_profile"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_below="@id/text"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="17dp"
-        android:src="@drawable/profile" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="13dp"
+        android:id="@+id/profile_name_input_layout"
+        app:hintTextAppearance="@style/AppTheme.WhiteAccent"
+        >
 
     <EditText
         android:id="@+id/name"
@@ -39,13 +66,24 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_baseline_supervisor_account_24"
         android:layout_marginTop="30dp"
         android:inputType="text"
+        android:drawablePadding="10dp"
         android:layout_centerHorizontal="true"
         android:hint="@string/enter_full_name"
-
-        android:layout_below="@id/image_profile"
+        android:defaultFocusHighlightEnabled="true"
         android:autofillHints="" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="13dp"
+        android:id="@+id/profile_email_input_layout"
+        app:hintTextAppearance="@style/AppTheme.WhiteAccent"
+        >
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
@@ -55,42 +93,71 @@
         android:inputType="textEmailAddress"
         android:layout_centerHorizontal="true"
         android:hint="@string/enter_email"
-        android:layout_below="@id/name"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="10dp"
         android:autofillHints="" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="13dp"
+        android:id="@+id/profile_phone_input_layout"
+        app:hintTextAppearance="@style/AppTheme.WhiteAccent"
+        >
 
     <EditText
         android:id="@+id/number"
         android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:inputType="phone"
+        android:drawableLeft="@drawable/ic_baseline_smartphone_24"
+        android:drawablePadding="10dp"
         android:layout_centerHorizontal="true"
         android:hint="@string/enter_phone_number"
-        android:layout_below="@id/email"/>
+        />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/profile_name_address_layout"
+        app:hintTextAppearance="@style/AppTheme.WhiteAccent"
+        >
     <EditText
         android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="13dp"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:layout_centerHorizontal="true"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/ic_baseline_add_location_24"
         android:hint="@string/enter_address"
         android:layout_below="@id/number"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/register"
-        android:layout_width="wrap_content"
+        android:layout_width="233dp"
         android:layout_height="wrap_content"
-        android:text="@string/update_details"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/buttons"
         android:padding="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:text="@string/update_details"
         android:textColor="#000"
-        android:layout_marginTop="25dp"
-        android:layout_below="@id/address"
-        android:layout_centerHorizontal="true"
-        android:background="#374ECF"
         />
 
-</RelativeLayout>
+</LinearLayout>
