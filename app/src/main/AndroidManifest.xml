@@ -41,6 +41,11 @@
 
             <!-- main activity -->
         </activity>
+        <service android:name=".service.MyFirebaseInstanceService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <activity android:name=".home.MainActivity" />
     </application>
 
