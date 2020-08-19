@@ -64,9 +64,10 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateDetailsToCart();
-                Toast.makeText(Cart.this, "order is placed", Toast.LENGTH_SHORT).show();
             }
         });
+        emptyText = findViewById(R.id.total_amount_cart);
+        emptyText.setVisibility(View.GONE);
 
         user_phone= getIntent().getStringExtra("user_phone");
         cart_toolbar=findViewById(R.id.cart_toolbar);
@@ -74,9 +75,11 @@ public class Cart extends AppCompatActivity {
 
         cartRecyclerView=findViewById(R.id.cartRecyclerView);
         cartRecyclerView.setHasFixedSize(false);
+        cartRecyclerView.setBackgroundResource(R.drawable.empty);
         cart_lists=new  ArrayList<>();
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
+
 
 //        implement the database
         firebaseDatabase= FirebaseDatabase.getInstance();
@@ -111,7 +114,6 @@ public class Cart extends AppCompatActivity {
                         Intent intent = new Intent(Cart.this,Cart.class);
                         String id=cart_lists.get(position).getPid().trim();
                         Log.d("deleted item ",id);
-
                         DatabaseReference driverRef = user_reference.child(id);
                         driverRef.removeValue();
 
@@ -141,8 +143,10 @@ public class Cart extends AppCompatActivity {
             total_price_of_all_items += total_price;
             user_reference.child(cartList.getPid()).setValue(cartList);
         }
-            total_items = cart_lists.size();
-            user_reference.removeValue();
+        emptyText.setVisibility(View.VISIBLE);
+        emptyText.setText("Total Price = "+ total_price_of_all_items);
+        total_items = cart_lists.size();
+
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
 
@@ -157,9 +161,13 @@ public class Cart extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Intent intent = new Intent(Cart.this, OrderActivity.class);
-                            intent.putExtra("total_price",Integer.toString(total_price_of_all_items));
-                            startActivity(intent);
+                            user_reference.removeValue();
+                            cartRecyclerView.setAdapter(null);
+                            cartRecyclerView.setBackgroundResource(R.drawable.empty);
+                            order_button.setEnabled(false);
+//                            Intent intent = new Intent(Cart.this, OrderActivity.class);
+//                            intent.putExtra("total_price",Integer.toString(total_price_of_all_items));
+//                            startActivity(intent);
                         }
                     }
                 });
