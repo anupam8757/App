@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -144,6 +145,11 @@ public class Cart extends AppCompatActivity {
         }
         emptyText.setVisibility(View.VISIBLE);
         emptyText.setText("Total Price = "+ total_price_of_all_items);
+        if(total_price_of_all_items <= 100){
+            Toast.makeText(Cart.this,"Minimum Order is 100.",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         total_items = cart_lists.size();
 
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -154,7 +160,7 @@ public class Cart extends AppCompatActivity {
         orderDetails.put("Cart",cart_lists);
         orderDetails.put("date_time",currentDate+" "+currentTime);
         orderDetails.put("total_items",Integer.toString(total_items));
-
+        Toast.makeText(Cart.this,"Redirecting to your orders.",Toast.LENGTH_SHORT).show();
         orderRef.child("Orders").child(user_phone).child(currentDate+" "+currentTime).updateChildren(orderDetails)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -162,9 +168,15 @@ public class Cart extends AppCompatActivity {
                         if(task.isSuccessful()){
                             user_reference.removeValue();
                             order_button.setEnabled(false);
-//                            Intent intent = new Intent(Cart.this, OrderActivity.class);
-//                            intent.putExtra("total_price",Integer.toString(total_price_of_all_items));
-//                            startActivity(intent);
+                            cartRecyclerView.setAdapter(null);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(Cart.this, OrderActivity.class);
+                                    intent.putExtra("total_price",Integer.toString(total_price_of_all_items));
+                                    startActivity(intent);
+                                }
+                            },5000);
                         }
                     }
                 });
