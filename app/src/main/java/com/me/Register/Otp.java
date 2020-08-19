@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.home.MainActivity;
@@ -134,6 +135,7 @@ public class Otp extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isComplete()){
                                                 progressBar.setVisibility(View.GONE);
+                                                ProcessPhoenix.triggerRebirth(Otp.this,new Intent(Otp.this, profile.class));
                                                 Intent intent = new Intent(Otp.this, MainActivity.class);
                                                 startActivity(intent);
                                             }

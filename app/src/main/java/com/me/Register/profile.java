@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Model.User;
+import com.me.home.MainActivity;
 
 import io.paperdb.Paper;
 
@@ -44,6 +45,9 @@ public class profile extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent i = new Intent(profile.this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
 
