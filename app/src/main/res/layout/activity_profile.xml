@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:background="#6591DC"
         >
-
         <TextView
             android:id="@+id/userId"
             android:layout_width="wrap_content"
@@ -28,7 +27,7 @@
         <ImageView
             android:id="@+id/image_profile"
             android:layout_width="300dp"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
@@ -44,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:textColor="#000"
         android:text="@string/enter_more_details"
         android:textAlignment="center"
@@ -145,19 +144,22 @@
         android:hint="@string/enter_address"
         android:layout_below="@id/number"/>
     </com.google.android.material.textfield.TextInputLayout>
-
+    <ProgressBar
+        android:id="@+id/profile_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/register"
         android:layout_width="233dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/buttons"
         android:padding="5dp"
         android:text="@string/update_details"
-        android:textColor="#000"
+        android:textColor="#FFFFFF"
         />
 
 </LinearLayout>

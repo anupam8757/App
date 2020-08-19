@@ -24,6 +24,7 @@
         <activity android:name=".login" />
         <activity
             android:name=".Register.profile"
+            android:parentActivityName=".home.MainActivity"
             android:label="@string/title_activity_profile" />
         <activity android:name=".Register.Otp" />
         <activity
@@ -35,17 +36,17 @@
         <activity android:name=".home.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
             <!-- main activity -->
         </activity>
-        <service android:name=".service.MyFirebaseInstanceService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+<!--        <service android:name=".service.MyFirebaseInstanceService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
         <activity android:name=".home.MainActivity" />
     </application>
 

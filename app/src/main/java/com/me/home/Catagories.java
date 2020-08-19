@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -325,7 +327,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                     mCartItemCount++;
                     setupBadge();
                     cart = FirebaseDatabase.getInstance().getReference().child("Cart");
-                    String pid = cat_lists.get(position).getName().trim() +cat_lists.get(position).getPrice().trim();
+                    final String pid = cat_lists.get(position).getName().trim() +cat_lists.get(position).getPrice().trim();
                     int amount = 1;
                     Log.d("............", cat_name);
                     Log.d("............", pid);
@@ -348,13 +350,14 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(Catagories.this, "Please try again.....", Toast.LENGTH_SHORT).show();
-                                        }
+
                                     }
-                                });
+                                }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                 }

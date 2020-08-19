@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         checkconnection();
         // for internet connection lost
 
+        Log.d("Mainactivity","In onCreate");
 
 //       toolbar in main Activity is added
         toolbar = findViewById(R.id.toolbar);
@@ -232,6 +233,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.user_profile:
                 intent = new Intent(MainActivity.this, profile.class);
                 startActivity(intent);
+                finish();
+                Log.d("MainActivity","finished");
                 break;
             case R.id.app_logout:
                 showPopup();

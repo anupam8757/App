@@ -46,6 +46,7 @@ public class register extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            finish();
         }
     }
     @Override
@@ -72,6 +73,7 @@ public class register extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(register.this, login.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -107,10 +109,12 @@ public class register extends AppCompatActivity {
                     intent.putExtra("phonenumber", number);
                     intent.putExtra("password", password);
                     startActivity(intent);
+                    finish();
                 }
                 else if(snapshot.child("Users").child(number).exists()){
                     Intent intent = new Intent(register.this, login.class);
                     startActivity(intent);
+                    finish();
                 }
             }
 

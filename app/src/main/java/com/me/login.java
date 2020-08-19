@@ -20,9 +20,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.me.Admin.AdminCategoryActivity;
 import com.me.Model.User;
 import com.me.Prevalent.Prevalent;
+import com.me.Register.profile;
+import com.me.Register.register;
 import com.me.home.MainActivity;
 
 import io.paperdb.Paper;
@@ -41,6 +44,12 @@ public class login extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
+        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -121,6 +130,7 @@ public class login extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(login.this,ForgotPassword.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -143,6 +153,7 @@ public class login extends AppCompatActivity {
                         error_text.setVisibility(View.GONE);
                         Intent intent = new Intent(login.this, AdminCategoryActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 else if(snapshot.child(parentDBname).child(number).exists()){
                     User userData = snapshot.child(parentDBname).child(number).getValue(User.class);
@@ -152,8 +163,10 @@ public class login extends AppCompatActivity {
                             Paper.book().write(Prevalent.userPassword, number);
                             progressBar.setVisibility(View.GONE);
                             Prevalent.currentOnlineUser = userData;
+                            ProcessPhoenix.triggerRebirth(login.this,new Intent(login.this, profile.class));
                             Intent intent = new Intent(login.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }else {
 //                            Toast.makeText(login.this,"Incorrect Password! Please try Again.",Toast.LENGTH_SHORT).show();
                             error_text.setVisibility(View.VISIBLE);
