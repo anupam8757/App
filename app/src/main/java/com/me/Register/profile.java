@@ -116,7 +116,7 @@ public class profile extends AppCompatActivity {
                 {
                     address.setError("Address Can't be Empty ");
                     address.requestFocus();
-                    //  Name.setText("Name");
+
                     return;
                 }
                 Log.d("Profile.java","Validations completed");
