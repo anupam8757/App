@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.me.Orders.OrderActivity;
+import com.me.Prevalent.Prevalent;
 import com.me.R;
 
 import java.text.SimpleDateFormat;
@@ -51,7 +52,7 @@ public class Cart extends AppCompatActivity {
     List<Cart_list> cart_lists;
     CartAdapter cartAdapter;
     String user_phone;
-    String currentDate, currentTime;
+    String currentDate, currentTime, message="";
     Button order_button;
     private int total_price_of_all_items = 0,total_items = 0;
     TextView emptyText;
@@ -138,11 +139,20 @@ public class Cart extends AppCompatActivity {
     }
 
     public void updateDetailsToCart(){
+
+    try{
         for(Cart_list cartList : cart_lists) {
             int total_price = Integer.parseInt(cartList.getTotal_price());
+            message += " Item name: "+cartList.getName()+" Price: "+total_price+" Quantity: "+cartList.getAmount();
             total_price_of_all_items += total_price;
             user_reference.child(cartList.getPid()).setValue(cartList);
         }
+        message += " Name: "+Prevalent.currentOnlineUser.getName()+" Phone: "+user_phone+" Address: "
+                +Prevalent.currentOnlineUser.getAddress();
+    }catch (Exception e){}
+
+    Log.d("Cart.java",message);
+
         emptyText.setVisibility(View.VISIBLE);
         emptyText.setText("Total Price = "+ total_price_of_all_items);
         if(total_price_of_all_items <= 100){

@@ -122,14 +122,13 @@ public class profile extends AppCompatActivity {
 
                     return;
                 }
-                Log.d("Profile.java","Validations completed");
 
                 user.setName(name.getText().toString().trim());
                 user.setEmail(email.getText().toString().trim());
                 user.setPhone(phone_db);
                 user.setPassword(pass_db);
                 user.setAddress(address.getText().toString().trim());
-                Log.d("Profile.java","Before upload");
+
                 progressBar.setVisibility(View.GONE);
                 Prevalent.currentOnlineUser = user;
                 UploadDataRef.child(phone_db).setValue(user, new DatabaseReference.CompletionListener() {
