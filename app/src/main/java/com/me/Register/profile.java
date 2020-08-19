@@ -74,7 +74,6 @@ public class profile extends AppCompatActivity {
         FetchDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                    full_nameDB=snapshot.child("name").getValue(String.class);
                    Email_DB = snapshot.child("email").getValue(String.class);
                    Address_DB=snapshot.child("address").getValue(String.class);

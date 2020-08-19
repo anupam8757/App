@@ -51,7 +51,7 @@ public class Cart extends AppCompatActivity {
     CartAdapter cartAdapter;
     String user_phone;
     String currentDate, currentTime;
-    FloatingActionButton order_button;
+    Button order_button;
     private int total_price_of_all_items = 0,total_items = 0;
     TextView emptyText;
 

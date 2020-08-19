@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -104,8 +105,8 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         cat_lists=new  ArrayList<>();
 
 //        the no of column in the layout is 2
-        int no_of_column=2;
-        cat_recyclerView.setLayoutManager(new GridLayoutManager(this,no_of_column));
+
+        cat_recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
 //        implement the database
