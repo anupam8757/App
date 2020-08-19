@@ -134,7 +134,6 @@ public class Cart extends AppCompatActivity {
                 Toast.makeText(Cart.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     public void updateDetailsToCart(){
