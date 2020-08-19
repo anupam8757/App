@@ -75,7 +75,7 @@ public class Cart extends AppCompatActivity {
 
         cartRecyclerView=findViewById(R.id.cartRecyclerView);
         cartRecyclerView.setHasFixedSize(false);
-        cartRecyclerView.setBackgroundResource(R.drawable.empty);
+
         cart_lists=new  ArrayList<>();
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
@@ -162,8 +162,6 @@ public class Cart extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             user_reference.removeValue();
-                            cartRecyclerView.setAdapter(null);
-                            cartRecyclerView.setBackgroundResource(R.drawable.empty);
                             order_button.setEnabled(false);
 //                            Intent intent = new Intent(Cart.this, OrderActivity.class);
 //                            intent.putExtra("total_price",Integer.toString(total_price_of_all_items));
