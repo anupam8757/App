@@ -97,6 +97,6 @@ public class OrderAdapter extends RecyclerView.Adapter {
                 time += str.charAt(i);
             }
         }
-        return time.substring(0,4) +" "+ Meridien;
+        return time.substring(0,5) +" "+ Meridien;
     }
 }
