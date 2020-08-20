@@ -143,15 +143,7 @@ public class Cart extends AppCompatActivity {
 
     Log.d("Cart.java",message);
 
-        emptyText.setVisibility(View.VISIBLE);
-        emptyText.setText("Total Price = "+ total_price_of_all_items);
-        if(total_price_of_all_items <= 100){
-            Toast.makeText(Cart.this,"Minimum Order is 100.",Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         total_items = cart_lists.size();
-
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
 
@@ -185,14 +177,41 @@ public class Cart extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        for(Cart_list cart_list: cart_lists){
+            cart_list.setAmount(1);
+            String p = cart_list.getPrice();
+            cart_list.setPrice(p);
+            cart_list.setTotal_price(p);
+            String id = cart_list.getName()+cart_list.getPrice();
+            user_reference.child(id).setValue(cart_list);
+        }
+
     }
 
     public void confirmOrder(){
         total_price_of_all_items = 0;
+
+        if(total_price() <= 50){
+            emptyText.setVisibility(View.VISIBLE);
+            emptyText.setText("Minimum Order is 50.");
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
-        builder.setMessage(Html.fromHtml("<font color='#FF7F27'>Confirm Order? Total price = </font>"+total_price()));
+        builder.setMessage(Html.fromHtml("<font color='#000000'><h2>Confirm Order?</h2> Total price = Rs. </font>"+total_price()));
         builder.setCancelable(false);
-        builder.setNegativeButton("No", null);
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for(Cart_list cart_list: cart_lists){
+                    cart_list.setAmount(1);
+                    String p = cart_list.getPrice();
+                    cart_list.setPrice(p);
+                    cart_list.setTotal_price(p);
+                    emptyText.setVisibility(View.GONE);
+                }
+            }
+        });
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 updateDetailsToCart();
@@ -214,6 +233,7 @@ public class Cart extends AppCompatActivity {
 
     public int total_price(){
         try{
+            total_price_of_all_items = 0;
             for(Cart_list cartList : cart_lists) {
                 int total_price = Integer.parseInt(cartList.getTotal_price());
                 message += " Item name: "+cartList.getName()+" Price: "+total_price+" Quantity: "+cartList.getAmount();
