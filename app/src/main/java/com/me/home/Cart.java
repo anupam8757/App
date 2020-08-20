@@ -94,7 +94,6 @@ public class Cart extends AppCompatActivity {
         user_reference= cartrefence.child(user_phone);
 
 //        fetch the item from the firebase cart node according to there phone number
-
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -107,7 +106,6 @@ public class Cart extends AppCompatActivity {
                 }
                 cartAdapter =new CartAdapter(Cart.this,cart_lists);
                 cartRecyclerView.setAdapter(cartAdapter);
-
 
 //                this is code for deleting the item from the cart
                 cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
@@ -126,7 +124,6 @@ public class Cart extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         cart_lists.remove(position);
                         cartAdapter.notifyItemRemoved(position);
-
                     }
                 });
 

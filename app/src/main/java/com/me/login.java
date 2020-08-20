@@ -183,7 +183,6 @@ public class login extends AppCompatActivity {
                     error_text.setTextColor(Color.RED);
                     error_text.setText("Incorrect Number! Please register first");
                 }
-
             }
 
             @Override

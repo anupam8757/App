@@ -70,6 +70,9 @@ public class Otp extends AppCompatActivity {
 
         phonenumber = getIntent().getStringExtra("phonenumber");
         pass = getIntent().getStringExtra("password");
+
+        Log.d("Otp.java",phonenumber+" "+pass);
+
         tv.setText(phonenumber);
         sendVerificationCode(phonenumber);
 
@@ -104,14 +107,14 @@ public class Otp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             userId = mAuth.getUid();
-                            final DatabaseReference rootRef;
-                            rootRef = FirebaseDatabase.getInstance().getReference();
-                            rootRef.addValueEventListener(new ValueEventListener() {
+                            mAuth.signOut();
+                            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if (snapshot.child("Users").child(phonenumber).exists()) {
                                         User userData = snapshot.child("Users").child(phonenumber).getValue(User.class);
                                         Prevalent.currentOnlineUser = userData;
+                                        Paper.book().write(Prevalent.userPhone, phonenumber);
                                     }
                                 }
                                 @Override
@@ -121,7 +124,7 @@ public class Otp extends AppCompatActivity {
                             });
 
                             Paper.book().write(Prevalent.userPhone, phonenumber);
-                            Paper.book().write(Prevalent.userPassword, pass);
+                            Paper.book().write(Prevalent.userPassword, phonenumber);
 
                             HashMap<String, Object> userdataMap = new HashMap<>();
                             userdataMap.put("phone",phonenumber);
@@ -173,7 +176,6 @@ public class Otp extends AppCompatActivity {
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
             verificationId = s;
-
         }
 
         //auto verification

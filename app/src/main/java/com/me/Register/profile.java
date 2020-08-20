@@ -58,7 +58,8 @@ public class profile extends AppCompatActivity {
         flag = findViewById(R.id.userId);
         Paper.init(this);
         phone_db= Paper.book().read(Prevalent.userPhone);
-       // pass_db=Paper.book().read(Prevalent.userPassword);
+        Log.d("profile.java",phone_db);
+
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.number);
@@ -119,7 +120,6 @@ public class profile extends AppCompatActivity {
                 {
                     address.setError("Address Can't be Empty ");
                     address.requestFocus();
-
                     return;
                 }
 
