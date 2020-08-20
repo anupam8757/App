@@ -9,10 +9,14 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,7 +69,7 @@ public class Cart extends AppCompatActivity {
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDetailsToCart();
+                confirmOrder();
             }
         });
         emptyText = findViewById(R.id.total_amount_cart);
@@ -137,17 +141,6 @@ public class Cart extends AppCompatActivity {
 
     public void updateDetailsToCart(){
 
-    try{
-        for(Cart_list cartList : cart_lists) {
-            int total_price = Integer.parseInt(cartList.getTotal_price());
-            message += " Item name: "+cartList.getName()+" Price: "+total_price+" Quantity: "+cartList.getAmount();
-            total_price_of_all_items += total_price;
-            user_reference.child(cartList.getPid()).setValue(cartList);
-        }
-        message += " Name: "+Prevalent.currentOnlineUser.getName()+" Phone: "+user_phone+" Address: "
-                +Prevalent.currentOnlineUser.getAddress();
-    }catch (Exception e){}
-
     Log.d("Cart.java",message);
 
         emptyText.setVisibility(View.VISIBLE);
@@ -192,5 +185,44 @@ public class Cart extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    public void confirmOrder(){
+        total_price_of_all_items = 0;
+        AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
+        builder.setMessage(Html.fromHtml("<font color='#FF7F27'>Confirm Order? Total price = </font>"+total_price()));
+        builder.setCancelable(false);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                updateDetailsToCart();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+        Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+        //Set negative button background
+        nbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+        //Set negative button text color
+        nbutton.setTextColor(Color.parseColor("#1704FF"));
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        //Set positive button background
+        pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+        //Set positive button text color
+        pbutton.setTextColor(Color.parseColor("#1704FF"));
+    }
+
+    public int total_price(){
+        try{
+            for(Cart_list cartList : cart_lists) {
+                int total_price = Integer.parseInt(cartList.getTotal_price());
+                message += " Item name: "+cartList.getName()+" Price: "+total_price+" Quantity: "+cartList.getAmount();
+                total_price_of_all_items += total_price;
+                user_reference.child(cartList.getPid()).setValue(cartList);
+            }
+            message += " Name: "+Prevalent.currentOnlineUser.getName()+" Phone: "+user_phone+" Address: "
+                    +Prevalent.currentOnlineUser.getAddress();
+        }catch (Exception e){}
+        return total_price_of_all_items;
     }
 }
