@@ -43,6 +43,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.me.Orders.OrderActivity;
+import com.me.Orders.Order_History;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Register.profile;
@@ -178,11 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                      }
                  });
 
-
-
     }
-
-
 
     @Override
     protected void onStart() {
@@ -258,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 showPopup();
                 break;
             case R.id.app_Orders:
-                intent = new Intent(MainActivity.this, OrderActivity.class);
+                intent = new Intent(MainActivity.this, Order_History.class);
                 startActivity(intent);
                 break;
             case R.id.app_share:

@@ -91,6 +91,7 @@ public class profile extends AppCompatActivity {
                    name.setText(full_nameDB);
                    email.setText(Email_DB);
                    address.setText(Address_DB);
+
                    User user1 = snapshot.getValue(User.class);
                    Prevalent.currentOnlineUser = user1;
             }

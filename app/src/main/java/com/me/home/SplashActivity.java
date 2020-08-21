@@ -42,12 +42,12 @@ public class SplashActivity extends AppCompatActivity {
         final String phone = ""+Paper.book().read(Prevalent.userPhone);
         Log.d("SplashActivity"," "+phone);
         if(phone != null){
-            DatabaseReference user_data= FirebaseDatabase.getInstance().getReference();
+            DatabaseReference user_data= FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
 
             user_data.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.child("Users").child(phone).getValue(User.class);
+                    User user = dataSnapshot.getValue(User.class);
                     Prevalent.currentOnlineUser = user;
                 }
 

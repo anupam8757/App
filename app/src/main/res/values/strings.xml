@@ -34,4 +34,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="submit">submit</string>
+    <string name="title_activity_order__history">Order_History</string>
+    <string name="tab_text_1">Current Order</string>
+    <string name="tab_text_2">Old Orders</string>
 </resources>

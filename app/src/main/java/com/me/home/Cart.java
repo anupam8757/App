@@ -39,6 +39,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.me.Orders.OrderActivity;
+import com.me.Orders.Order_History;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 
@@ -191,11 +192,11 @@ public class Cart extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(Cart.this, OrderActivity.class);
+                                    Intent intent = new Intent(Cart.this, Order_History.class);
                                     intent.putExtra("total_price",Integer.toString(total_price_of_all_items));
                                     startActivity(intent);
                                 }
-                            },5000);
+                            },2000);
                         }
                     }
                 });
