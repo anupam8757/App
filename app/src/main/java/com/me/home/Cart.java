@@ -3,15 +3,11 @@ package com.me.home;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,8 +18,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -32,13 +26,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.me.Orders.OrderActivity;
 import com.me.Orders.Order_History;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
@@ -49,9 +41,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Cart extends AppCompatActivity {
     private Toolbar cart_toolbar;
@@ -73,12 +62,14 @@ public class Cart extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
         checkConnection();
         order_button=findViewById(R.id.fab);
+
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 confirmOrder();
             }
         });
+
         emptyText = findViewById(R.id.total_amount_cart);
         emptyText.setVisibility(View.GONE);
 

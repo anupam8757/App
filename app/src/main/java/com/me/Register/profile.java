@@ -27,11 +27,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.me.Orders.OrderActivity;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Model.User;
-import com.me.home.Cart;
 import com.me.home.MainActivity;
 
 import io.paperdb.Paper;

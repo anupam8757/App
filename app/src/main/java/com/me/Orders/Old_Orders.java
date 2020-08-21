@@ -21,9 +21,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.paperdb.Paper;
 
@@ -33,12 +36,7 @@ public class Old_Orders extends Fragment {
     DatabaseReference ordersRef;
     OrderAdapter orderAdapter;
     static String user_phone = "";
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+    private String currentDate;
 
     @Nullable
     @Override
@@ -53,16 +51,21 @@ public class Old_Orders extends Fragment {
         orderRecyclerView = view.findViewById(R.id.order_recyclerView);
         orderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
         order_details = new ArrayList<>();
         ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(user_phone);
-
 
         ordersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Order_Details data = dataSnapshot.getValue(Order_Details.class);
-                    order_details.add(data);
+                    String date = dataSnapshot.child("date_time").getValue().toString();
+                    String[] dateTime = date.split(" ",2);
+                    if(!currentDate.equals(dateTime[0])){
+                        Order_Details data = dataSnapshot.getValue(Order_Details.class);
+                        order_details.add(data);
+                    }
                 }
                 Collections.reverse(order_details);
                 orderAdapter = new OrderAdapter(order_details);

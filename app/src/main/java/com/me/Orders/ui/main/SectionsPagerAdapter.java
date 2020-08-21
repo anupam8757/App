@@ -1,7 +1,6 @@
 package com.me.Orders.ui.main;
 
 import android.content.Context;
-import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;

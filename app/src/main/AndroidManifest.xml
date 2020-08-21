@@ -18,7 +18,6 @@
             android:name=".Orders.Order_History"
             android:label="@string/title_activity_order__history"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Orders.OrderActivity" />
         <activity
             android:name=".home.Cart"
             android:parentActivityName=".home.Catagories" />

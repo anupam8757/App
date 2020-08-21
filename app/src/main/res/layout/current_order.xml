@@ -1,10 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+<androidx.cardview.widget.CardView
+    android:id="@+id/card_view1"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Current Order is shown here."
-        android:layout_centerInParent="true"/>
+        android:orientation="vertical"
+        android:layout_marginTop="1dp"
+        android:padding="10dp"
+        >
+        <TextView
+            android:id="@+id/address_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delivery Address:"
+            android:layout_marginBottom="3dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#050000"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#4C54F3"/>
+        <TextView
+            android:id="@+id/address_full"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="Full Address"
+            android:layout_marginTop="3dp"
+            android:textSize="15sp"
+            android:maxLines="5"
+            android:textStyle="bold"
+            android:textColor="#050000"
+            />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view2"
+        android:layout_margin="5dp"
+        android:layout_below="@id/card_view1"
+        app:cardCornerRadius="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:padding="10dp"
+            >
+            <TextView
+                android:id="@+id/order_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order Details:"
+                android:layout_marginBottom="3dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#050000"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#4C54F3"/>
+            <TextView
+                android:id="@+id/total_price_of_order"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="Total price: "
+                android:layout_marginTop="3dp"
+                android:textSize="15sp"
+                android:maxLines="5"
+                android:textStyle="bold"
+                android:textColor="#050000"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -10,11 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.me.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class OrderAdapter extends RecyclerView.Adapter {
-    List<Order_Details> order_details;
-    String date_time;
+    private List<Order_Details> order_details;
+    private String date_time;
 
     public OrderAdapter(List<Order_Details> order_details) {
         this.order_details = order_details;
@@ -33,18 +36,15 @@ public class OrderAdapter extends RecyclerView.Adapter {
 
         ViewHolderClass viewHolderClass = (ViewHolderClass) holder;
         Order_Details current_order = order_details.get(position);
-
-        ((ViewHolderClass) holder).total_price.setText("Total price: "+current_order.getTotal_price());
-
         date_time = current_order.getDate_time();
         String[] dateTime = date_time.split(" ",2);
 
-        ((ViewHolderClass) holder).date.setText(dateTime[0]);
-
         String time = time_12_format(dateTime[1]);
-        ((ViewHolderClass) holder).time.setText(time);
 
-        ((ViewHolderClass) holder).total_items.setText("Total No of items: "+current_order.getTotal_items());
+            ((ViewHolderClass) holder).date.setText(dateTime[0]);
+            ((ViewHolderClass) holder).total_price.setText("Total price: "+current_order.getTotal_price());
+            ((ViewHolderClass) holder).time.setText(time);
+            ((ViewHolderClass) holder).total_items.setText("Total No of items: "+current_order.getTotal_items());
     }
 
     @Override
@@ -54,7 +54,6 @@ public class OrderAdapter extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder{
         TextView date, time, total_price,total_items;
-
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
@@ -83,11 +82,9 @@ public class OrderAdapter extends RecyclerView.Adapter {
         hh %= 12;
 
         if (hh == 0) {
-            System.out.print("12");
             time += "12";
 
             for (int i = 2; i < 8; ++i) {
-                System.out.print(str.charAt(i));
                 time += str.charAt(i);
             }
         }
@@ -97,6 +94,12 @@ public class OrderAdapter extends RecyclerView.Adapter {
                 time += str.charAt(i);
             }
         }
-        return time.substring(0,5) +" "+ Meridien;
+
+        if(time.length() == 7){
+            return time.substring(0,4) +" "+ Meridien;
+        }
+        else {
+            return time.substring(0,5) +" "+ Meridien;
+        }
     }
 }
