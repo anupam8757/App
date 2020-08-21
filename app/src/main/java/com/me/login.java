@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class login extends AppCompatActivity {
     private TextView forget_password,error_text;
     private EditText phone, pass;
     private ProgressBar progressBar;
+    private ImageView fb, instagram;
     private final static String parentDBname = "Users";
 
     @Override
@@ -63,11 +66,32 @@ public class login extends AppCompatActivity {
         progressBar = findViewById(R.id.login_progressbar);
         progressBar.setVisibility(View.INVISIBLE);
 
+        fb = findViewById(R.id.Facebook);
+        instagram = findViewById(R.id.Instagram);
+
         forget_password = findViewById(R.id.forget_password);
 
         pass = findViewById(R.id.editTextPassword);
         phone = findViewById(R.id.Phone);
         error_text=findViewById(R.id.error_text);
+
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("http://www.google.com");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        instagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://www.instagram.com/yukkti_home_delivery?r=nametag");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,16 +9,30 @@
 
 
     <ImageView
+        android:id="@+id/Facebook"
+        android:layout_width="65dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="242dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/icons8_facebook_512"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
         android:id="@+id/icon"
         android:layout_width="128dp"
         android:layout_height="112dp"
         android:src="@drawable/myicon"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView"
@@ -32,10 +46,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242" />
+        app:layout_constraintVertical_bias="0.19" />
 
     <TextView
         android:id="@+id/textView2"
@@ -136,9 +149,37 @@
         android:textColor="@color/primaryDarkColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintHorizontal_bias="0.693"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.791" />
+
+    <ImageView
+        android:id="@+id/Instagram"
+        android:layout_width="65dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/icons8_instagram_512"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Facebook"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:layout_marginEnd="277dp"
+        android:layout_marginBottom="18dp"
+        android:textColor="@color/primaryDarkColor"
+        android:text="Follow us on:"
+        app:layout_constraintBottom_toTopOf="@+id/Facebook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
