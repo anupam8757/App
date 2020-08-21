@@ -8,14 +8,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,6 +88,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catagories);
+        CheckConnection();
         Paper.init(this);
         cat_toolbar=findViewById(R.id.cat_toolbar);
         setSupportActionBar(cat_toolbar);
@@ -185,6 +192,27 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
         }
         setcart();
+    }
+
+    private void CheckConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo =  connectivityManager.getActiveNetworkInfo();
+        if(networkInfo== null || !networkInfo.isConnected() || !networkInfo.isAvailable())
+        {
+            Dialog dialog= new Dialog(this);
+            dialog.setContentView(R.layout.alert_dailog);
+            dialog.setCancelable(false);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+            Button button = dialog.findViewById(R.id.internet_lost);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recreate();
+                }
+            });
+            dialog.show();
+        }
     }
 
     private void setcart() {

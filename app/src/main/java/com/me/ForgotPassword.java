@@ -2,9 +2,14 @@ package com.me;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -33,7 +38,7 @@ public class ForgotPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-
+        checkconnection();
         phone = findViewById(R.id.forgot_password_phone);
         pass = findViewById(R.id.forgot_password_password);
 
@@ -67,5 +72,26 @@ public class ForgotPassword extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void checkconnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo =  connectivityManager.getActiveNetworkInfo();
+        if(networkInfo== null || !networkInfo.isConnected() || !networkInfo.isAvailable())
+        {
+            Dialog dialog= new Dialog(this);
+            dialog.setContentView(R.layout.alert_dailog);
+            dialog.setCancelable(false);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+            Button button = dialog.findViewById(R.id.internet_lost);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recreate();
+                }
+            });
+            dialog.show();
+        }
     }
 }

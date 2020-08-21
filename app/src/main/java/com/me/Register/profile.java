@@ -4,12 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -56,6 +61,7 @@ public class profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkInternetconnection();
         setContentView(R.layout.activity_profile);
         flag = findViewById(R.id.userId);
         Paper.init(this);
@@ -154,6 +160,27 @@ public class profile extends AppCompatActivity {
 
         final String userId = getIntent().getStringExtra("userId");
 
+    }
+
+    private void checkInternetconnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo =  connectivityManager.getActiveNetworkInfo();
+        if(networkInfo== null || !networkInfo.isConnected() || !networkInfo.isAvailable())
+        {
+            Dialog dialog= new Dialog(this);
+            dialog.setContentView(R.layout.alert_dailog);
+            dialog.setCancelable(false);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+            Button button = dialog.findViewById(R.id.internet_lost);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recreate();
+                }
+            });
+            dialog.show();
+        }
     }
 
 }
