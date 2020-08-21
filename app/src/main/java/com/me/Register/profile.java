@@ -35,7 +35,7 @@ public class profile extends AppCompatActivity {
     private TextView flag;
     private EditText name,email,phone,address;
     private Button register;
-    private static User user = new User();;
+    private static User user = new User();
     private ImageView imageView;
     private ProgressBar progressBar;
     // long maxid=0;
@@ -83,6 +83,8 @@ public class profile extends AppCompatActivity {
                    name.setText(full_nameDB);
                    email.setText(Email_DB);
                    address.setText(Address_DB);
+                   User user1 = snapshot.getValue(User.class);
+                   Prevalent.currentOnlineUser = user1;
             }
 
             @Override

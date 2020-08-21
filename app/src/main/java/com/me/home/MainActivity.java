@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -265,6 +266,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.app_about:
                 Toast.makeText(this, "this is app of e comerse", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.app_contact:
+                String p = "6202123103";
+                Intent in = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", p, null));
+                startActivity(in);
+                break;
 
         }
         return true;

@@ -34,6 +34,11 @@
         android:id="@+id/app_about"
         app:showAsAction="always"
         android:icon="@drawable/about"/>
+    <item
+        android:title="Contact us"
+        android:id="@+id/app_contact"
+        app:showAsAction="always"
+        android:icon="@drawable/phone"/>
 
     </group>
 
