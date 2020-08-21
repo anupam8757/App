@@ -22,9 +22,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.Orders.OrderActivity;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
 import com.me.Model.User;
+import com.me.home.Cart;
 import com.me.home.MainActivity;
 
 import io.paperdb.Paper;
@@ -139,6 +141,14 @@ public class profile extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"DATA UPDATED SUCCESSFULLY ",Toast.LENGTH_LONG).show();
                     }
                 });
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(profile.this,"Redirecting to Homepage.",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(profile.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                },2000);
             }
         });
 
