@@ -57,6 +57,8 @@ import java.util.Objects;
 
 import io.paperdb.Paper;
 
+import static com.me.home.Catagories.user_phone;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,MainAdapter.OnItemClickListener {
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -64,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private MainAdapter mAdapter;
     private List<Main_list_item> main_list_items;
     private RecyclerView main_list_View;
+    private DatabaseReference user_reference;
+    private TextView textCartItemCount;
+    private int mCartItemCount = 0;
+    public static String user_phone;
 
     private FirebaseDatabase firebaseDatabase;
     private ImageSlider image_slider;
@@ -80,11 +86,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Log.d("Mainactivity","In onCreate");
 
+        firebaseDatabase= FirebaseDatabase.getInstance();
+//        getting the reference of the Cart
+        DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
+        Paper.init(this);
+        user_phone = Paper.book().read(Prevalent.userPhone);
+        user_reference = cartrefence.child(user_phone);
+
 //       toolbar in main Activity is added
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Paper.init(this);
+
 
         // reference of the main layout ie drawer layout
         drawer = findViewById(R.id.drawer_layout);
@@ -97,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.open_drawer, R.string.close_drawer);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        setcart();
 
 //
         View headerView = navigationView.getHeaderView(0);
@@ -214,12 +228,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-
+            case R.id.action_cart_home:
+                Intent intent = new Intent(MainActivity.this, Cart.class);
+                intent.putExtra("user_phone", user_phone);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 //    end of the menu item
 
 
@@ -314,6 +331,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          });
          dialog.show();
      }
+    }
+
+    private void setcart() {
+        firebaseDatabase= FirebaseDatabase.getInstance();
+//        getting the reference of the Cart
+        DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
+//        here we will pass the user phone number and from that we fetch of
+//        particular user
+        user_reference = cartrefence.child(user_phone);
+        user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // get total available quest
+                int size = (int) dataSnapshot.getChildrenCount();
+                mCartItemCount=size;
+                setupBadge();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void setupBadge() {
+
+        if (textCartItemCount != null) {
+            if (mCartItemCount ==0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
 }

@@ -279,7 +279,6 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                     startActivity(intent);
                 break;
 
-
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
                 // Navigate back to parent activity (CatalogActivity)

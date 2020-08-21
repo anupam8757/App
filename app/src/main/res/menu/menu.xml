@@ -10,14 +10,10 @@
         app:actionViewClass="android.widget.SearchView"
         />
     <item
-        android:id="@+id/notification"
-        android:title="notification"
-        android:icon="@drawable/ic_notifications"
+        android:id="@+id/action_cart_home"
+        android:icon="@drawable/ic_shopping_cart"
+        android:title="Cart"
+        app:actionLayout="@layout/custom_action_item_layout"
         app:showAsAction="always"/>
-<!--    <item-->
-<!--        android:title="mycart"-->
-<!--        android:id="@+id/share"-->
-<!--        app:showAsAction="always"-->
-<!--        android:icon="@drawable/ic_shopping_cart"/>-->
 
 </menu>
