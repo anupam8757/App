@@ -83,18 +83,23 @@
 
             <TextView
                 android:id="@+id/add"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add to Cart"
-                android:background="@drawable/buttons"
+                android:background="@drawable/add_button_botder"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:padding="6dp"
+                android:paddingTop="3dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="3dp"
+                android:paddingRight="20dp"
+
                 />
         </FrameLayout>
     </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"

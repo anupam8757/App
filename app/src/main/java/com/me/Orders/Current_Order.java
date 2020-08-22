@@ -1,6 +1,7 @@
 package com.me.Orders;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.me.Model.User;
 import com.me.Prevalent.Prevalent;
@@ -32,7 +34,7 @@ import io.paperdb.Paper;
 public class Current_Order extends Fragment {
     DatabaseReference ordersRef;
     private static String user_phone = "", currentDate, total_price, total_items,address = "";
-    ArrayList<Order_Details> order_details;
+    List order_details;
     private User user;
     private TextView fullAddress,totalPrice;
 
@@ -54,37 +56,38 @@ public class Current_Order extends Fragment {
         fullAddress = view.findViewById(R.id.address_full);
         totalPrice = view.findViewById(R.id.total_price_of_order);
 
-        order_details = new ArrayList<>();
+        order_details = new ArrayList<Old_Orders>();
         ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(user_phone);
+        Query last_child = ordersRef.orderByKey().limitToLast(1);
 
-        ordersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        last_child.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String date = dataSnapshot.child("date_time").getValue().toString();
-                    String[] dateTime = date.split(" ",2);
-                    if(currentDate.equals(dateTime[0])){
-                        Order_Details data = dataSnapshot.getValue(Order_Details.class);
-                        order_details.add(data);
-                    }
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot order: dataSnapshot.getChildren()) {
+                    Log.d("cart_value", order.child("Cart").getValue().toString());
+                    Log.d("price val", order.child("total_price").getValue().toString());
+                    totalPrice.setText("Total price: "+order.child("total_price").getValue().toString());
                 }
-                Collections.reverse(order_details);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
+
         address = "";
         address += user.getName()+",\n"+user_phone+", "+user.getAddress();
         fullAddress.setText(address);
         try{
-            Order_Details lastOrder = order_details.get(0);
+            Order_Details lastOrder = (Order_Details) order_details.get(0);
             Cart_list cart_list = lastOrder.getCart_list();
             total_items = lastOrder.getTotal_items();
+            Log.d("total_item",total_items);
             total_price = lastOrder.getTotal_price();
-            //totalPrice.setText("Total price: "+total_price);
+            Log.d("tatal_price",total_price);
+            totalPrice.setText("Total price: "+total_price);
         }catch (Exception e){}
 
     }

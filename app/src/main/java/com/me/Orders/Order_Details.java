@@ -5,6 +5,8 @@ import com.me.home.Cart_list;
 public class Order_Details {
     private String total_price;
     private String date_time;
+    private String total_items;
+    private Cart_list cart_list;
 
     public String getDate_time() {
         return date_time;
@@ -22,8 +24,7 @@ public class Order_Details {
         this.total_items = total_items;
     }
 
-    private String total_items;
-    private Cart_list cart_list;
+
 
     public Order_Details(String total_price, String date_time, String total_items, Cart_list cart_list) {
         this.total_price = total_price;
@@ -39,8 +40,12 @@ public class Order_Details {
         return cart_list;
     }
 
-    public void setCart_list(Cart_list cart_list) {
-        this.cart_list = cart_list;
+    public void setCart_list(Cart_list cart_list)
+    {
+        this.cart_list.setAmount(cart_list.getAmount()) ;
+        this.cart_list.setName(cart_list.getName());
+        this.cart_list.setTotal_price(cart_list.getTotal_price());
+
     }
 
     public String getTotal_price() {
