@@ -179,6 +179,7 @@ public class Cart extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             user_reference.removeValue();
+                            cart_lists.clear();
                             order_button.setEnabled(false);
                             cartRecyclerView.setAdapter(null);
                             new Handler().postDelayed(new Runnable() {

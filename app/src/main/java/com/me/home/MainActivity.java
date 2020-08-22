@@ -68,6 +68,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public MainActivity() throws IOException {
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("catogaroes","in onstart");
+        firebaseDatabase= FirebaseDatabase.getInstance();
+//        getting the reference of the Cart
+        DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
+//        here we will pass the user phone number and from that we fetch of
+//        particular user
+        user_reference = cartrefence.child(user_phone);
+        user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // get total available quest
+                int size = (int) dataSnapshot.getChildrenCount();
+                mCartItemCount=size;
+                setupBadge();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,11 +194,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 
     //    to close the navigation bar when the task is completed
     @Override
