@@ -1,5 +1,6 @@
 package com.me.Orders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.view.View;
 
 import com.me.Orders.ui.main.SectionsPagerAdapter;
 import com.me.R;
+import com.me.home.MainActivity;
 
 public class Order_History extends AppCompatActivity {
 
@@ -28,5 +30,12 @@ public class Order_History extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(Order_History.this, MainActivity.class));
+        finish();
     }
 }
