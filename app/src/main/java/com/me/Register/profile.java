@@ -143,17 +143,17 @@ public class profile extends AppCompatActivity {
                 UploadDataRef.child(phone_db).setValue(user, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                        Toast.makeText(getApplicationContext(),"DATA UPDATED SUCCESSFULLY ",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"DATA UPDATED SUCCESSFULLY ",Toast.LENGTH_SHORT).show();
                     }
                 });
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(profile.this,"Redirecting to Homepage.",Toast.LENGTH_SHORT).show();
+
                         Intent intent = new Intent(profile.this, MainActivity.class);
                         startActivity(intent);
                     }
-                },2000);
+                },100);
             }
         });
 
