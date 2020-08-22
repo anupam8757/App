@@ -51,7 +51,7 @@ public class Cart extends AppCompatActivity {
     DatabaseReference user_reference;
     List<Cart_list> cart_lists;
     CartAdapter cartAdapter;
-    String user_phone;
+    public String user_phone;
     String currentDate, currentTime, message="";
     Button order_button;
     private int total_price_of_all_items = 0,total_items = 0;
@@ -74,7 +74,12 @@ public class Cart extends AppCompatActivity {
         emptyText = findViewById(R.id.total_amount_cart);
         emptyText.setVisibility(View.GONE);
 
-        user_phone= getIntent().getStringExtra("user_phone");
+//        this will invoke when the user get the intent from the main
+//        user_phone= getIntent().getStringExtra("user_phone_no");
+
+//       this will invoke when the user get the intent from the catogaries
+//        user_phone= getIntent().getStringExtra("user_phone");
+        user_phone=MainActivity.user_phone;
         cart_toolbar=findViewById(R.id.cart_toolbar);
         setSupportActionBar(cart_toolbar);
 

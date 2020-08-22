@@ -29,7 +29,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
 
     List<Cart_list> cart_list;
     private OnItemClickListener mListener;
-    public String user_phone = Catagories.user_phone;
+    public String user_phone = MainActivity.user_phone;
     private DatabaseReference cartRefence;
     private String pid;
     private LayoutInflater mInflater;

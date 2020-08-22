@@ -303,7 +303,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
             // Respond to a click on the "cart" menu option
             case R.id.action_cart:
                     Intent intent = new Intent(Catagories.this, Cart.class);
-                    intent.putExtra("user_phone", user_phone);
+//                    intent.putExtra("user_phone", user_phone);
                     startActivity(intent);
                 break;
 

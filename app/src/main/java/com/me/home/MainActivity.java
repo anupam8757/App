@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView textCartItemCount;
     private int mCartItemCount = 0;
     public static String user_phone;
-
     private FirebaseDatabase firebaseDatabase;
     private ImageSlider image_slider;
     public MainActivity() throws IOException {
@@ -197,6 +196,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MenuItem searchItem = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) searchItem.getActionView();
 
+        final MenuItem cartItem = menu.findItem(R.id.action_cart_home);
+        View actionView = cartItem.getActionView();
+        textCartItemCount =actionView.findViewById(R.id.cart_badge);
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(cartItem);
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -217,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.action_cart_home:
                 Intent intent = new Intent(MainActivity.this, Cart.class);
-                intent.putExtra("user_phone", user_phone);
+//                intent.putExtra("user_phone_no", user_phone);
                 startActivity(intent);
                 break;
         }
