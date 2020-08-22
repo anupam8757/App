@@ -1,11 +1,16 @@
 package com.me.home;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,19 +78,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
                     setprice(newValue);
                 }
                 else{
-                    Toast.makeText(context, "Maximum amount allowed is  ", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Maximum amount allowed is  ", Toast.LENGTH_SHORT).show();
+                    open();
                 }
             }
 
-//            @Override
-//            public void onClick(View view) {
-//               getamount[0] = Integer.parseInt(holder.amount.getNumber());
-//               setprice(getamount[0]);
-//               current_position.setAmount(getamount[0]);
-//                holder.amount.setNumber(String.valueOf(getamount[0]));
-//            }
-
-//            this method is called every time when the elegant button is onclick
             private void setprice(int i) {
                 int total_price = price*i;
                 holder.total_price.setText("Rs. "+total_price);
@@ -93,6 +90,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
             }
         });
 
+    }
+
+    public void open() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setIcon(R.drawable.confirm)
+                .setMessage(Html.fromHtml("<font color='#000000'><h2>Message</h2>Item cannot be exceed 10 !!</font>"))
+                .setCancelable(false)
+               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+        Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+        //Set negative button background
+        nbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+        //Set negative button text color
+        nbutton.setTextColor(Color.parseColor("#1704FF"));
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        //Set positive button background
+        pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+        //Set positive button text color
+        pbutton.setTextColor(Color.parseColor("#1704FF"));
     }
 
     @Override
