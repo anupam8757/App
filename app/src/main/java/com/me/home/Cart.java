@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.JavaMailApi;
 import com.me.Orders.Order_History;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
@@ -156,7 +157,7 @@ public class Cart extends AppCompatActivity {
     public void updateDetailsToCart(){
 
     Log.d("Cart.java",message);
-
+        sendEmail(message);// Method to call send Email
         total_items = cart_lists.size();
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
@@ -186,6 +187,14 @@ public class Cart extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void sendEmail(String message) {
+        String mmessage=message;
+        String subject= "New Order is Confirmed";
+        String Email="kumaranupam8757@gmail.com";
+        JavaMailApi javaMailApi= new JavaMailApi(Cart.this,Email.toString(),subject.toString(),mmessage.toString());
+        javaMailApi.execute();
     }
 
     @Override
