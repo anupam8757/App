@@ -46,6 +46,7 @@
             app:initialNumber="1"
             app:backGroundColor="@color/cardview_light_background"
             android:layout_gravity="center"
+            app:finalNumber="11"
             app:textColor="#DD2C00"
             app:textSize="10sp"
             android:paddingStart="14dp"

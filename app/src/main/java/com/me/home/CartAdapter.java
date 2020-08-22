@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,14 +64,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         holder.total_price.setText(newprice);
 //        her we will set the final price according to the amount
         final int[] getamount = new int[1];
-        holder.amount.setOnClickListener(new ElegantNumberButton.OnClickListener() {
+        holder.amount.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @Override
-            public void onClick(View view) {
-               getamount[0] = Integer.parseInt(holder.amount.getNumber());
-               setprice(getamount[0]);
-               current_position.setAmount(getamount[0]);
-                holder.amount.setNumber(String.valueOf(getamount[0]));
+            public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
+                if (newValue<=10) {
+                    current_position.setAmount(newValue);
+                    holder.amount.setNumber(String.valueOf(newValue));
+                    setprice(newValue);
+                }
+                else{
+                    Toast.makeText(context, "Maximum amount allowed is  ", Toast.LENGTH_SHORT).show();
+                }
             }
+
+//            @Override
+//            public void onClick(View view) {
+//               getamount[0] = Integer.parseInt(holder.amount.getNumber());
+//               setprice(getamount[0]);
+//               current_position.setAmount(getamount[0]);
+//                holder.amount.setNumber(String.valueOf(getamount[0]));
+//            }
 
 //            this method is called every time when the elegant button is onclick
             private void setprice(int i) {
