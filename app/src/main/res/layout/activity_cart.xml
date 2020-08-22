@@ -22,7 +22,8 @@
         android:id="@+id/linear_text"
         android:layout_height="wrap_content"
         android:layout_below="@id/cart_toolbar"
-
+        android:layout_marginBottom="5dp"
+        android:paddingTop="5dp"
         >
         <TextView
             android:layout_width="0dp"
@@ -57,9 +58,12 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/common_google_signin_btn_text_light_focused"
+        android:layout_height="1dp"
+        android:background="#322F2F"
         android:id="@+id/view"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+
         android:layout_below="@id/linear_text"/>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -99,6 +99,7 @@ public class Cart extends AppCompatActivity {
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cart_lists.clear(); //this will clear the list which will override
                 for (DataSnapshot postSnapshot :snapshot.getChildren()){
                     Cart_list cart_list = postSnapshot.getValue(Cart_list.class);
 //                    adding the item to the list which we get from the data base
@@ -118,12 +119,6 @@ public class Cart extends AppCompatActivity {
                         Log.d("deleted item ",id);
                         DatabaseReference driverRef = user_reference.child(id);
                         driverRef.removeValue();
-
-                        finish();
-                        overridePendingTransition(0,0);
-                        intent.putExtra("user_phone",user_phone);
-                        startActivity(intent);
-                        overridePendingTransition(0,0);
                         cart_lists.remove(position);
                         cartAdapter.notifyItemRemoved(position);
                     }
@@ -217,9 +212,10 @@ public class Cart extends AppCompatActivity {
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
-        builder.setMessage(Html.fromHtml("<font color='#000000'><h2>Confirm Order?</h2> Total price = Rs. </font>"+total_price()));
-        builder.setCancelable(false);
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setIcon(R.drawable.confirm)
+         .setMessage(Html.fromHtml("<font color='#000000'><h2>Confirm Order?</h2> Total price = Rs. </font>"+total_price()))
+         .setCancelable(false)
+         .setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 for(Cart_list cart_list: cart_lists){

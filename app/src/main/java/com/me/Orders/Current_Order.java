@@ -29,7 +29,6 @@ import java.util.Locale;
 
 import io.paperdb.Paper;
 
-
 public class Current_Order extends Fragment {
     DatabaseReference ordersRef;
     private static String user_phone = "", currentDate, total_price, total_items,address = "";

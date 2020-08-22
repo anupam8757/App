@@ -26,7 +26,8 @@
                 android:layout_height="wrap_content"
                 android:text="name"
                 android:textSize="15sp"
-                android:textColor="#2E3033"
+                android:textStyle="bold"
+                android:textColor="#272525"
                 />
             <TextView
                 android:layout_marginTop="2dp"
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="price"
                 android:textSize="13sp"
-                android:textColor="#5EED3A"
+                android:textColor="#72BBD3"
                 />
         </LinearLayout>
 
@@ -43,7 +44,10 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             app:initialNumber="1"
+            app:backGroundColor="@color/cardview_light_background"
             android:layout_gravity="center"
+            app:textColor="#DD2C00"
+            app:textSize="10sp"
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
             android:paddingTop="8dp"
@@ -73,7 +77,9 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#322F2F"/>
+        android:layout_height=".5dp"
+        android:background="#322F2F"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="100dp"/>
 
 </LinearLayout>
