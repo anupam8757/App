@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         checkconnection();
         // for internet connection lost
 
-        Log.d("Mainactivity","In onCreate");
-
         firebaseDatabase= FirebaseDatabase.getInstance();
 //        getting the reference of the Cart
         DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         setcart();
 
-//
+
         View headerView = navigationView.getHeaderView(0);
         TextView userNameHeaderView = headerView.findViewById(R.id.nav_header_name);
         TextView userEmailHeaderView = headerView.findViewById(R.id.nav_header_email);
