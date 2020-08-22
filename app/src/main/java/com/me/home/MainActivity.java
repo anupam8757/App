@@ -173,7 +173,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                      @Override
                      public void onDataChange(@NonNull DataSnapshot snapshot) {
                          for(final DataSnapshot data :snapshot.getChildren()){
-                           slideArray.add(new SlideModel(data.child("url").getValue().toString(),data.child("title").getValue().toString(), ScaleTypes.FIT));
+                           slideArray.add(new SlideModel(data.child("url").getValue().toString(), ScaleTypes.FIT));
+//                             data.child("title").getValue().toString() to set the title
+
                            image_slider.setImageList(slideArray,ScaleTypes.FIT);
 //                           add the listener
                              image_slider.setItemClickListener(new ItemClickListener() {

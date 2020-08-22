@@ -31,16 +31,22 @@
 
 
 <!--   this carousel view code -->
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="6dp"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <com.denzcoskun.imageslider.ImageSlider
         android:id="@+id/image_slider"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         app:iss_auto_cycle="true"
         app:iss_period="4000"
+        app:iss_title_background="@android:color/transparent"
         app:iss_delay="0"
         app:iss_text_align="@string/common_google_play_services_enable_title"
        />
-
+    </androidx.cardview.widget.CardView>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"/>
