@@ -83,7 +83,7 @@ public class login extends AppCompatActivity {
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("http://www.google.com");
+                Uri uri = Uri.parse("https://www.facebook.com/shubhamkumarbala/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
