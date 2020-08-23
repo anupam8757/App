@@ -84,6 +84,7 @@ public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
         order_details.get(position);
         Intent intent = new Intent(getContext(), Old_Order_List.class);
         intent.putExtra("date_time",order_details.get(position).getDate_time());
+        intent.putExtra("total_price",order_details.get(position).getTotal_price());
         startActivity(intent);
     }
 }

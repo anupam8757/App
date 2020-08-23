@@ -23,8 +23,8 @@ import io.paperdb.Paper;
 
 public class Old_Order_List extends AppCompatActivity {
     DatabaseReference ordersRef;
-    private String user_phone;
-    private TextView mTextView;
+    private String user_phone, totalPrice;
+    private TextView mTextView1,mTextView2;
     private String Date_time;
     private ListView orderList;
     ArrayList<Cart_list> cart_lists;
@@ -36,8 +36,12 @@ public class Old_Order_List extends AppCompatActivity {
         Paper.init(this);
         user_phone = Paper.book().read(Prevalent.userPhone);
         Date_time = getIntent().getStringExtra("date_time");
-        mTextView = (TextView) findViewById(R.id.texttt);
-        mTextView.setText(Date_time);
+        totalPrice = getIntent().getStringExtra("total_price");
+
+        mTextView1 = (TextView) findViewById(R.id.texttt);
+        mTextView1.setText(Date_time);
+        mTextView2 = (TextView) findViewById(R.id.total_price);
+        mTextView2.setText("Rs. "+totalPrice);
 
         orderList = findViewById(R.id.order_details_listView);
         cart_lists = new ArrayList<>();
