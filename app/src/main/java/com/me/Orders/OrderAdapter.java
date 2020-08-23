@@ -18,16 +18,18 @@ import java.util.Locale;
 public class OrderAdapter extends RecyclerView.Adapter {
     private List<Order_Details> order_details;
     private String date_time;
+    private OrderClick morderClick;
 
-    public OrderAdapter(List<Order_Details> order_details) {
+    public OrderAdapter(List<Order_Details> order_details,OrderClick morderClick ) {
         this.order_details = order_details;
+        this.morderClick = morderClick;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_history,parent,false);
-        ViewHolderClass viewHolderClass = new ViewHolderClass(view);
+        ViewHolderClass viewHolderClass = new ViewHolderClass(view, morderClick);
         return viewHolderClass;
     }
 
@@ -52,16 +54,27 @@ public class OrderAdapter extends RecyclerView.Adapter {
         return order_details.size();
     }
 
-    public class ViewHolderClass extends RecyclerView.ViewHolder{
+    public class ViewHolderClass extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView date, time, total_price,total_items;
-
-        public ViewHolderClass(@NonNull View itemView) {
+        OrderClick orderClick;
+        public ViewHolderClass(@NonNull View itemView,OrderClick orderClick) {
             super(itemView);
             date = itemView.findViewById(R.id.order_date);
             time = itemView.findViewById(R.id.order_time);
             total_price = itemView.findViewById(R.id.order_total_price);
             total_items = itemView.findViewById(R.id.order_total_items);
+            this.orderClick = orderClick;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            morderClick.onOrderClick(getAdapterPosition());
+        }
+    }
+
+    public interface OrderClick{
+        void onOrderClick(int position);
     }
 
     public String time_12_format(String str){

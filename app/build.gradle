@@ -41,6 +41,7 @@ dependencies {
     implementation files('libs/activation.jar')
     implementation files('libs/additionnal.jar')
     implementation files('libs/mail.jar')
+    implementation 'androidx.wear:wear:1.0.0'
     testImplementation 'junit:junit:4.12'
 
     implementation "androidx.cardview:cardview:1.0.0"
@@ -66,5 +67,6 @@ dependencies {
     implementation 'com.thoughtbot:expandablerecyclerview:1.4'
     implementation 'com.github.medyo:android-about-page:1.2.6'
     implementation 'com.thoughtbot:expandablecheckrecyclerview:1.4'
+    compileOnly 'com.google.android.wearable:wearable:2.7.0'
 
 }

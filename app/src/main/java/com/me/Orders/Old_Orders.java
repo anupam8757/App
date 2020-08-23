@@ -1,5 +1,6 @@
 package com.me.Orders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ import java.util.Locale;
 
 import io.paperdb.Paper;
 
-public class Old_Orders extends Fragment {
+public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
     private RecyclerView orderRecyclerView;
     List<Order_Details> order_details;
     DatabaseReference ordersRef;
@@ -60,16 +61,13 @@ public class Old_Orders extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-//                    String date = dataSnapshot.child("date_time").getValue().toString();
-//                    String[] dateTime = date.split(" ",2);
-//                    if(!currentDate.equals(dateTime[0])){
                         Order_Details data = dataSnapshot.getValue(Order_Details.class);
                         order_details.add(data);
 //                    }
                 }
                 order_details.remove(order_details.size()-1);
                 Collections.reverse(order_details);
-                orderAdapter = new OrderAdapter(order_details);
+                orderAdapter = new OrderAdapter(order_details, Old_Orders.this);
                 orderRecyclerView.setAdapter(orderAdapter);
             }
 
@@ -78,5 +76,14 @@ public class Old_Orders extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onOrderClick(int position) {
+
+        order_details.get(position);
+        Intent intent = new Intent(getContext(), Old_Order_List.class);
+        intent.putExtra("date_time",order_details.get(position).getDate_time());
+        startActivity(intent);
     }
 }

@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.me">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/myicon"
@@ -11,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".AboutUs"></activity>
+
+        <activity android:name=".Orders.Old_Order_List"></activity>
+
+        <activity android:name=".AboutUs" />
         <activity
             android:name=".Orders.Order_History"
             android:label="@string/title_activity_order__history"
@@ -19,10 +25,12 @@
         <activity
             android:name=".home.Cart"
             android:parentActivityName=".home.Catagories" />
+
         <activity android:name=".Admin.AdminCategoryActivity" />
         <activity android:name=".Admin.Admin_Add_New_Product_Activity" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".login" />
+
         <activity
             android:name=".Register.profile"
             android:label="@string/title_activity_profile"
@@ -50,8 +58,5 @@
         <!-- </service> -->
         <activity android:name=".home.MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

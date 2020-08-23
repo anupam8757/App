@@ -37,4 +37,10 @@
     <string name="title_activity_order__history">Order_History</string>
     <string name="tab_text_1">Current Order</string>
     <string name="tab_text_2">Old Orders</string>
+    <string name="title_activity_old__order__details">Old_Order_Details</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>
