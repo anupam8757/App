@@ -99,7 +99,8 @@ public class Current_Order extends Fragment {
                         Log.d("price",""+price);
                         String quantity = Integer.toString(list.getAmount());
                         Log.d("quantity",""+quantity);
-                        Order_list orderList = new Order_list(name,price,quantity);
+                        String total_price=list.getTotal_price();
+                        Order_list orderList = new Order_list(name,price,quantity,total_price);
                         order_lists.add(orderList);
                     }
                 }catch (Exception e){}

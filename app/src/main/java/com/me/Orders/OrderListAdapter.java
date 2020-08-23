@@ -32,8 +32,9 @@ public class OrderListAdapter extends ArrayAdapter<Order_list> {
         String name = getItem(position).name;
         String price = getItem(position).price;
         String quantity = getItem(position).quantity;
+        String total_price=getItem(position).total_price;
 
-        Order_list order_list = new Order_list(name,price,quantity);
+        Order_list order_list = new Order_list(name,price,quantity,total_price);
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         convertView = layoutInflater.inflate(resource,parent,false);
@@ -41,10 +42,12 @@ public class OrderListAdapter extends ArrayAdapter<Order_list> {
         TextView nameTextview = (TextView)convertView.findViewById(R.id.order_list_item_name);
         TextView priceTextView = (TextView)convertView.findViewById(R.id.order_list_item_price);
         TextView quantityTextView = (TextView)convertView.findViewById(R.id.order_list_item_quantity);
+        TextView total_priceTextView=convertView.findViewById(R.id.total_per_price);
         try {
             nameTextview.setText(name);
             priceTextView.setText(price);
             quantityTextView.setText(quantity);
+            total_priceTextView.setText(""+total_price);
         }catch (Exception e){}
 
 

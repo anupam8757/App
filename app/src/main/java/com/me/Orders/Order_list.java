@@ -3,6 +3,18 @@ package com.me.Orders;
 public class Order_list {
     String name;
     String price;
+    String quantity;
+    String total_price;
+
+    public Order_list() {
+    }
+
+    public Order_list(String name, String price, String quantity, String total_price) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.total_price = total_price;
+    }
 
     public String getName() {
         return name;
@@ -12,17 +24,8 @@ public class Order_list {
         this.name = name;
     }
 
-    public Order_list() {
-    }
-
     public String getPrice() {
         return price;
-    }
-
-    public Order_list(String name, String price, String quantity) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
     }
 
     public void setPrice(String price) {
@@ -37,5 +40,15 @@ public class Order_list {
         this.quantity = quantity;
     }
 
-    String quantity;
+    public String getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(String total_price) {
+        this.total_price = total_price;
+    }
 }
+
+
+
+

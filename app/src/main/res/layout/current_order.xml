@@ -55,7 +55,6 @@
         android:layout_height="wrap_content"
         app:expandOnClick="true"
         app:title="date of order"
-        app:inner_view="@layout/current_cart"
         >
 
         <LinearLayout
@@ -88,7 +87,6 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view3"
         android:layout_width="match_parent"
@@ -97,7 +95,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
             <TextView
                 android:id="@+id/total_price_of_order"
                 android:layout_width="160dp"
