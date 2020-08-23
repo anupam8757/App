@@ -114,10 +114,15 @@ public class Current_Order extends Fragment {
             }
 
         });
+        try {
 
-        address = "";
-        address += user.getName()+",\n"+user_phone+", "+user.getAddress();
-        fullAddress.setText(address);
+            address = "";
+            address += user.getName() + ",\n" + user_phone + ", " + user.getAddress();
+            fullAddress.setText(address);
+        }
+        catch (Exception e){
+
+        }
 
 
     }

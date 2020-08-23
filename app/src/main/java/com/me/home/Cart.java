@@ -101,6 +101,15 @@ public class Cart extends AppCompatActivity {
 //        particular user
         user_reference= cartrefence.child(user_phone);
 
+//        TextView emptyView=findViewById(R.id.empty_view);
+//        if (cart_lists.isEmpty()){
+//            cartRecyclerView.setVisibility(View.GONE);
+//            emptyView.setVisibility(View.VISIBLE);
+//        } else {
+//            cartRecyclerView.setVisibility(View.VISIBLE);
+//            emptyView.setVisibility(View.GONE);
+//        }
+
 //        fetch the item from the firebase cart node according to there phone number
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -136,14 +145,7 @@ public class Cart extends AppCompatActivity {
                 Toast.makeText(Cart.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-//        TextView emptyView=findViewById(R.id.empty_view);
-//        if (cart_lists.isEmpty()){
-//            cartRecyclerView.setVisibility(View.GONE);
-//            emptyView.setVisibility(View.VISIBLE);
-//        } else {
-//            cartRecyclerView.setVisibility(View.VISIBLE);
-//            emptyView.setVisibility(View.GONE);
-//        }
+
 
     }
 

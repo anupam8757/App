@@ -65,7 +65,11 @@ public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
                         order_details.add(data);
 //                    }
                 }
-                order_details.remove(order_details.size()-1);
+                int index=order_details.size()-1;
+                if (index!=-1){
+                    order_details.remove(order_details.size() - 1);
+                }
+
                 Collections.reverse(order_details);
                 orderAdapter = new OrderAdapter(order_details, Old_Orders.this);
                 orderRecyclerView.setAdapter(orderAdapter);
