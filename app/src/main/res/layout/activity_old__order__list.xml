@@ -8,16 +8,30 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/cat_toolbar"
+        android:id="@+id/_toolbar_"
         android:background="@color/primaryColor"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:elevation="4dp"
         app:title="Order Details"
-       >
+        >
     </androidx.appcompat.widget.Toolbar>
     <TextView
         android:id="@+id/texttt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_below="@id/_toolbar_"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_below="@id/texttt"
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/order_details_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/texttt"/>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
