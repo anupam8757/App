@@ -5,5 +5,7 @@
     <color name="primaryDarkColor">#004ba0</color>
     <color name="primaryTextColor">#b2b2b2</color>
     <color name="green">#34F10A</color>
+    <color name="red">#D50000</color>
+
 
 </resources>

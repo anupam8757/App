@@ -56,6 +56,7 @@ public class Cart extends AppCompatActivity {
     Button order_button;
     private int total_price_of_all_items = 0,total_items = 0;
     TextView emptyText;
+    TextView emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,14 +102,6 @@ public class Cart extends AppCompatActivity {
 //        particular user
         user_reference= cartrefence.child(user_phone);
 
-//        TextView emptyView=findViewById(R.id.empty_view);
-//        if (cart_lists.isEmpty()){
-//            cartRecyclerView.setVisibility(View.GONE);
-//            emptyView.setVisibility(View.VISIBLE);
-//        } else {
-//            cartRecyclerView.setVisibility(View.VISIBLE);
-//            emptyView.setVisibility(View.GONE);
-//        }
 
 //        fetch the item from the firebase cart node according to there phone number
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -125,6 +118,15 @@ public class Cart extends AppCompatActivity {
                 cartAdapter =new CartAdapter(Cart.this,cart_lists);
                 cartRecyclerView.setAdapter(cartAdapter);
 
+                emptyView=findViewById(R.id.empty_view);
+                if (cartAdapter.getItemCount() == 0){
+                    cartRecyclerView.setAdapter(null);
+                    emptyView.setVisibility(View.VISIBLE);
+                } else {
+                    cartRecyclerView.setAdapter(cartAdapter);
+                    emptyView.setVisibility(View.GONE);
+                }
+
 //                this is code for deleting the item from the cart
                 cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
                     @Override
@@ -136,6 +138,18 @@ public class Cart extends AppCompatActivity {
                         driverRef.removeValue();
                         cart_lists.remove(position);
                         cartAdapter.notifyItemRemoved(position);
+
+//
+                        if (cartAdapter.getItemCount() == 0){
+                            cartRecyclerView.setAdapter(null);
+                            emptyView.setVisibility(View.VISIBLE);
+                            emptyView.setText(Html.fromHtml("<h5>You have deleted all items </h5><br>" +
+                                    "<p> please add item </p>"));
+                            emptyView.setTextColor(getResources().getColor(R.color.red));
+                        } else {
+                            cartRecyclerView.setAdapter(cartAdapter);
+                            emptyView.setVisibility(View.GONE);
+                        }
                     }
                 });
 
