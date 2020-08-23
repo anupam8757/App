@@ -71,6 +71,13 @@
         android:layout_height="match_parent"
         android:id="@+id/cartRecyclerView"
         android:layout_below="@id/view"/>
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="Cart is empty  \n please select the item" />
 
     <FrameLayout
         android:id="@+id/framelayout"

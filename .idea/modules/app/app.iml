@@ -125,6 +125,9 @@
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:2.0.0-beta7@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.synnapps:carouselview:0.0.7@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.cepheuen.elegant-number-button:lib:1.0.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.alespero:expandable-cardview:0.6@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.thoughtbot:expandablecheckrecyclerview:1.4@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.thoughtbot:expandablerecyclerview:1.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat:1.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-database:19.3.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-storage:19.1.1@aar" level="project" />

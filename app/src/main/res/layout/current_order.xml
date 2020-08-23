@@ -46,13 +46,17 @@
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view2"
+    <com.alespero.expandablecardview.ExpandableCardView
+        android:id="@+id/current_cart"
         android:layout_margin="5dp"
         android:layout_below="@id/card_view1"
         app:cardCornerRadius="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:expandOnClick="true"
+        app:title="date of order"
+        app:inner_view="@layout/current_cart"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,5 +114,5 @@
                 android:textColor="#050000"
                 />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.alespero.expandablecardview.ExpandableCardView>
 </RelativeLayout>

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.alespero.expandablecardview.ExpandableCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +39,7 @@ public class Current_Order extends Fragment {
     List order_details;
     List<Cart_list> cart_list;
     Order_Details last_order;
+    private ExpandableCardView current_cart;
     private User user;
     private TextView fullAddress,totalPrice,DateTime,total_no_items;
 
@@ -58,6 +60,9 @@ public class Current_Order extends Fragment {
         totalPrice = view.findViewById(R.id.total_price_of_order);
         DateTime = view.findViewById(R.id.date_time_order);
         total_no_items = view.findViewById(R.id.date_time_order);
+//
+        cart_list=view.findViewById(R.id.current_cart);
+
 
         cart_list = new ArrayList<Cart_list>();
 

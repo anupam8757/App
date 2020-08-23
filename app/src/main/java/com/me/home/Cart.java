@@ -136,6 +136,15 @@ public class Cart extends AppCompatActivity {
                 Toast.makeText(Cart.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+//        TextView emptyView=findViewById(R.id.empty_view);
+//        if (cart_lists.isEmpty()){
+//            cartRecyclerView.setVisibility(View.GONE);
+//            emptyView.setVisibility(View.VISIBLE);
+//        } else {
+//            cartRecyclerView.setVisibility(View.VISIBLE);
+//            emptyView.setVisibility(View.GONE);
+//        }
+
     }
 
     private void checkConnection() {
