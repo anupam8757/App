@@ -64,7 +64,7 @@ dependencies {
     implementation 'com.alespero:expandable-cardview:0.6'
 
     implementation 'com.thoughtbot:expandablerecyclerview:1.4'
-
+    implementation 'com.github.medyo:android-about-page:1.2.6'
     implementation 'com.thoughtbot:expandablecheckrecyclerview:1.4'
 
 }

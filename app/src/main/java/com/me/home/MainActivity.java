@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.AboutUs;
 import com.me.Orders.Order_History;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
@@ -288,7 +289,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(Intent.createChooser(shareIntent,"Share Using"));
                 break;
             case R.id.app_about:
-                Toast.makeText(this, "this is app of e comerse", Toast.LENGTH_SHORT).show();
+                Intent aboutus= new Intent(MainActivity.this, AboutUs.class);
+                startActivity(aboutus);
                 break;
             case R.id.app_contact:
                 String p = "6202123103";

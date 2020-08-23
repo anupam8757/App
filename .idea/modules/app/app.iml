@@ -204,5 +204,6 @@
     <orderEntry type="library" name="Gradle: com.github.denzcoskun:ImageSlideshow:0.0.7@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.hajiyevelnur92:intentanimation:1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.jakewharton:process-phoenix:2.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.medyo:android-about-page:1.2.6@aar" level="project" />
   </component>
 </module>

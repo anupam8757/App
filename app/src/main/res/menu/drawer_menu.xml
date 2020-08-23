@@ -7,7 +7,7 @@
 <group android:checkableBehavior="single"
     android:id="@+id/menu_top">
     <item
-        android:title="profile"
+        android:title="My Profile"
         android:id="@+id/user_profile"
         app:showAsAction="always"
         android:icon="@drawable/profile"/>
@@ -17,20 +17,16 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_shopping_cart"
         />
-    <item
-        android:title="logout"
-        android:id="@+id/app_logout"
-        app:showAsAction="always"
-        android:icon="@drawable/logout"/>
+
 
 
     <item
-        android:title="share"
+        android:title="Share App"
         android:id="@+id/app_share"
         app:showAsAction="always"
         android:icon="@drawable/share"/>
     <item
-        android:title="about"
+        android:title="About Us"
         android:id="@+id/app_about"
         app:showAsAction="always"
         android:icon="@drawable/about"/>
@@ -39,6 +35,11 @@
         android:id="@+id/app_contact"
         app:showAsAction="always"
         android:icon="@drawable/phone"/>
+    <item
+        android:title="Logout"
+        android:id="@+id/app_logout"
+        app:showAsAction="always"
+        android:icon="@drawable/logout"/>
 
     </group>
 
