@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.alespero.expandablecardview.ExpandableCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,10 +36,8 @@ import io.paperdb.Paper;
 public class Current_Order extends Fragment {
     DatabaseReference ordersRef;
     private static String user_phone = "", FetchedTime, total_price, total_items,address = "";
-    List order_details;
     List<Cart_list> cart_list;
-    Order_Details last_order;
-    private ExpandableCardView current_cart;
+    ArrayList<String> key = new ArrayList<>();
     private User user;
     private TextView fullAddress,totalPrice,DateTime,total_no_items;
 
@@ -60,11 +58,8 @@ public class Current_Order extends Fragment {
         totalPrice = view.findViewById(R.id.total_price_of_order);
         DateTime = view.findViewById(R.id.date_time_order);
         total_no_items = view.findViewById(R.id.date_time_order);
-//
-        cart_list=view.findViewById(R.id.current_cart);
 
-
-        cart_list = new ArrayList<Cart_list>();
+        cart_list = new ArrayList<>();
 
         ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(user_phone);
         Query last_child = ordersRef.orderByKey().limitToLast(1);
@@ -72,17 +67,27 @@ public class Current_Order extends Fragment {
         last_child.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int i = 0;
+
                 Log.d("In..Cart","Before Loop");
                 for (DataSnapshot order: dataSnapshot.getChildren()){
-                    Log.d("In Cart",""+order.child("Cart").getValue().toString());
-//
-//                    for(DataSnapshot cart_list1: order.child("Cart").getChildren()){
-//                        Log.d("In Cart",""+cart_list1.child(Integer.toString(i)).toString());
-//                        cart_list.add(cart_list1.child(Integer.toString(i)).getValue(Cart_list.class));
-//                        i++;
-//                    }
 
+                    for(DataSnapshot cart_list1: order.child("Cart").getChildren()){
+                        key.add(cart_list1.getKey());
+                    }
+
+                    try{
+                        for(String curKey: key){
+                            Cart_list curValue = new Cart_list();
+                            curValue = order.child("Cart").child(curKey).getValue(Cart_list.class);
+                            Log.d("Current Value",order.child("Cart").child(curKey).getValue().toString());
+                            cart_list.add(curValue);
+                        }
+                    }catch (Exception e){}
+
+                    Log.d("Array length",""+key.size());
+                    Log.d("Array length",""+cart_list.size());
+                    try{
+                        Log.d("Array 1st element",""+cart_list.get(key.size()-2).getName());}catch (Exception e){}
                     total_items = order.child("total_items").getValue().toString();
                     total_price = order.child("total_price").getValue().toString();
                     FetchedTime = order.child("date_time").getValue().toString();
@@ -98,7 +103,6 @@ public class Current_Order extends Fragment {
             }
 
         });
-
         address = "";
         address += user.getName()+",\n"+user_phone+", "+user.getAddress();
         fullAddress.setText(address);
