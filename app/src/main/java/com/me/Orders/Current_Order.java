@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,16 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.me.Model.User;
 import com.me.Prevalent.Prevalent;
 import com.me.R;
-import com.me.home.Cart;
 import com.me.home.Cart_list;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import io.paperdb.Paper;
 
@@ -39,6 +35,7 @@ public class Current_Order extends Fragment {
     List<Cart_list> cart_list;
     ArrayList<String> key = new ArrayList<>();
     private User user;
+    private ListView orderList;
     private TextView fullAddress,totalPrice,DateTime,total_no_items;
 
     @Nullable
@@ -58,6 +55,7 @@ public class Current_Order extends Fragment {
         totalPrice = view.findViewById(R.id.total_price_of_order);
         DateTime = view.findViewById(R.id.date_time_order);
         total_no_items = view.findViewById(R.id.date_time_order);
+        orderList = view.findViewById(R.id.list_view_orders);
 
         cart_list = new ArrayList<>();
 
@@ -67,14 +65,11 @@ public class Current_Order extends Fragment {
         last_child.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 Log.d("In..Cart","Before Loop");
                 for (DataSnapshot order: dataSnapshot.getChildren()){
-
                     for(DataSnapshot cart_list1: order.child("Cart").getChildren()){
                         key.add(cart_list1.getKey());
                     }
-
                     try{
                         for(String curKey: key){
                             Cart_list curValue = new Cart_list();
@@ -95,6 +90,21 @@ public class Current_Order extends Fragment {
                 totalPrice.setText("Total price: "+total_price);
                 DateTime.setText(FetchedTime);
                 total_no_items.setText("Total items: "+total_items);
+                ArrayList<Order_list> order_lists = new ArrayList<>();
+                try{
+                    for(Cart_list list: cart_list){
+                        String name = list.getName();
+                        Log.d("name",""+name);
+                        String price = list.getPrice();
+                        Log.d("price",""+price);
+                        String quantity = Integer.toString(list.getAmount());
+                        Log.d("quantity",""+quantity);
+                        Order_list orderList = new Order_list(name,price,quantity);
+                        order_lists.add(orderList);
+                    }
+                }catch (Exception e){}
+                OrderListAdapter adapter = new OrderListAdapter(getContext(), R.layout.order_list, order_lists);
+                orderList.setAdapter(adapter);
             }
 
             @Override
@@ -103,9 +113,11 @@ public class Current_Order extends Fragment {
             }
 
         });
+
         address = "";
         address += user.getName()+",\n"+user_phone+", "+user.getAddress();
         fullAddress.setText(address);
+
 
     }
 }
