@@ -278,7 +278,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.app_share:
-                Toast.makeText(this, "here i will give the link of google play ", Toast.LENGTH_LONG).show();
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                String sharebody="https://play.google.com/store/apps/details?id=com.udaan.recstudentportalV2%hl=en";
+                String Subject="Fast Delivery APP";
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT,Subject);
+                shareIntent.putExtra(Intent.EXTRA_TEXT,sharebody);
+                startActivity(Intent.createChooser(shareIntent,"Share Using"));
                 break;
             case R.id.app_about:
                 Toast.makeText(this, "this is app of e comerse", Toast.LENGTH_SHORT).show();
