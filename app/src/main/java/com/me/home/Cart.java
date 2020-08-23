@@ -122,8 +122,10 @@ public class Cart extends AppCompatActivity {
                 if (cartAdapter.getItemCount() == 0){
                     cartRecyclerView.setAdapter(null);
                     emptyView.setVisibility(View.VISIBLE);
+                    order_button.setVisibility(View.GONE);
                 } else {
                     cartRecyclerView.setAdapter(cartAdapter);
+                    order_button.setVisibility(View.VISIBLE);
                     emptyView.setVisibility(View.GONE);
                 }
 
@@ -145,9 +147,11 @@ public class Cart extends AppCompatActivity {
                             emptyView.setVisibility(View.VISIBLE);
                             emptyView.setText(Html.fromHtml("<h5>You have deleted all items </h5><br>" +
                                     "<p> please add item </p>"));
+                            order_button.setVisibility(View.GONE);
                             emptyView.setTextColor(getResources().getColor(R.color.red));
                         } else {
                             cartRecyclerView.setAdapter(cartAdapter);
+                            order_button.setVisibility(View.VISIBLE);
                             emptyView.setVisibility(View.GONE);
                         }
                     }
