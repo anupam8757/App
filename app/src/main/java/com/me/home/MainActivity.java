@@ -174,15 +174,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                      @Override
                      public void onDataChange(@NonNull DataSnapshot snapshot) {
                          for(final DataSnapshot data :snapshot.getChildren()){
-                           slideArray.add(new SlideModel(data.child("url").getValue().toString(), ScaleTypes.FIT));
-//                             data.child("title").getValue().toString() to set the title
-
+                           slideArray.add(new SlideModel(data.child("url").getValue().toString(), data.child("title").getValue().toString(),ScaleTypes.FIT));
+//
                            image_slider.setImageList(slideArray,ScaleTypes.FIT);
 //                           add the listener
                              image_slider.setItemClickListener(new ItemClickListener() {
                                  @Override
                                  public void onItemSelected(int i) {
-                                     Toast.makeText(MainActivity.this, slideArray.get(i).getTitle().toString(), Toast.LENGTH_LONG).show();
+                                      String name= slideArray.get(i).getTitle().trim();
+                                     Intent intent = new Intent(MainActivity.this, Catagories.class);
+                                     intent.putExtra("cat_name",name);
+                                     startActivity(intent);
                                  }
                              });
 
