@@ -39,7 +39,7 @@
         android:layout_width="277dp"
         android:layout_height="71dp"
         android:fontFamily="cursive"
-        android:text="Welcome to Shophere"
+        android:text="Welcome to Yukkti"
         android:textAlignment="textStart"
         android:textColor="#b2b2b2"
         android:textSize="35sp"
