@@ -36,7 +36,7 @@ public class Current_Order extends Fragment {
     ArrayList<String> key = new ArrayList<>();
     private User user;
     private ListView orderList;
-    private TextView fullAddress,totalPrice,DateTime,total_no_items;
+    private TextView fullAddress,totalPrice,DateTime,total_no_items,user_name;
 
     @Nullable
     @Override
@@ -53,8 +53,9 @@ public class Current_Order extends Fragment {
 
         fullAddress = view.findViewById(R.id.address_full);
         totalPrice = view.findViewById(R.id.total_price_of_order);
-        DateTime = view.findViewById(R.id.date_time_order);
-        total_no_items = view.findViewById(R.id.date_time_order);
+        user_name = view.findViewById(R.id.user_name);
+//        DateTime = view.findViewById(R.id.date_time_order);
+//        total_no_items = view.findViewById(R.id.date_time_order);
         orderList = view.findViewById(R.id.list_view_orders);
 
         cart_list = new ArrayList<>();
@@ -87,9 +88,9 @@ public class Current_Order extends Fragment {
                     total_price = order.child("total_price").getValue().toString();
                     FetchedTime = order.child("date_time").getValue().toString();
                 }
-                totalPrice.setText("Total price: "+total_price);
-                DateTime.setText(FetchedTime);
-                total_no_items.setText("Total items: "+total_items);
+                totalPrice.setText(" Rs. "+total_price);
+//                DateTime.setText(FetchedTime);
+//                total_no_items.setText("Total items: "+total_items);
                 ArrayList<Order_list> order_lists = new ArrayList<>();
                 try{
                     for(Cart_list list: cart_list){
@@ -115,7 +116,7 @@ public class Current_Order extends Fragment {
 
         });
         try {
-
+            user_name.setText("Thank you "+ user.getName()+",\n"+"your order is successfully placed.");
             address = "";
             address += user.getName() + ",\n" + user_phone + ", " + user.getAddress();
             fullAddress.setText(address);
