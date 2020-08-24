@@ -73,7 +73,7 @@ public class Cart extends AppCompatActivity {
         });
 
         emptyText = findViewById(R.id.total_amount_cart);
-        emptyText.setVisibility(View.GONE);
+        emptyText.setVisibility(View.INVISIBLE);
 
 //        this will invoke when the user get the intent from the main
 //        user_phone= getIntent().getStringExtra("user_phone_no");
