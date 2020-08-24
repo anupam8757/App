@@ -19,7 +19,6 @@
         />
 
 
-
     <item
         android:title="Share App"
         android:id="@+id/app_share"

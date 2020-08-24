@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,8 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //       toolbar in main Activity is added
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         // reference of the main layout ie drawer layout
         drawer = findViewById(R.id.drawer_layout);
@@ -299,6 +298,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent in = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", p, null));
                 startActivity(in);
                 break;
+
 
         }
         return true;
