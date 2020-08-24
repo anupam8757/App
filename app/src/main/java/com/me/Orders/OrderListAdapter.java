@@ -45,9 +45,9 @@ public class OrderListAdapter extends ArrayAdapter<Order_list> {
         TextView total_priceTextView=convertView.findViewById(R.id.total_per_price);
         try {
             nameTextview.setText(name);
-            priceTextView.setText(price);
-            quantityTextView.setText(quantity);
-            total_priceTextView.setText(""+total_price);
+            priceTextView.setText("Rs. "+price);
+            quantityTextView.setText(quantity+" x ");
+            total_priceTextView.setText("=  Rs. "+total_price);
         }catch (Exception e){}
 
 

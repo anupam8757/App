@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,7 +59,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
     private int mCartItemCount = 0;
     public static String user_phone;
     private DatabaseReference user_reference;
-
+    LinearLayout linearLayout;
     @Override
     protected void onStart() {
         super.onStart();
@@ -89,6 +91,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catagories);
         CheckConnection();
+        linearLayout=findViewById(R.id.Catogaries_layout);
         Paper.init(this);
         cat_toolbar=findViewById(R.id.cat_toolbar);
         setSupportActionBar(cat_toolbar);
@@ -383,7 +386,8 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                                 }).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
+                                Snackbar.make(linearLayout,"Item added to Cart",Snackbar.LENGTH_LONG).show();
                             }
                         });
                     }

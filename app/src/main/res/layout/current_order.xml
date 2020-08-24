@@ -4,51 +4,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
-<androidx.cardview.widget.CardView
-    android:id="@+id/card_view1"
-    android:layout_margin="5dp"
-    app:cardCornerRadius="15dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        android:id="@+id/Material_cardView"
         >
-        <TextView
-            android:id="@+id/address_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Delivery Address:"
-            android:layout_marginBottom="3dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="#050000"
-            />
-        <View
+            android:background="@color/primaryLightColor"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:padding="25dp"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_below="@id/Material_cardView"
+        android:id="@+id/card_view1"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#4C54F3"/>
-        <TextView
-            android:id="@+id/address_full"
-            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:text="Full Address"
-            android:layout_marginTop="3dp"
-            android:textSize="15sp"
-            android:maxLines="5"
-            android:textStyle="bold"
-            android:textColor="#050000"
-            />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:padding="10dp"
+            >
+            <TextView
+                android:id="@+id/address_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delivery Address:"
+                android:layout_marginBottom="3dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#050000"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#4C54F3"/>
+            <TextView
+                android:id="@+id/address_full"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Full Address"
+                android:layout_marginTop="3dp"
+                android:textSize="15sp"
+                android:maxLines="6"
+                android:textStyle="bold"
+                android:textColor="#050000"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/current_cart"
-        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@id/card_view1"
         app:cardCornerRadius="15dp"
         android:layout_width="match_parent"
@@ -79,57 +104,72 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#4C54F3"/>
-           <ListView
-               android:id="@+id/list_view_orders"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               />
+            <ListView
+                android:id="@+id/list_view_orders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view3"
-        android:layout_width="match_parent"
+    <com.google.android.material.card.MaterialCardView
         android:layout_below="@id/current_cart"
+        android:padding="4dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_below="@id/card_view4"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:paddingStart="10dp"
+                android:gravity="left"
+                android:layout_marginLeft="10dp"
+                android:text="Total Price : "
+                android:layout_weight="80"/>
+            <TextView
+                android:gravity="center_horizontal"
+                android:layout_marginRight="4dp"
                 android:id="@+id/total_price_of_order"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total price: "
-                android:layout_marginTop="3dp"
                 android:textSize="15sp"
-                android:maxLines="5"
-                android:textStyle="bold"
-                android:textColor="#050000"
-                />
-            <TextView
-                android:id="@+id/date_time_order"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:text="Date time"
-                android:layout_marginTop="3dp"
-                android:textSize="15sp"
-                android:maxLines="5"
-                android:textStyle="bold"
-                android:textColor="#050000"
-                />
-            <TextView
-                android:id="@+id/total_amount_order"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:text="Date time"
-                android:layout_marginTop="3dp"
-                android:textSize="15sp"
-                android:maxLines="5"
-                android:textStyle="bold"
-                android:textColor="#050000"
-                />
+                android:text="price"
+                android:layout_weight="20"/>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/text5"
+            android:background="#4C54F3"
+            android:layout_alignTop="@id/text5"/>
+        <TextView
+            android:id="@+id/text5"
+            android:layout_marginTop="2dp"
+            android:background="#4C54F3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Contact us @7845661440\n for any Queries."
+            android:padding="15dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            />
+    </LinearLayout>
 </RelativeLayout>
