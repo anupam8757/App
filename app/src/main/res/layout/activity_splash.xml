@@ -9,28 +9,22 @@
 
     <ImageView
         android:id="@+id/shophereLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp"
-        android:src="@drawable/myicon" />
+        android:layout_marginTop="100dp"
+        android:src="@drawable/yukti" />
 
     <TextView
-        android:id="@+id/splashAppName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/shophereLogo"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="sans-serif"
-        android:text="@string/app_name"
-        android:textColor="@color/primaryColor"
-        android:textSize="40sp" />
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/splashAppName"
+        android:gravity="center_horizontal"
+        android:id="@+id/splash_des"
         android:text="@string/appDescription"
-        android:textSize="17sp"
+        android:textColor="#2962FF"
+        android:textSize="20sp"
+        android:textStyle="normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -50,7 +44,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <ImageView
-
                 android:src="@drawable/heart"
                 android:layout_width="24dp"
                 android:layout_height="24dp"/>
