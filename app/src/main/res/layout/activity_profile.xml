@@ -13,18 +13,28 @@
             android:layout_height="300dp"
             android:background="@drawable/gradianbackground"
             >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#E6EDCF"
+                android:textSize="40sp"
+                android:text="Welcome to Yukkati"
+                android:fontFamily="cursive"
+                android:layout_centerHorizontal="true"
+
+                />
 
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="250dp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
                 android:src="@drawable/my_profile"
-                android:id="@+id/my_prifile"/>
+                android:id="@+id/my_prifile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/my_prifile"
                 android:text="name"
                 android:id="@+id/userId"
                 android:textColor="@color/colorText"
