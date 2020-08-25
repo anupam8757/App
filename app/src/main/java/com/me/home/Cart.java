@@ -267,13 +267,7 @@ public class Cart extends AppCompatActivity {
          .setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                for(Cart_list cart_list: cart_lists){
-                    cart_list.setAmount(1);
-                    String p = cart_list.getPrice();
-                    cart_list.setPrice(p);
-                    cart_list.setTotal_price(p);
                     emptyText.setVisibility(View.GONE);
-                }
             }
         });
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

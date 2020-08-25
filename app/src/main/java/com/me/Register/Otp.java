@@ -86,7 +86,13 @@ public class Otp extends AppCompatActivity {
                     editText.requestFocus();
                     return;
                 }
-                verifyCode(code);
+                else if(code.length() == 6){
+                    verifyCode(code);
+                }
+                else{
+                    editText.setError("Enter correct code.........");
+                    editText.requestFocus();
+                }
             }
         });
 
@@ -192,7 +198,9 @@ public class Otp extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Toast.makeText(Otp.this, e.getMessage(),Toast.LENGTH_LONG).show();
+            Paper.clear(getApplicationContext());
+            Toast.makeText(Otp.this, "You have entered wrong Phone or Otp.",Toast.LENGTH_LONG).show();
+            startActivity(new Intent(Otp.this, register.class));
         }
     };
 }
