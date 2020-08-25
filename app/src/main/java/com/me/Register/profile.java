@@ -125,9 +125,9 @@ public class profile extends AppCompatActivity {
 
 
                 final String Address= address.getText().toString().trim();
-                if(TextUtils.isEmpty(Address) || address.length()<=6)
+                if(TextUtils.isEmpty(Address) || address.length()<6)
                 {
-                    address.setError("Address Can't be Empty ");
+                    address.setError("Enter valid address!");
                     address.requestFocus();
                     return;
                 }
