@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.me.Prevalent.Prevalent;
 import com.me.R;
 
 import java.util.List;
@@ -38,47 +39,58 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
     private DatabaseReference cartRefence;
     private String pid;
     private LayoutInflater mInflater;
+    private DatabaseReference dbref;
+    Intent intent;
 
     Context context;
     public CartAdapter(Context context, List<Cart_list> cart_lists) {
         this.context=context;
         this.mInflater = LayoutInflater.from(context);
         this.cart_list = cart_lists;
-        cartRefence = FirebaseDatabase.getInstance().getReference().child("Cart").child(user_phone);
+        setHasStableIds(true);
     }
 
     @NonNull
     @Override
     public CartAdapter_Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Paper.init(context);
+        intent = new Intent(context,Cart.class);
+        user_phone = Paper.book().read(Prevalent.userPhone);
+        dbref = FirebaseDatabase.getInstance().getReference().child("Cart").child(user_phone);
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.cart_item, parent, false);
+        cartRefence = FirebaseDatabase.getInstance().getReference().child("Cart").child(user_phone);
         return new CartAdapter.CartAdapter_Holder(listItem,mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CartAdapter_Holder holder, int position) {
+    public void onBindViewHolder(@NonNull final CartAdapter_Holder holder, final int position) {
         final Cart_list current_position = cart_list.get(position);
         pid = current_position.getPid();
-        Log.d("name",current_position.getName());
+
 //        setting the name
         holder.name.setText(current_position.getName());
+
 //        setting the final price for the each item in layout
         final int price=Integer.parseInt(current_position.getPrice());
         String newprice="Rs. "+current_position.getPrice();
         holder.price.setText(newprice);
-        holder.total_price.setText(newprice);
+        int amt = current_position.getAmount();
+        holder.total_price.setText(Integer.toString(amt*price));
+        holder.amount.setNumber(Integer.toString(amt));
 //        her we will set the final price according to the amount
         final int[] getamount = new int[1];
+
         holder.amount.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @Override
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
                 if (newValue<=10) {
                     current_position.setAmount(newValue);
                     holder.amount.setNumber(String.valueOf(newValue));
+                    cart_list.get(position).setAmount(newValue );
                     setprice(newValue);
                 }
                 else{
-//                    Toast.makeText(context, "Maximum amount allowed is  ", Toast.LENGTH_SHORT).show();
                     open();
                 }
             }
@@ -87,6 +99,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
                 int total_price = price*i;
                 holder.total_price.setText("Rs. "+total_price);
                 current_position.setTotal_price(Integer.toString(total_price));
+                cart_list.get(position).setTotal_price(Integer.toString(total_price));
             }
         });
 
@@ -121,7 +134,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         return cart_list.size();
     }
 
-    public static class CartAdapter_Holder extends RecyclerView.ViewHolder {
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+    public class CartAdapter_Holder extends RecyclerView.ViewHolder {
         public ElegantNumberButton amount;
         public TextView name;
         private TextView price;
@@ -139,10 +160,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
             cart_delete_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position = getAdapterPosition();
                     if (listener != null) {
-                        int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
+            amount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null) {
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onPlusMinusClick(position,Integer.parseInt(amount.getNumber()));
                         }
                     }
                 }
@@ -151,6 +183,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
     }
     public interface OnItemClickListener {
         void onDeleteClick(int position);
+        void onPlusMinusClick(int position, int amt);
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;

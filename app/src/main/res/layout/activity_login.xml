@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/label2"
-    android:background="@drawable/back_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Register.register">
@@ -25,15 +24,15 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="128dp"
-        android:layout_height="112dp"
-        android:src="@drawable/myicon"
+        android:layout_width="164dp"
+        android:layout_height="144dp"
+        android:src="@drawable/yukti"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView"
@@ -49,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintVertical_bias="0.234" />
 
     <TextView
         android:id="@+id/textView2"

@@ -84,7 +84,6 @@ public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
 
     @Override
     public void onOrderClick(int position) {
-
         order_details.get(position);
         Intent intent = new Intent(getContext(), Old_Order_List.class);
         intent.putExtra("date_time",order_details.get(position).getDate_time());

@@ -41,7 +41,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
+
+import io.paperdb.Paper;
 
 public class Cart extends AppCompatActivity {
     private Toolbar cart_toolbar;
@@ -64,6 +67,7 @@ public class Cart extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
         checkConnection();
         order_button=findViewById(R.id.fab);
+        Paper.init(this);
 
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,12 +79,8 @@ public class Cart extends AppCompatActivity {
         emptyText = findViewById(R.id.total_amount_cart);
         emptyText.setVisibility(View.INVISIBLE);
 
-//        this will invoke when the user get the intent from the main
-//        user_phone= getIntent().getStringExtra("user_phone_no");
 
-//       this will invoke when the user get the intent from the catogaries
-//        user_phone= getIntent().getStringExtra("user_phone");
-        user_phone=MainActivity.user_phone;
+        user_phone = Paper.book().read(Prevalent.userPhone);
         cart_toolbar=findViewById(R.id.cart_toolbar);
         setSupportActionBar(cart_toolbar);
 
@@ -90,7 +90,6 @@ public class Cart extends AppCompatActivity {
         cart_lists=new  ArrayList<>();
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
-
 
 //        implement the database
         firebaseDatabase= FirebaseDatabase.getInstance();
@@ -130,7 +129,7 @@ public class Cart extends AppCompatActivity {
                 }
 
 //                this is code for deleting the item from the cart
-                cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
+   cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
                     @Override
                     public void onDeleteClick(int position) {
                         Intent intent = new Intent(Cart.this,Cart.class);
@@ -140,8 +139,8 @@ public class Cart extends AppCompatActivity {
                         driverRef.removeValue();
                         cart_lists.remove(position);
                         cartAdapter.notifyItemRemoved(position);
+                        cartAdapter.notifyDataSetChanged();
 
-//
                         if (cartAdapter.getItemCount() == 0){
                             cartRecyclerView.setAdapter(null);
                             emptyView.setVisibility(View.VISIBLE);
@@ -155,7 +154,13 @@ public class Cart extends AppCompatActivity {
                             emptyView.setVisibility(View.GONE);
                         }
                     }
-                });
+
+       @Override
+       public void onPlusMinusClick(int position, int amt) {
+                        Log.d("amount "," "+amt);
+           cart_lists.get(position).setAmount(amt);
+       }
+   });
 
             }
             @Override

@@ -12,7 +12,7 @@
         android:id="@+id/icon"
         android:layout_width="152dp"
         android:layout_height="120dp"
-        android:src="@drawable/myicon"
+        android:src="@drawable/yukti"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.46"

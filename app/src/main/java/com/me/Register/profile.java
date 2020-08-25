@@ -61,7 +61,6 @@ public class profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         checkInternetconnection();
         setContentView(R.layout.activity_profile);
-        flag = findViewById(R.id.userId);
         Paper.init(this);
         phone_db= Paper.book().read(Prevalent.userPhone);
         Log.d("profile.java",phone_db);
