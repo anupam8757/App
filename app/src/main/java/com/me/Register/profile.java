@@ -40,7 +40,6 @@ import io.paperdb.Paper;
 
 public class profile extends AppCompatActivity {
 
-
     private TextView flag;
     private EditText name,email,phone,address;
     private Button register;
