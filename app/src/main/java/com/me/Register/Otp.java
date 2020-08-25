@@ -51,9 +51,9 @@ public class Otp extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
+        Intent intent = new Intent(Otp.this,register.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -136,9 +136,9 @@ public class Otp extends AppCompatActivity {
                             HashMap<String, Object> userdataMap = new HashMap<>();
                             userdataMap.put("phone",phonenumber);
                             userdataMap.put("password",pass);
-                            userdataMap.put("name","no value");
-                            userdataMap.put("address","no value");
-                            userdataMap.put("email","no value");
+                            userdataMap.put("name"," ");
+                            userdataMap.put("address"," ");
+                            userdataMap.put("email"," ");
                             rootRef.child("Users").child(phonenumber).updateChildren(userdataMap)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -148,6 +148,7 @@ public class Otp extends AppCompatActivity {
                                                 ProcessPhoenix.triggerRebirth(Otp.this,new Intent(Otp.this, profile.class));
                                                 Intent intent = new Intent(Otp.this, MainActivity.class);
                                                 startActivity(intent);
+                                                finish();
                                             }
                                             else{
                                                 progressBar.setVisibility(View.GONE);
@@ -155,6 +156,7 @@ public class Otp extends AppCompatActivity {
                                                 Intent intent = new Intent(Intent.ACTION_MAIN);
                                                 intent.addCategory(Intent.CATEGORY_HOME);
                                                 startActivity(intent);
+                                                finish();
                                             }
                                         }
                                     });
@@ -162,6 +164,10 @@ public class Otp extends AppCompatActivity {
                             String message = "Something is wrong, we will fix it soon...";
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 message = "Invalid code entered...";
+                                progressBar.setVisibility(View.GONE);
+                                Paper.delete(Prevalent.userPhone);
+                                Paper.delete(Prevalent.userPassword);
+                                Prevalent.currentOnlineUser = null;
                             }
                             Toast.makeText(Otp.this,message,Toast.LENGTH_SHORT).show();
                         }
@@ -198,9 +204,17 @@ public class Otp extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Paper.clear(getApplicationContext());
-            Toast.makeText(Otp.this, "You have entered wrong Phone or Otp.",Toast.LENGTH_LONG).show();
+            Paper.clear(
+                    Otp.this
+            );
+            Paper.delete(Prevalent.userPhone);
+            Paper.delete(Prevalent.userPassword);
+            Prevalent.currentOnlineUser = null;
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(Otp.this, "You have entered wrong Phone number or otp.",Toast.LENGTH_LONG).show();
             startActivity(new Intent(Otp.this, register.class));
+            finish();
         }
     };
+
 }

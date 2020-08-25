@@ -65,9 +65,7 @@ public class Admin_Add_New_Product_Activity extends AppCompatActivity {
 //      if there not exits previously ;
         productImageRef = FirebaseStorage.getInstance().getReference().child("Product Images");
 
-
         // get the reference of the database
-
         productRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +166,7 @@ public class Admin_Add_New_Product_Activity extends AppCompatActivity {
                             Toast.makeText(Admin_Add_New_Product_Activity.this,"Product added...",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Admin_Add_New_Product_Activity.this, AdminCategoryActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                         else{
                             String message = task.getException().toString();

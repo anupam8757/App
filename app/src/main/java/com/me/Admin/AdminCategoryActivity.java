@@ -9,12 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.me.R;
+import com.me.home.MainActivity;
 
 public class AdminCategoryActivity extends AppCompatActivity {
 
     private TextView grocery, vegetable, fruits, other,beverages;
     private TextView snacks_packed_food, beauty,cleaning,kitchen_garden_pets, non_veg;
     private TextView baby_care, bakery, restaurants;
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AdminCategoryActivity.this, MainActivity.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

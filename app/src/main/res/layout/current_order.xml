@@ -107,13 +107,13 @@
             <ListView
                 android:id="@+id/list_view_orders"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_below="@id/current_cart"
+        android:layout_above="@id/text9"
         android:padding="4dp"
         android:theme="@style/Theme.MaterialComponents.Light"
         android:layout_width="match_parent"
@@ -132,6 +132,8 @@
                 android:textSize="15sp"
                 android:paddingStart="10dp"
                 android:gravity="left"
+                android:textColor="#000000"
+                android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:text="Total Price : "
                 android:layout_weight="80"/>
@@ -140,6 +142,8 @@
                 android:layout_marginRight="4dp"
                 android:id="@+id/total_price_of_order"
                 android:layout_width="wrap_content"
+                android:textColor="#000000"
+                android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:text="price"
@@ -147,6 +151,7 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
     <LinearLayout
+        android:id="@+id/text9"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -32,6 +33,9 @@ import com.me.R;
 import com.me.Model.User;
 import com.me.home.MainActivity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import io.paperdb.Paper;
 
 public class profile extends AppCompatActivity {
@@ -43,7 +47,6 @@ public class profile extends AppCompatActivity {
     private static User user = new User();
     private ImageView imageView;
     private ProgressBar progressBar;
-    // long maxid=0;
     private DatabaseReference FetchDataRef, UploadDataRef;
     String full_nameDB,Email_DB,Address_DB,phone_db,pass_db;//this we will fetch from database
 
@@ -103,7 +106,6 @@ public class profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                progressBar.setVisibility(View.VISIBLE);
                 Log.d("Profile.java","when upload clicks");
                 final  String Name= name.getText().toString().trim();
                 if(TextUtils.isEmpty(Name))
@@ -114,23 +116,22 @@ public class profile extends AppCompatActivity {
                 }
                 //    int age = Integer.parseInt();
                 final String Email = email.getText().toString().trim();
-                if(TextUtils.isEmpty(Email))
+                if(TextUtils.isEmpty(Email) || !validEmail(Email))
                 {
                     email.setError("Please Enter Valid Email");
                     email.requestFocus();
-
                     return;
                 }
 
 
                 final String Address= address.getText().toString().trim();
-                if(TextUtils.isEmpty(Address))
+                if(TextUtils.isEmpty(Address) || address.length()<=6)
                 {
                     address.setError("Address Can't be Empty ");
                     address.requestFocus();
                     return;
                 }
-
+                progressBar.setVisibility(View.VISIBLE);
                 user.setName(name.getText().toString().trim());
                 user.setEmail(email.getText().toString().trim());
                 user.setPhone(phone_db);
@@ -180,6 +181,13 @@ public class profile extends AppCompatActivity {
             });
             dialog.show();
         }
+    }
+    /**
+     * validate your email address format. Ex-akhi@mani.com
+     */
+    private boolean validEmail(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
     }
 
 }
