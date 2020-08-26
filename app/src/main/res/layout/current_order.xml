@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:theme="@style/Theme.MaterialComponents.Light"
         android:id="@+id/Material_cardView"
+        android:layout_weight="1.3"
 
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/primaryLightColor"
             android:layout_gravity="center"
             android:orientation="vertical">
@@ -35,11 +38,11 @@
         android:layout_margin="5dp"
         app:cardCornerRadius="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="0dp"
+        android:layout_weight="1.5">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="1dp"
             android:padding="10dp"
@@ -58,10 +61,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#4C54F3"/>
+
             <TextView
                 android:id="@+id/address_full"
                 android:layout_width="170dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Full Address"
                 android:layout_marginTop="3dp"
                 android:textSize="15sp"
@@ -74,11 +78,12 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/current_cart"
-        android:layout_marginTop="5dp"
+        android:paddingTop="2dp"
         android:layout_below="@id/card_view1"
         app:cardCornerRadius="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="5.65"
         app:expandOnClick="true"
         app:title="date of order"
         >
@@ -87,8 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="1dp"
-            android:padding="10dp"
+            android:padding="5dp"
             >
 
             <TextView
@@ -106,6 +110,7 @@
                 android:layout_height="1dp"
                 android:background="#4C54F3"/>
             <ListView
+                android:layout_marginTop="5dp"
                 android:id="@+id/list_view_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,12 +118,19 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/text5"
+        android:background="#4C54F3"
+        android:layout_alignTop="@id/text5"/>
     <com.google.android.material.card.MaterialCardView
         android:layout_above="@id/text9"
         android:padding="4dp"
         android:theme="@style/Theme.MaterialComponents.Light"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight=".5">
         <LinearLayout
             android:layout_marginTop="4dp"
             android:layout_width="match_parent"
@@ -155,7 +167,8 @@
         android:id="@+id/text9"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical">
         <View
             android:layout_width="match_parent"
@@ -178,4 +191,4 @@
             android:textColor="#FFFFFF"
             />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

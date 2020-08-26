@@ -10,7 +10,7 @@
         android:allowBackup="true"
         android:icon="@drawable/yukti"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/yukti_round"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:supportsRtl="true"

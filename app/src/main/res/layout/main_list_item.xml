@@ -26,13 +26,15 @@
             android:layout_height="100dp"
             android:src="@drawable/profile"
             app:civ_border_width="1dp"
-            android:layout_gravity="center"
+            android:scaleType="centerCrop"
             app:civ_border_color="@color/primaryColor"/>
         <TextView
+
             android:id="@+id/main_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+
             android:layout_marginTop="10dp"
             android:text="water bottel  cold drink"
             android:gravity="center_horizontal"/>
