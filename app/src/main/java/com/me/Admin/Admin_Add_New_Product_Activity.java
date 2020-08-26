@@ -191,4 +191,10 @@ public class Admin_Add_New_Product_Activity extends AppCompatActivity {
             imageView.setImageURI(imageUri);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Admin_Add_New_Product_Activity.this,AdminCategoryActivity.class));
+        finish();
+    }
 }

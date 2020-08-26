@@ -20,6 +20,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(AdminCategoryActivity.this, MainActivity.class));
+        finish();
     }
 
     @Override
@@ -49,6 +50,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","grocery");
                 startActivity(intent);
+                finish();
             }
         });
         vegetable.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","vegetable");
                 startActivity(intent);
+                finish();
             }
         });
         fruits.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +68,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","fruits");
                 startActivity(intent);
+                finish();
             }
         });
         other.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +77,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","other");
                 startActivity(intent);
+                finish();
             }
         });
         beverages.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +86,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","beverages");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -90,6 +96,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","snacks_and_packed_food");
                 startActivity(intent);
+                finish();
             }
         });
         beauty.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +105,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","beauty_and_hygiene");
                 startActivity(intent);
+                finish();
             }
         });
         kitchen_garden_pets.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +114,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","kitchen_garden_pets");
                 startActivity(intent);
+                finish();
             }
         });
         cleaning.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +123,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","cleaning_and_household");
                 startActivity(intent);
+                finish();
             }
         });
         non_veg.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +132,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","non_veg");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -131,6 +142,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","baby_care");
                 startActivity(intent);
+                finish();
             }
         });
         restaurants.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +151,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","restaurants_food_and_cuisines");
                 startActivity(intent);
+                finish();
             }
         });
         bakery.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +160,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","bakery_cakes_dairy");
                 startActivity(intent);
+                finish();
             }
         });
     }
