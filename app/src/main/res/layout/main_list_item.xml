@@ -4,17 +4,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:layout_margin="15dp">
+    android:layout_height="155dp"
+    android:layout_margin="15dp"
+    app:cardCornerRadius="40dp">
     <androidx.cardview.widget.CardView
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/main_cart_item"
         android:layout_gravity="center"
         android:padding="10dp"
-        app:cardCornerRadius="100dp"
+        app:cardCornerRadius="40dp"
         >
     <LinearLayout
+        android:paddingTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -27,9 +29,9 @@
             android:src="@drawable/profile"
             app:civ_border_width="1dp"
             android:scaleType="centerCrop"
-            app:civ_border_color="@color/primaryColor"/>
+            app:civ_border_color="@android:color/transparent"
+            />
         <TextView
-
             android:id="@+id/main_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

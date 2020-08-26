@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".Register.register">
 
-
     <ImageView
         android:id="@+id/Facebook"
         android:layout_width="65dp"
