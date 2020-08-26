@@ -162,8 +162,8 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                 Log.d("fetched","before fetched");
                 fetchdata(product_child);
                 break;
-            case "BEAUTY & HYGIENE":
-                product_child=productrefence.child("beauty_and_hygiene");
+            case "PATANJALI ITEMS":
+                product_child=productrefence.child("PatanJali_Items");
                 Log.d("fetched","before fetched");
                 fetchdata(product_child);
                 break;
@@ -172,8 +172,8 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                 Log.d("fetched","before fetched");
                 fetchdata(product_child);
                 break;
-            case "KITCHEN,GARDEN & PETS":
-                product_child=productrefence.child("kitchen_garden_pets");
+            case "SWEETS":
+                product_child=productrefence.child("Sweets");
                 Log.d("fetched","before fetched");
                 fetchdata(product_child);
                 break;
