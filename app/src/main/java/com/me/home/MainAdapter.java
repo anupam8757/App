@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +53,19 @@ public class MainAdapter extends RecyclerView.Adapter <MainAdapter.MainAdapter_H
         Main_list_item currentPosition=main_list_items.get(position);
         holder.main_name.setText(currentPosition.getMain_item_name());
         holder.main_image.setImageResource(currentPosition.getMain_item_image());
+        // first define colors
+         final int[] backgroundColors = {
+                R.color.list_color1,
+                R.color.list_color2,
+                R.color.list_color3,
+                R.color.list_color4,
+                R.color.list_color5,
+                R.color.list_color6,
+                R.color.list_color7 };
+
+        int index = position % backgroundColors.length;
+        int color = ContextCompat.getColor(context, backgroundColors[index]);
+        holder.main_card_view.setBackgroundColor(color);
     }
 
     @Override
@@ -63,9 +78,11 @@ public class MainAdapter extends RecyclerView.Adapter <MainAdapter.MainAdapter_H
     public static class MainAdapter_Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView main_image;
         public TextView main_name;
+        public CardView main_card_view;
 
         public MainAdapter_Holder(@NonNull View itemView) {
             super(itemView);
+            this.main_card_view=itemView.findViewById(R.id.main_cart_item);
             this.main_image = itemView.findViewById(R.id.main_item_image);
             this.main_name = itemView.findViewById(R.id.main_item_name);
             itemView.setOnClickListener(this);

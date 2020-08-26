@@ -2,34 +2,30 @@
 <androidx.cardview.widget.CardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="160dp"
-    android:layout_height="140dp"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="15dp"
-    >
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_margin="15dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_cart_item"
+        app:cardCornerRadius="50dp"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
         >
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:cardCornerRadius="50dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/main_item_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/profile"
+            app:civ_border_width="1dp"
             android:layout_gravity="center"
-            >
-
-            <ImageView
-                android:id="@+id/main_item_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/vegetables"
-                android:layout_gravity="center"
-                android:background="@drawable/backgroundgreen"/>
-
-        </androidx.cardview.widget.CardView>
+            app:civ_border_color="@color/primaryColor"/>
         <TextView
             android:id="@+id/main_item_name"
             android:layout_width="wrap_content"
@@ -38,7 +34,6 @@
             android:layout_marginTop="10dp"
             android:text="water bottel  cold drink"
             android:gravity="center_horizontal"/>
-
     </LinearLayout>
-
+    </androidx.cardview.widget.CardView>
 </androidx.cardview.widget.CardView>
