@@ -14,7 +14,7 @@ import com.me.home.MainActivity;
 public class AdminCategoryActivity extends AppCompatActivity {
 
     private TextView grocery, vegetable, fruits, other,beverages;
-    private TextView snacks_packed_food, beauty,cleaning,kitchen_garden_pets, non_veg;
+    private TextView snacks_packed_food, patanjali,cleaning,sweets, non_veg;
     private TextView baby_care, bakery, restaurants;
 
     @Override
@@ -35,9 +35,9 @@ public class AdminCategoryActivity extends AppCompatActivity {
         other = findViewById(R.id.other);
 
         snacks_packed_food = findViewById(R.id.snacks_packed_food);
-        beauty = findViewById(R.id.beauty);
+        patanjali = findViewById(R.id.beauty);
         cleaning = findViewById(R.id.cleaning);
-        kitchen_garden_pets = findViewById(R.id.kgp);
+        sweets = findViewById(R.id.kgp);
         non_veg = findViewById(R.id.non_veg);
 
         baby_care = findViewById(R.id.baby_care);
@@ -99,20 +99,20 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 finish();
             }
         });
-        beauty.setOnClickListener(new View.OnClickListener() {
+        patanjali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
-                intent.putExtra("category","beauty_and_hygiene");
+                intent.putExtra("category","PatanJali_Items");
                 startActivity(intent);
                 finish();
             }
         });
-        kitchen_garden_pets.setOnClickListener(new View.OnClickListener() {
+        sweets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
-                intent.putExtra("category","kitchen_garden_pets");
+                intent.putExtra("category","Sweets");
                 startActivity(intent);
                 finish();
             }

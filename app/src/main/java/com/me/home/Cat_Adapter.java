@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -23,7 +25,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
         private static final String LOG_TAG = MainAdapter.class.getSimpleName();
 //        DatabaseReference storageReference= FirebaseDatabase.getInstance().getReference("main");
 
-
+        int lastPosition = -1;
         List<Cat_list> cat_list;
         List<Cat_list> cat_list_full;
 
@@ -31,7 +33,7 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
         private Context context;
         private static OnItemClickListener mListener;
 
-        public Cat_Adapter(Context context, List<Cat_list> cat_list) {
+    public Cat_Adapter(Context context, List<Cat_list> cat_list) {
             this.context=context;
             this.mInflater = LayoutInflater.from(context);
             this.cat_list = cat_list;
@@ -51,7 +53,6 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
         @Override
         public void onBindViewHolder(@NonNull MainAdapter_Holder holder, int position) {
            Cat_list currentPosition = cat_list.get(position);
-
             Log.d("name",currentPosition.getName());
             holder.name.setText(currentPosition.getName());
             holder.price.setText(currentPosition.getPrice());

@@ -19,9 +19,9 @@ public class  Data {
         main_list_items.add(new Main_list_item(R.drawable.fruits_min,"FRUITS"));
         main_list_items.add(new Main_list_item(R.drawable.beverages_min,"BEVERAGES"));
         main_list_items.add(new Main_list_item(R.drawable.snacks_min,"SNACKS & PACKED FOOD"));
-        main_list_items.add(new Main_list_item(R.drawable.beautyhygiene_min,"BEAUTY & HYGIENE"));
+        main_list_items.add(new Main_list_item(R.drawable.patanjali_logo,"PATANJALI ITEMS"));
         main_list_items.add(new Main_list_item(R.drawable.household_min,"CLEANING & HOUSEHOLD"));
-        main_list_items.add(new Main_list_item(R.drawable.kichen_min,"KITCHEN,GARDEN & PETS"));
+        main_list_items.add(new Main_list_item(R.drawable.sweets,"SWEETS"));
         main_list_items.add(new Main_list_item(R.drawable.nonveg_min,"EGG,MEAT & FISH"));
         main_list_items.add(new Main_list_item(R.drawable.babycare_min,"BABY CARE"));
         main_list_items.add(new Main_list_item(R.drawable.other_min,"OTHER ITEMS"));
