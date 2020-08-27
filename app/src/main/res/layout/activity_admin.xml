@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.Admin_Add_New_Product_Activity">
+    tools:context="com.yukkti_gumla.Admin.Admin_Add_New_Product_Activity">
 
 
     <ImageView

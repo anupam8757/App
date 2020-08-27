@@ -34,6 +34,8 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="water bottel  cold drink"
             android:gravity="center_horizontal"/>
     </LinearLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.me">
+    package="com.yukkti_gumla">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,53 +13,53 @@
         android:allowBackup="true"
         android:icon="@drawable/yukti"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/yukti_round"
+        android:roundIcon="@mipmap/yukti_round"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
 
-        <activity android:name=".Orders.Old_Order_List"
+        <activity android:name="com.yukkti_gumla.Orders.Old_Order_List"
             android:screenOrientation="portrait"
             >
 
         </activity>
 
-        <activity android:name=".AboutUs"
+        <activity android:name="com.yukkti_gumla.AboutUs"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Orders.Order_History"
+            android:name="com.yukkti_gumla.Orders.Order_History"
             android:label="@string/title_activity_order__history"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".home.Cart"
-            android:parentActivityName=".home.Catagories"
+            android:name="com.yukkti_gumla.home.Cart"
+            android:parentActivityName="com.yukkti_gumla.home.Catagories"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Admin.AdminCategoryActivity" />
-        <activity android:name=".Admin.Admin_Add_New_Product_Activity" />
-        <activity android:name=".ForgotPassword" />
-        <activity android:name=".login"
+        <activity android:name="com.yukkti_gumla.Admin.AdminCategoryActivity" />
+        <activity android:name="com.yukkti_gumla.Admin.Admin_Add_New_Product_Activity" />
+        <activity android:name="com.yukkti_gumla.ForgotPassword" />
+        <activity android:name="com.yukkti_gumla.login"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".Register.profile"
+            android:name="com.yukkti_gumla.Register.profile"
             android:label="@string/title_activity_profile"
-            android:parentActivityName=".home.MainActivity" />
-        <activity android:name=".Register.Otp"
+            android:parentActivityName="com.yukkti_gumla.home.MainActivity" />
+        <activity android:name="com.yukkti_gumla.Register.Otp"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Register.register"
+            android:name="com.yukkti_gumla.Register.register"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".home.Catagories"
-            android:parentActivityName=".home.MainActivity"
+            android:name="com.yukkti_gumla.home.Catagories"
+            android:parentActivityName="com.yukkti_gumla.home.MainActivity"
             android:screenOrientation="portrait"/>
         <!-- splash Activity -->
-        <activity android:name=".home.SplashActivity">
+        <activity android:name="com.yukkti_gumla.home.SplashActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -75,7 +75,7 @@
         <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
         <!-- </intent-filter> -->
         <!-- </service> -->
-        <activity android:name=".home.MainActivity"
+        <activity android:name="com.yukkti_gumla.home.MainActivity"
             android:screenOrientation="portrait"/>
 
     </application>

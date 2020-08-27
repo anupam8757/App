@@ -5,7 +5,7 @@
     android:id="@+id/label2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register.register">
+    tools:context="com.yukkti_gumla.Register.register">
 
     <ImageView
         android:id="@+id/Facebook"
