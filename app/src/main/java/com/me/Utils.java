@@ -1,6 +1,6 @@
 package com.me;
 
 class Utils {
-    public static final  String EMAIL = "coffeeline9@gmail.com";
-    public static final String PASSWORD = "dwcqckylgqngqoxr";
+    public static final  String EMAIL = "yukktigumla@gmail.com";
+    public static final String PASSWORD = "tawiikldcmznvtza";
 }

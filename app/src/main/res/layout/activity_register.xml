@@ -51,11 +51,10 @@
 
     <EditText
         android:id="@+id/editTextPhone"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_width="315dp"
+        android:layout_height="43dp"
         android:hint="Enter Phone Number"
         android:textColor="#0E0D0D"
-        android:gravity="center_horizontal"
         android:inputType="phone"
         android:maxLength="10"
         app:layout_constraintBottom_toBottomOf="parent"

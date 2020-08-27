@@ -134,7 +134,6 @@ public class Cart extends AppCompatActivity {
                     public void onDeleteClick(int position) {
                         Intent intent = new Intent(Cart.this,Cart.class);
                         String id=cart_lists.get(position).getPid().trim();
-                        Log.d("deleted item ",id);
                         DatabaseReference driverRef = user_reference.child(id);
                         driverRef.removeValue();
                         cart_lists.remove(position);
@@ -157,7 +156,6 @@ public class Cart extends AppCompatActivity {
 
        @Override
        public void onPlusMinusClick(int position, int amt) {
-                        Log.d("amount "," "+amt);
            cart_lists.get(position).setAmount(amt);
        }
    });
@@ -195,7 +193,6 @@ public class Cart extends AppCompatActivity {
 
     public void updateDetailsToCart(){
 
-    Log.d("Cart.java",message);
         sendEmail(message);// Method to call send Email
         total_items = cart_lists.size();
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -230,8 +227,8 @@ public class Cart extends AppCompatActivity {
     }
 
     private void sendEmail(String message) {
-        String mmessage=message;
-        String subject= "New Order is Confirmed";
+        String mmessage=  "New Order is Placed.";
+        String subject= "New Order is Confirmed.";
         String Email="kumaranupam8757@gmail.com";
         JavaMailApi javaMailApi= new JavaMailApi(Cart.this,Email.toString(),subject.toString(),mmessage.toString());
         javaMailApi.execute();

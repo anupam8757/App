@@ -12,13 +12,13 @@
         android:layout_width="65dp"
         android:layout_height="62dp"
         android:layout_marginStart="160dp"
-        android:layout_marginEnd="242dp"
+        android:layout_marginEnd="270dp"
         android:layout_marginBottom="24dp"
+        android:src="@drawable/icons8_facebook_512"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.232"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/icons8_facebook_512"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
@@ -39,9 +39,9 @@
         android:layout_height="71dp"
         android:fontFamily="cursive"
         android:text="Welcome to Yukkti"
-        android:textAlignment="textStart"
         android:textColor="#b2b2b2"
         android:textSize="35sp"
+        android:gravity="center"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,14 +54,14 @@
         android:layout_width="256dp"
         android:layout_height="22dp"
         android:text="Login with your number and password"
-        android:textColor="#b2b2b2"
+        android:textColor="#000"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintHorizontal_bias="0.651"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.329" />
+        app:layout_constraintVertical_bias="0.365" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="315dp"
