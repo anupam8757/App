@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="person" />
+                            <entry key="color" value="fdfdfe" />
+                            <entry key="outputName" value="ic_baseline_person_24" />
                             <entry key="sourceFile" value="C:\Users\Sujeet Suman\Desktop\Grocery-Food-app" />
                           </map>
                         </option>

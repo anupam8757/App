@@ -23,15 +23,14 @@
                 android:textSize="40sp"
                 />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
                 android:layout_below="@id/welcome"
-                android:id="@+id/my_prifile"
-                android:layout_width="212dp"
-                android:layout_height="152dp"
-                android:layout_marginTop="5dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/person" />
-
+                android:layout_centerInParent="true"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/profile"/>
         </RelativeLayout>
 
 <LinearLayout

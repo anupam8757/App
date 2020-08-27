@@ -5,6 +5,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+
 
     <application
         android:allowBackup="true"
@@ -17,34 +20,47 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
 
-        <activity android:name=".Orders.Old_Order_List"></activity>
+        <activity android:name=".Orders.Old_Order_List"
+            android:screenOrientation="portrait"
+            >
 
-        <activity android:name=".AboutUs" />
+        </activity>
+
+        <activity android:name=".AboutUs"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Orders.Order_History"
             android:label="@string/title_activity_order__history"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".home.Cart"
-            android:parentActivityName=".home.Catagories" />
+            android:parentActivityName=".home.Catagories"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".Admin.AdminCategoryActivity" />
         <activity android:name=".Admin.Admin_Add_New_Product_Activity" />
         <activity android:name=".ForgotPassword" />
-        <activity android:name=".login" />
+        <activity android:name=".login"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".Register.profile"
             android:label="@string/title_activity_profile"
             android:parentActivityName=".home.MainActivity" />
-        <activity android:name=".Register.Otp" />
+        <activity android:name=".Register.Otp"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Register.register"
-            android:label="@string/title_activity_register" />
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".home.Catagories"
-            android:parentActivityName=".home.MainActivity" /> <!-- splash Activity -->
+            android:parentActivityName=".home.MainActivity"
+            android:screenOrientation="portrait"/>
+        <!-- splash Activity -->
         <activity android:name=".home.SplashActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,13 +68,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+
             <!-- main activity -->
         </activity> <!-- <service android:name=".service.MyFirebaseInstanceService"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
         <!-- </intent-filter> -->
         <!-- </service> -->
-        <activity android:name=".home.MainActivity" />
+        <activity android:name=".home.MainActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

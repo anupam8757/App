@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Register.register">
-
     <ImageView
         android:id="@+id/icon"
         android:layout_width="152dp"
@@ -22,11 +21,11 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="318dp"
+        android:layout_width="match_parent"
         android:layout_height="63dp"
+        android:gravity="center_horizontal"
         android:fontFamily="cursive"
         android:text="Welcome to Yukkti"
-        android:textAlignment="textStart"
         android:textColor="#b2b2b2"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -52,10 +51,11 @@
 
     <EditText
         android:id="@+id/editTextPhone"
-        android:layout_width="315dp"
+        android:layout_width="match_parent"
         android:layout_height="54dp"
         android:hint="Enter Phone Number"
         android:textColor="#0E0D0D"
+        android:gravity="center_horizontal"
         android:inputType="phone"
         android:maxLength="10"
         app:layout_constraintBottom_toBottomOf="parent"
