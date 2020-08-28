@@ -32,9 +32,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.yukkti_gumla.JavaMailApi;
+import com.yukkti_gumla.Model.User;
 import com.yukkti_gumla.Orders.Order_History;
 import com.yukkti_gumla.Prevalent.Prevalent;
 import com.yukkti_gumla.R;
+import com.yukkti_gumla.Register.profile;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -248,6 +250,9 @@ public class Cart extends AppCompatActivity {
     }
 
     public void confirmOrder(){
+
+        checkAddress();
+
         total_price_of_all_items = 0;
 
         if(total_price() <= 50){
@@ -283,6 +288,25 @@ public class Cart extends AppCompatActivity {
         pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
         //Set positive button text color
         pbutton.setTextColor(Color.parseColor("#1704FF"));
+    }
+
+    private void checkAddress() {
+        User user = Prevalent.currentOnlineUser;
+        if(user.getAddress().trim() == null ){
+            AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
+            builder.setIcon(R.drawable.confirm)
+                    .setMessage(Html.fromHtml("<font color='#000000'><h2>Did you forget to enter Address</h2> Please enter address on clicking Enter Address. </font>"))
+                    .setCancelable(false)
+            .setPositiveButton("Enter Address", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                  Intent i = new Intent(Cart.this, profile.class);
+                  startActivity(i);
+                  finish();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     public int total_price(){
