@@ -209,7 +209,7 @@ public class Otp extends AppCompatActivity {
             Paper.delete(Prevalent.userPassword);
             Prevalent.currentOnlineUser = null;
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(Otp.this, "You have entered wrong Phone number or otp.",Toast.LENGTH_LONG).show();
+            Toast.makeText(Otp.this, e.getMessage(),Toast.LENGTH_LONG).show();
             startActivity(new Intent(Otp.this, register.class));
             finish();
         }

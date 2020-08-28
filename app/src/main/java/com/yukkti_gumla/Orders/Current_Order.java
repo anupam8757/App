@@ -115,7 +115,7 @@ public class Current_Order extends Fragment {
 
         });
         try {
-            user_name.setText("Thank you "+ user.getName()+",\n"+"your order is successfully placed.");
+            user_name.setText("Thank you "+ user.getName()+",\n"+"Your Order is Successfully Placed." );
             address = "";
             address += user.getName() + ",\n" + user_phone + ", " + user.getAddress();
             fullAddress.setText(address);

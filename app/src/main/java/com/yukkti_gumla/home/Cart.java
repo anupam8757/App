@@ -202,7 +202,7 @@ public class Cart extends AppCompatActivity {
         orderDetails.put("Cart",cart_lists);
         orderDetails.put("date_time",currentDate+" "+currentTime);
         orderDetails.put("total_items",Integer.toString(total_items));
-        Toast.makeText(Cart.this,"Redirecting to your orders.",Toast.LENGTH_SHORT).show();
+        Toast.makeText(Cart.this,"WE Will Contact You Shortly.",Toast.LENGTH_SHORT).show();
         orderRef.child("Orders").child(user_phone).child(currentDate+" "+currentTime).updateChildren(orderDetails)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -226,10 +226,10 @@ public class Cart extends AppCompatActivity {
     }
 
     private void sendEmail(String message) {
-        String mmessage=  "New Order is Placed.";
+       // String message=  "New Order is Placed.";
         String subject= "New Order is Confirmed.";
         String Email="kumaranupam8757@gmail.com";
-        JavaMailApi javaMailApi= new JavaMailApi(Cart.this,Email.toString(),subject.toString(),mmessage.toString());
+        JavaMailApi javaMailApi= new JavaMailApi(Cart.this,Email.toString(),subject.toString(),message.toString());
         javaMailApi.execute();
     }
 
@@ -294,7 +294,7 @@ public class Cart extends AppCompatActivity {
                 total_price_of_all_items += total_price;
                 user_reference.child(cartList.getPid()).setValue(cartList);
             }
-            message += " Name: "+Prevalent.currentOnlineUser.getName()+" Phone: "+user_phone+" Address: "
+            message += " Name: "+Prevalent.currentOnlineUser.getName()+ " Address: "
                     +Prevalent.currentOnlineUser.getAddress();
         }catch (Exception e){}
         return total_price_of_all_items;

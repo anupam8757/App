@@ -81,7 +81,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:visibility="invisible"
-        android:text="Cart is empty  \n please Add the item" />
+        android:text="Cart is Empty  \n Please Add the Item" />
 
     <FrameLayout
         android:id="@+id/framelayout"

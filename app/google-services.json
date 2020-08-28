@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "637274978270",
-    "firebase_url": "https://yukkti-cb4aa.firebaseio.com",
-    "project_id": "yukkti-cb4aa",
-    "storage_bucket": "yukkti-cb4aa.appspot.com"
+    "project_number": "710328569458",
+    "firebase_url": "https://yukkti-45352.firebaseio.com",
+    "project_id": "yukkti-45352",
+    "storage_bucket": "yukkti-45352.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:637274978270:android:c11f6210a28fa1a9edcf4f",
+        "mobilesdk_app_id": "1:710328569458:android:6a6f2c69149f6b16987ceb",
         "android_client_info": {
-          "package_name": "com.me"
+          "package_name": "com.yukkti_gumla"
         }
       },
       "oauth_client": [
         {
-          "client_id": "637274978270-vd03c8kkro0b1427i3b86qqb0b52lqsk.apps.googleusercontent.com",
+          "client_id": "710328569458-00dqo3bdpl39o5qn71hqa924jb7opdnv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.me",
-            "certificate_hash": "0134616b068090feece786906bb201bcb3ee9e86"
+            "package_name": "com.yukkti_gumla",
+            "certificate_hash": "a19057c51da5d5ff8c4aa220e0cfc3e319954547"
           }
         },
         {
-          "client_id": "637274978270-a4bun3uvlr3kjl0h8i9eo04lsqvstak8.apps.googleusercontent.com",
+          "client_id": "710328569458-a2kvus44kg8e4vi88r75a3u0uta6529j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCwY6aMzCmmmNfo7qAmOKiYOmVp1jv2lAk"
+          "current_key": "AIzaSyA-th5iyrNicsQrM0q8B6VylyyBo6FgSt0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "637274978270-a4bun3uvlr3kjl0h8i9eo04lsqvstak8.apps.googleusercontent.com",
+              "client_id": "710328569458-a2kvus44kg8e4vi88r75a3u0uta6529j.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
