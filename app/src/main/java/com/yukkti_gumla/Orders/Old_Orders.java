@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,7 @@ public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
     OrderAdapter orderAdapter;
     static String user_phone = "";
     private String currentDate;
+    TextView empty_old_order;
 
     @Nullable
     @Override
@@ -48,6 +50,7 @@ public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
         super.onViewCreated(view, savedInstanceState);
         user_phone = Paper.book().read(Prevalent.userPhone);
         orderRecyclerView = view.findViewById(R.id.order_recyclerView);
+        empty_old_order=view.findViewById(R.id.empty_old_order);
         orderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -59,8 +62,8 @@ public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                        Order_Details data = dataSnapshot.getValue(Order_Details.class);
-                        order_details.add(data);
+                    Order_Details data = dataSnapshot.getValue(Order_Details.class);
+                    order_details.add(data);
 //                    }
                 }
                 int index=order_details.size()-1;
@@ -70,7 +73,20 @@ public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
 
                 Collections.reverse(order_details);
                 orderAdapter = new OrderAdapter(order_details, Old_Orders.this);
+
                 orderRecyclerView.setAdapter(orderAdapter);
+
+                if (orderAdapter.getItemCount() == 0){
+                    orderRecyclerView.setAdapter(null);
+                    empty_old_order.setVisibility(View.VISIBLE);
+
+
+                } else {
+                    orderRecyclerView.setAdapter(orderAdapter);
+                    empty_old_order.setVisibility(View.GONE);
+
+                }
+
             }
 
             @Override

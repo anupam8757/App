@@ -45,6 +45,7 @@ public class Current_Order extends Fragment {
     private User user;
     private ListView orderList;
     private TextView fullAddress,totalPrice,DateTime,total_no_items,user_name;
+    TextView empty_current_order;
 
     @Nullable
     @Override
@@ -65,6 +66,10 @@ public class Current_Order extends Fragment {
 //        DateTime = view.findViewById(R.id.date_time_order);
 //        total_no_items = view.findViewById(R.id.date_time_order);
         orderList = view.findViewById(R.id.list_view_orders);
+
+//        empty list view
+        empty_current_order=view.findViewById(R.id.empty_current_order);
+
 
         cart_list = new ArrayList<>();
 
@@ -117,6 +122,19 @@ public class Current_Order extends Fragment {
                 if(adapter.getCount() == 0){
                 }
                 orderList.setAdapter(adapter);
+                if (adapter.getCount() == 0){
+                    orderList.setAdapter(null);
+                    empty_current_order.setVisibility(View.VISIBLE);
+                    user_name.setVisibility(View.GONE);
+                    totalPrice.setVisibility(View.GONE);
+
+                } else {
+                    orderList.setAdapter(adapter);
+                    empty_current_order.setVisibility(View.GONE);
+                    user_name.setVisibility(View.VISIBLE);
+                    totalPrice.setVisibility(View.VISIBLE);
+                }
+
             }
 
             @Override
@@ -131,7 +149,9 @@ public class Current_Order extends Fragment {
             address += user.getName() + ",\n" + user_phone + ", " + user.getAddress();
             fullAddress.setText(address);
         }
-        catch (Exception e){ }
+        catch (Exception e){
+
+        }
 
     }
 

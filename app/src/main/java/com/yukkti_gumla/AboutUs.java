@@ -27,7 +27,7 @@ public class AboutUs extends AppCompatActivity {
                 .setDescription(" Fast Delivery App")
                 .addItem(new Element().setTitle("Version 1.0"))
                 .addGroup("CONNECT WITH US!")
-                .addEmail("Kumaranupam8757@gmail,com ")
+                .addEmail("shivanand103kumar@gmail.com ")
 
                  //Enter your youtube link here (replace with my channel link)
                 .addPlayStore("https://play.google.com/store/apps/details?id=com.yukkti_gumla")   //Replace all this with your package name

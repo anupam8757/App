@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1074375978522",
+    "firebase_url": "https://yukkti-2ce47.firebaseio.com",
+    "project_id": "yukkti-2ce47",
+    "storage_bucket": "yukkti-2ce47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074375978522:android:756cc7c36348dd56ddeba3",
+        "android_client_info": {
+          "package_name": "com.yukkti_gumla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074375978522-ml16ilauuac4l909mlik2rcj3db40le1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yukkti_gumla",
+            "certificate_hash": "a19057c51da5d5ff8c4aa220e0cfc3e319954547"
+          }
+        },
+        {
+          "client_id": "1074375978522-206vc75v4ljt9rpo2p4vdldf6kpknfkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCxBKQTeXvElAvLMgiIEPcBB6UMT4MFTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074375978522-206vc75v4ljt9rpo2p4vdldf6kpknfkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

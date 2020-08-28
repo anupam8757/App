@@ -107,6 +107,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:id="@+id/empty_current_order"
+                android:text="@string/you_have_not_ordered_any_thing_yet_n_please_place_your_first_order"
+                />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

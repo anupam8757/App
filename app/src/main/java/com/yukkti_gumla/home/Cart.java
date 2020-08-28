@@ -74,13 +74,14 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkAddress();
-                confirmOrder();
+                if (checkAddress()) {
+                    confirmOrder();
+                }
             }
         });
 
         emptyText = findViewById(R.id.total_amount_cart);
         emptyText.setVisibility(View.INVISIBLE);
-
 
         user_phone = Paper.book().read(Prevalent.userPhone);
         cart_toolbar=findViewById(R.id.cart_toolbar);
@@ -131,7 +132,7 @@ public class Cart extends AppCompatActivity {
                 }
 
 //                this is code for deleting the item from the cart
-   cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
+                cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
                     @Override
                     public void onDeleteClick(int position) {
                         Intent intent = new Intent(Cart.this,Cart.class);
@@ -156,11 +157,11 @@ public class Cart extends AppCompatActivity {
                         }
                     }
 
-       @Override
-       public void onPlusMinusClick(int position, int amt) {
-           cart_lists.get(position).setAmount(amt);
-       }
-   });
+                    @Override
+                    public void onPlusMinusClick(int position, int amt) {
+                        cart_lists.get(position).setAmount(amt);
+                    }
+                });
 
             }
             @Override
@@ -205,7 +206,7 @@ public class Cart extends AppCompatActivity {
         orderDetails.put("Cart",cart_lists);
         orderDetails.put("date_time",currentDate+" "+currentTime);
         orderDetails.put("total_items",Integer.toString(total_items));
-        Toast.makeText(Cart.this,"WE Will Contact You Shortly.",Toast.LENGTH_SHORT).show();
+        Toast.makeText(Cart.this,"We Will Contact You Shortly.",Toast.LENGTH_SHORT).show();
         orderRef.child("Orders").child(user_phone).child(currentDate+" "+currentTime).updateChildren(orderDetails)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -229,9 +230,9 @@ public class Cart extends AppCompatActivity {
     }
 
     private void sendEmail(String message) {
-       // String message=  "New Order is Placed.";
+        // String message=  "New Order is Placed.";
         String subject= "New Order is Confirmed.";
-        String Email="kumaranupam8757@gmail.com";
+        String Email="shivanand103kumar@gmail.com";
         JavaMailApi javaMailApi= new JavaMailApi(Cart.this,Email.toString(),subject.toString(),message.toString());
         javaMailApi.execute();
     }
@@ -240,10 +241,10 @@ public class Cart extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         for(Cart_list cart_list: cart_lists){
-            cart_list.setAmount(1);
+            cart_list.setAmount(cart_list.getAmount());
             String p = cart_list.getPrice();
             cart_list.setPrice(p);
-            cart_list.setTotal_price(p);
+            cart_list.setTotal_price(cart_list.getTotal_price());
             String id = cart_list.getName()+cart_list.getPrice();
             user_reference.child(id).setValue(cart_list);
         }
@@ -262,14 +263,14 @@ public class Cart extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
         builder.setIcon(R.drawable.confirm)
-         .setMessage(Html.fromHtml("<font color='#000000'><h2>Confirm Order?</h2> Total price = Rs. </font>"+total_price()))
-         .setCancelable(false)
-         .setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                    emptyText.setVisibility(View.GONE);
-            }
-        });
+                .setMessage(Html.fromHtml("<font color='#000000'><h2>Confirm Order?</h2> Total price = Rs. </font>"+total_price()))
+                .setCancelable(false)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        emptyText.setVisibility(View.GONE);
+                    }
+                });
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 updateDetailsToCart();
@@ -289,18 +290,21 @@ public class Cart extends AppCompatActivity {
         pbutton.setTextColor(Color.parseColor("#1704FF"));
     }
 
-    private void checkAddress() {
+    private boolean checkAddress() {
         User user = Prevalent.currentOnlineUser;
+        final boolean[] val = {false};
         if(user.getAddress().trim().isEmpty() ){
             AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
             builder.setIcon(R.drawable.confirm)
                     .setMessage(Html.fromHtml("<font color='#000000'><h2>Did you forget to enter Address?</h2> Please enter address by clicking Enter Address. </font>"))
                     .setCancelable(false)
-            .setPositiveButton("Enter Address", new DialogInterface.OnClickListener() {
+
+                    .setNegativeButton("", null);
+            builder.setPositiveButton("Enter Address", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                  Intent i = new Intent(Cart.this, profile.class);
-                  startActivity(i);
-                  finish();
+                    Intent i = new Intent(Cart.this, profile.class);
+                    startActivity(i);
+                    val[0] =true;
                 }
             });
             AlertDialog alert = builder.create();
@@ -310,7 +314,12 @@ public class Cart extends AppCompatActivity {
             pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
             //Set positive button text color
             pbutton.setTextColor(Color.parseColor("#1704FF"));
+
         }
+        else {
+            val[0] = true;
+        }
+        return val[0];
     }
 
     public int total_price(){

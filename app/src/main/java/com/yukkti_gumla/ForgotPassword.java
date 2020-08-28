@@ -63,7 +63,7 @@ public class ForgotPassword extends AppCompatActivity {
                     pass.requestFocus();
                     return;
                 }
-                Paper.book().write(Prevalent.userPhone, phone_number);
+
 
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(ForgotPassword.this, Otp.class);

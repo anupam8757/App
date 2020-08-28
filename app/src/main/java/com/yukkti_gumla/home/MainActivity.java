@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                        {
                            msg="Failed";
                        }
-                        Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
+
                     }
                 });
         firebaseDatabase= FirebaseDatabase.getInstance();
@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
-                String sharebody="https://play.google.com/store/apps/details?id=com.udaan.recstudentportalV2%hl=en";
+                String sharebody="https://play.google.com/store/apps/details?id=com.yukkti_gumla";
                 String Subject="Fast Delivery APP";
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT,Subject);
                 shareIntent.putExtra(Intent.EXTRA_TEXT,sharebody);
@@ -365,6 +365,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Prevalent.currentOnlineUser = null;
         Intent intent = new Intent(MainActivity.this, login.class);
         startActivity(intent);
+        finish();
     }
 //  this is end of the navigation functionality
 
