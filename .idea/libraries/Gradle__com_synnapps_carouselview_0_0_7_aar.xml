@@ -1,15 +1,15 @@
 <component name="libraryTable">
   <library name="Gradle: com.synnapps:carouselview:0.0.7@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/d1dfecb3d18da025111e1f3e53a2dbba/jetified-carouselview-0.0.7/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/d1dfecb3d18da025111e1f3e53a2dbba/jetified-carouselview-0.0.7/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/d1dfecb3d18da025111e1f3e53a2dbba/jetified-carouselview-0.0.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a0b76a3fa90a34d03924ce601fcf71c4/jetified-carouselview-0.0.7/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a0b76a3fa90a34d03924ce601fcf71c4/jetified-carouselview-0.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a0b76a3fa90a34d03924ce601fcf71c4/jetified-carouselview-0.0.7/res" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.synnapps/carouselview/0.0.7/3967476ca8946928b9fac8084cae05d3889042b4/carouselview-0.0.7-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.synnapps/carouselview/0.0.7/3967476ca8946928b9fac8084cae05d3889042b4/carouselview-0.0.7-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.synnapps/carouselview/0.0.7/dff09904546c7dc0abc8f7fc370a357e3126e5df/carouselview-0.0.7-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.synnapps/carouselview/0.0.7/dff09904546c7dc0abc8f7fc370a357e3126e5df/carouselview-0.0.7-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
