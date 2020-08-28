@@ -42,7 +42,6 @@ dependencies {
     implementation files('libs/activation.jar')
     implementation files('libs/additionnal.jar')
     implementation files('libs/mail.jar')
-    implementation 'androidx.wear:wear:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     testImplementation 'junit:junit:4.12'
 
@@ -61,19 +60,9 @@ dependencies {
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.3'
     implementation 'com.github.denzcoskun:ImageSlideshow:0.0.7'
 
-    implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
-
     implementation 'com.jakewharton:process-phoenix:2.0.0'
 
-    implementation 'com.alespero:expandable-cardview:0.6'
-
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.thoughtbot:expandablerecyclerview:1.4'
     implementation 'com.github.medyo:android-about-page:1.2.6'
-    implementation 'com.thoughtbot:expandablecheckrecyclerview:1.4'
-    compileOnly 'com.google.android.wearable:wearable:2.7.0'
-    implementation "com.airbnb.android:lottie:3.4.1"
-
-    implementation 'de.hdodenhof:circleimageview:1.2.1'
 
 }
