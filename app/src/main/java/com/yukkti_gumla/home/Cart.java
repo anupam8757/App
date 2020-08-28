@@ -73,6 +73,7 @@ public class Cart extends AppCompatActivity {
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkAddress();
                 confirmOrder();
             }
         });
@@ -251,8 +252,6 @@ public class Cart extends AppCompatActivity {
 
     public void confirmOrder(){
 
-        checkAddress();
-
         total_price_of_all_items = 0;
 
         if(total_price() <= 50){
@@ -292,10 +291,10 @@ public class Cart extends AppCompatActivity {
 
     private void checkAddress() {
         User user = Prevalent.currentOnlineUser;
-        if(user.getAddress().trim() == null ){
+        if(user.getAddress().trim().isEmpty() ){
             AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
             builder.setIcon(R.drawable.confirm)
-                    .setMessage(Html.fromHtml("<font color='#000000'><h2>Did you forget to enter Address</h2> Please enter address on clicking Enter Address. </font>"))
+                    .setMessage(Html.fromHtml("<font color='#000000'><h2>Did you forget to enter Address?</h2> Please enter address by clicking Enter Address. </font>"))
                     .setCancelable(false)
             .setPositiveButton("Enter Address", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -306,6 +305,11 @@ public class Cart extends AppCompatActivity {
             });
             AlertDialog alert = builder.create();
             alert.show();
+            Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+            //Set positive button background
+            pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+            //Set positive button text color
+            pbutton.setTextColor(Color.parseColor("#1704FF"));
         }
     }
 

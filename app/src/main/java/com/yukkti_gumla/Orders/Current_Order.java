@@ -1,10 +1,16 @@
 package com.yukkti_gumla.Orders;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,7 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.yukkti_gumla.Model.User;
 import com.yukkti_gumla.Prevalent.Prevalent;
 import com.yukkti_gumla.R;
+import com.yukkti_gumla.Register.profile;
+import com.yukkti_gumla.home.Cart;
 import com.yukkti_gumla.home.Cart_list;
+import com.yukkti_gumla.home.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +114,8 @@ public class Current_Order extends Fragment {
                     }
                 }catch (Exception e){}
                 OrderListAdapter adapter = new OrderListAdapter(getContext(), R.layout.order_list, order_lists);
+                if(adapter.getCount() == 0){
+                }
                 orderList.setAdapter(adapter);
             }
 
@@ -120,10 +131,8 @@ public class Current_Order extends Fragment {
             address += user.getName() + ",\n" + user_phone + ", " + user.getAddress();
             fullAddress.setText(address);
         }
-        catch (Exception e){
-
-        }
-
+        catch (Exception e){ }
 
     }
+
 }
