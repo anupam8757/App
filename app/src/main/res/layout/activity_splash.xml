@@ -13,7 +13,7 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"
-        android:src="@drawable/yukti" />
+        android:src="@mipmap/yukti" />
 
     <TextView
         android:layout_marginTop="10dp"

@@ -38,7 +38,7 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:orientation="vertical"
-    android:background="@drawable/back_profile"
+    android:background="@mipmap/back_profile"
     >
     <TextView
         android:id="@+id/text"
