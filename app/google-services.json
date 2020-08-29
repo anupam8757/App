@@ -1,42 +1,71 @@
 {
   "project_info": {
-    "project_number": "764724202257",
-    "firebase_url": "https://yukkti-6f6e3.firebaseio.com",
-    "project_id": "yukkti-6f6e3",
-    "storage_bucket": "yukkti-6f6e3.appspot.com"
+    "project_number": "499228129074",
+    "firebase_url": "https://yukkti-c733b.firebaseio.com",
+    "project_id": "yukkti-c733b",
+    "storage_bucket": "yukkti-c733b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:764724202257:android:1c4940853b73f7b5ce5ab0",
+        "mobilesdk_app_id": "1:499228129074:android:c5b0f964aff56563a0492b",
         "android_client_info": {
-          "package_name": "com.yukkti_gumla"
+          "package_name": "com.yukkti"
         }
       },
       "oauth_client": [
         {
-          "client_id": "764724202257-fcr93kef9rfd7aekturqmknft7gsi21i.apps.googleusercontent.com",
+          "client_id": "499228129074-65v2a16l8il5tsi7ognq7mmmacso7vbl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.yukkti_gumla",
+            "package_name": "com.yukkti",
             "certificate_hash": "0134616b068090feece786906bb201bcb3ee9e86"
           }
         },
         {
-          "client_id": "764724202257-bn8q54ss34l5828jmpqnkpssrnu7uslc.apps.googleusercontent.com",
+          "client_id": "499228129074-ap1gbetasa2tkm088r8nv62qbnsjbk9s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAi79CYlLGB1CwLTxgKeSoHwe7tWV-fJlU"
+          "current_key": "AIzaSyDulRBCjfEpUew5DoIEU28zwawo6P4VcEs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "764724202257-bn8q54ss34l5828jmpqnkpssrnu7uslc.apps.googleusercontent.com",
+              "client_id": "499228129074-ap1gbetasa2tkm088r8nv62qbnsjbk9s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499228129074:android:342648f29acde04aa0492b",
+        "android_client_info": {
+          "package_name": "com.yukkti_gumla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499228129074-ap1gbetasa2tkm088r8nv62qbnsjbk9s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDulRBCjfEpUew5DoIEU28zwawo6P4VcEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499228129074-ap1gbetasa2tkm088r8nv62qbnsjbk9s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
