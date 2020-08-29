@@ -84,7 +84,6 @@
         android:text="Cart is Empty  \n Please Add the Item" />
 
     <FrameLayout
-        android:id="@+id/framelayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"

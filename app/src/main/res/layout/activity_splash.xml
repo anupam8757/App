@@ -19,7 +19,6 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/shophereLogo"
         android:gravity="center_horizontal"
-        android:id="@+id/splash_des"
         android:text="@string/appDescription"
         android:textColor="#2962FF"
         android:textSize="20sp"

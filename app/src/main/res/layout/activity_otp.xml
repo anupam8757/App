@@ -7,7 +7,6 @@
     tools:context="com.yukkti.Register.Otp">
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="265dp"
         android:layout_height="32dp"
         android:text="Enter OTP requested on"

@@ -24,7 +24,6 @@
                 />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_below="@id/welcome"
@@ -58,7 +57,6 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="13dp"
-        android:id="@+id/profile_name_input_layout"
         app:hintTextAppearance="@style/AppTheme.WhiteAccent"
         >
 
@@ -83,7 +81,6 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="13dp"
-        android:id="@+id/profile_email_input_layout"
         app:hintTextAppearance="@style/AppTheme.WhiteAccent"
         >
     <EditText
@@ -106,7 +103,6 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="13dp"
-        android:id="@+id/profile_phone_input_layout"
         app:hintTextAppearance="@style/AppTheme.WhiteAccent"
         >
 
@@ -131,7 +127,6 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="2dp"
-        android:id="@+id/profile_name_address_layout"
         app:hintTextAppearance="@style/AppTheme.WhiteAccent"
         >
     <EditText
