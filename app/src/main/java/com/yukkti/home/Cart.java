@@ -333,7 +333,7 @@ public class Cart extends AppCompatActivity {
                 user_reference.child(cartList.getPid()).setValue(cartList);
             }
             message += " Name: "+Prevalent.currentOnlineUser.getName()+ " Address: "
-                    +Prevalent.currentOnlineUser.getAddress();
+                    +Prevalent.currentOnlineUser.getAddress()+"\n" +"Total price "+total_price_of_all_items;
         }catch (Exception e){}
         return total_price_of_all_items;
     }

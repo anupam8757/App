@@ -24,7 +24,6 @@ public class  Data {
         main_list_items.add(new Main_list_item(R.mipmap.babycare,"BABY CARE"));
         main_list_items.add(new Main_list_item(R.mipmap.other_min,"OTHER ITEMS"));
 
-
         return main_list_items;
     }
 }
