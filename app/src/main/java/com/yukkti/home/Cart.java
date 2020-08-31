@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -149,7 +150,7 @@ public class Cart extends AppCompatActivity {
                             emptyView.setText(Html.fromHtml("<h5>You have deleted all items </h5><br>" +
                                     "<p> please add item </p>"));
                             order_button.setVisibility(View.GONE);
-                            emptyView.setTextColor(Color.parseColor("#ff00000"));
+                            emptyView.setTextColor(Color.parseColor("#ff0000"));
                         } else {
                             cartRecyclerView.setAdapter(cartAdapter);
                             order_button.setVisibility(View.VISIBLE);

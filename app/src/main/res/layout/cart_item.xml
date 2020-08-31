@@ -6,25 +6,28 @@
     android:orientation="vertical"
     android:layout_marginTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="4"
         >
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
+            android:weightSum="2"
             android:paddingLeft="20dp"
             android:layout_marginRight="15dp"
             >
             <TextView
                 android:id="@+id/cart_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:text="name"
+                android:layout_weight="1.5"
+                android:maxLines="2"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#272525"
@@ -32,6 +35,7 @@
             <TextView
                 android:layout_marginTop="2dp"
                 android:id="@+id/cart_price"
+                android:layout_weight=".5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="price"
@@ -41,21 +45,21 @@
         </LinearLayout>
 
         <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            app:initialNumber="1"
-            app:backGroundColor="@android:color/transparent"
-            android:layout_gravity="center"
-            app:finalNumber="10"
-            app:textColor="#DD2C00"
-            app:textSize="10sp"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="8dp"
-            android:layout_weight="1"
             android:id="@+id/amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            >
+            android:layout_weight="1"
+            android:paddingStart="14dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="14dp"
+            app:backGroundColor="@android:color/transparent"
+            app:finalNumber="10"
+            app:initialNumber="1"
+            app:textColor="#DD2C00"
+            app:textSize="8sp">
+
         </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
         <TextView
             android:id="@+id/total_amount"
@@ -68,19 +72,19 @@
             android:gravity="center"
             />
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:id="@+id/delete_cart_item"
             android:paddingEnd="8dp"
+            android:layout_weight=".5"
             android:layout_marginRight="8dp"
             android:layout_height="match_parent"
             android:src="@drawable/delete1"/>
     </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height=".5dp"
-        android:background="#322F2F"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="100dp"/>
-
+        android:layout_marginLeft="50dp"
+        android:background="@color/text_shadow"/>
 </LinearLayout>
+
+

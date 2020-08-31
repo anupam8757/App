@@ -47,7 +47,8 @@
         <activity
             android:name="com.yukkti.Register.profile"
             android:label="@string/title_activity_profile"
-            android:parentActivityName="com.yukkti.home.MainActivity" />
+            android:parentActivityName="com.yukkti.home.MainActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.yukkti.Register.Otp"
             android:screenOrientation="portrait"/>
         <activity

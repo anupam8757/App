@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
-                String sharebody="https://play.google.com/store/apps/details?id=com.yukkti_gumla";
+                String sharebody="https://play.google.com/store/apps/details?id=com.yukkti";
                 String Subject="Fast Delivery APP";
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT,Subject);
                 shareIntent.putExtra(Intent.EXTRA_TEXT,sharebody);
