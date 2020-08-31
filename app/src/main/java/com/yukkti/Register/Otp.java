@@ -163,8 +163,8 @@ public class Otp extends AppCompatActivity {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 message = "Invalid code entered...";
                                 progressBar.setVisibility(View.GONE);
-                                Paper.delete(Prevalent.userPhone);
-                                Paper.delete(Prevalent.userPassword);
+                                Paper.book().delete(Prevalent.userPhone);
+                                Paper.book().delete(Prevalent.userPassword);
                                 Prevalent.currentOnlineUser = null;
                             }
                             Toast.makeText(Otp.this,message,Toast.LENGTH_SHORT).show();
@@ -202,11 +202,9 @@ public class Otp extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Paper.clear(
-                    Otp.this
-            );
-            Paper.delete(Prevalent.userPhone);
-            Paper.delete(Prevalent.userPassword);
+
+            Paper.book().delete(Prevalent.userPhone);
+            Paper.book().delete(Prevalent.userPassword);
             Prevalent.currentOnlineUser = null;
             progressBar.setVisibility(View.GONE);
             Toast.makeText(Otp.this, e.getMessage(),Toast.LENGTH_LONG).show();

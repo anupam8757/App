@@ -149,7 +149,7 @@ public class Cart extends AppCompatActivity {
                             emptyView.setText(Html.fromHtml("<h5>You have deleted all items </h5><br>" +
                                     "<p> please add item </p>"));
                             order_button.setVisibility(View.GONE);
-                            emptyView.setTextColor(getResources().getColor(R.color.red));
+                            emptyView.setTextColor(Color.parseColor("#ff00000"));
                         } else {
                             cartRecyclerView.setAdapter(cartAdapter);
                             order_button.setVisibility(View.VISIBLE);

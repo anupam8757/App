@@ -72,7 +72,7 @@
         android:drawablePadding="10dp"
         android:layout_centerHorizontal="true"
         android:hint="@string/enter_full_name"
-        android:defaultFocusHighlightEnabled="true"
+
         android:autofillHints="" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
