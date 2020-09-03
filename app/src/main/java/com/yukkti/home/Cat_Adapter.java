@@ -87,10 +87,16 @@ public class Cat_Adapter extends RecyclerView.Adapter <Cat_Adapter.MainAdapter_H
             @Override
             public void onClick(View v) {
                 if(mListener !=null){
+
                     int position=getAdapterPosition();
-                    if(position !=RecyclerView.NO_POSITION){
-                        mListener.onItemClick(position);
+                    try {
+                        if(position !=RecyclerView.NO_POSITION){
+                            mListener.onItemClick(position);
+                        }
                     }
+                    catch (Exception e)
+                    {}
+
                 }
             }
         }

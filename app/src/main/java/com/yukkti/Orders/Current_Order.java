@@ -47,6 +47,7 @@ public class Current_Order extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Paper.init(getContext());
 
         user_phone = Paper.book().read(Prevalent.userPhone);
         user = Prevalent.currentOnlineUser;
@@ -135,7 +136,7 @@ public class Current_Order extends Fragment {
 
         });
         try {
-            user_name.setText("Thank you "+ user.getName()+",\n"+"Your Order is Successfully Placed." );
+            user_name.setText("Thank you "+ user.getName()+",\n"+"Your Order is Successfully Placed." + " \n We Will Contact You Shortly" );
             address = "";
             address += user.getName() + ",\n" + user_phone + ", " + user.getAddress();
             fullAddress.setText(address);

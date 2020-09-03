@@ -28,7 +28,7 @@ public class AboutUs extends AppCompatActivity {
                 .addEmail("shivanand103kumar@gmail.com ")
 
                  //Enter your youtube link here (replace with my channel link)
-                .addPlayStore("https://play.google.com/store/apps/details?id=com.yukkti")   //Replace all this with your package name
+                .addPlayStore("com.yukkti")   //Replace all this with your package name
                 .addInstagram("yukkti_home_delivery?r=nametag")    //Your instagram id
                 .addFacebook("shubhamkumarbala/")
                 .addItem(createCopyright())

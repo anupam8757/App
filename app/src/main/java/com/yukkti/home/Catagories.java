@@ -247,7 +247,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                     Cat_list cat_list = postSnapshot.getValue(Cat_list.class);
 //                    adding the item to the list which we get from the data base
                     cat_lists.add(cat_list);
-                    Log.d("fetched",cat_list.getName());
+//                    Log.d("fetched",cat_list.getName());
                 }
 
                 cat_Adapter=new Cat_Adapter(Catagories.this,cat_lists);
@@ -303,9 +303,9 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         switch (item.getItemId()) {
             // Respond to a click on the "cart" menu option
             case R.id.action_cart:
-                    Intent intent = new Intent(Catagories.this, Cart.class);
+                Intent intent = new Intent(Catagories.this, Cart.class);
 //                    intent.putExtra("user_phone", user_phone);
-                    startActivity(intent);
+                startActivity(intent);
                 break;
 
             // Respond to a click on the "Up" arrow button in the app bar
@@ -316,7 +316,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         }
         return super.onOptionsItemSelected(item);
     }
-     private void setupBadge() {
+    private void setupBadge() {
 
         if (textCartItemCount != null) {
             if (mCartItemCount ==0) {
@@ -340,13 +340,22 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
     @Override
     public void onItemClick(final int position) {
+        String pressed_item = null;
+        try {
 
-        final String pressed_item=cat_lists.get(position).getName().trim()+cat_lists.get(position).getPrice().trim();
+            pressed_item= cat_lists.get(position).getName().trim() + cat_lists.get(position).getPrice().trim();
 //        checking for the data item is already added or not
+//        Log.d("pressed_item",pressed_item);
+        }
+        catch (Exception e){
+
+        }
+
+        final String finalPressed_item = pressed_item;
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(pressed_item)){
+                if (snapshot.hasChild(finalPressed_item)){
 //                    add.setText("added");
 //                    add.setTextColor(Color.GREEN);
                     Toast.makeText(Catagories.this, "Item is already added", Toast.LENGTH_SHORT).show();
@@ -384,7 +393,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                                 }).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                              //  Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
+                                //  Toast.makeText(Catagories.this, "Product added....", Toast.LENGTH_SHORT).show();
                                 Snackbar.make(linearLayout,"Item added to Cart",Snackbar.LENGTH_LONG).show();
                             }
                         });
@@ -398,5 +407,5 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
 
             }
         });
-        }
+    }
 }

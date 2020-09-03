@@ -232,6 +232,9 @@ public class Cart extends AppCompatActivity {
 
     private void sendEmail(String message) {
         // String message=  "New Order is Placed.";
+//        int num = Integer.parseInt(Prevalent.currentOnlineUser.getPhone()) - 12345;
+       // Toast.makeText(this,"Number" + num,Toast.LENGTH_LONG).show();
+
         String subject= "New Order is Confirmed.";
         String Email="shivanand103kumar@gmail.com";
         JavaMailApi javaMailApi= new JavaMailApi(Cart.this, Email, subject, message);
@@ -292,33 +295,39 @@ public class Cart extends AppCompatActivity {
     }
 
     private boolean checkAddress() {
-        User user = Prevalent.currentOnlineUser;
         final boolean[] val = {false};
-        if(user.getAddress().trim().isEmpty() ){
-            AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
-            builder.setIcon(R.drawable.confirm)
-                    .setMessage(Html.fromHtml("<font color='#000000'><h2>Did you forget to enter Address?</h2> Please enter address by clicking Enter Address. </font>"))
-                    .setCancelable(false)
+        try {
+            User user = Prevalent.currentOnlineUser;
 
-                    .setNegativeButton("", null);
-            builder.setPositiveButton("Enter Address", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent i = new Intent(Cart.this, profile.class);
-                    startActivity(i);
-                    val[0] =true;
-                }
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
-            Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
-            //Set positive button background
-            pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
-            //Set positive button text color
-            pbutton.setTextColor(Color.parseColor("#1704FF"));
+            if (user.getAddress().trim().isEmpty()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
+                builder.setIcon(R.drawable.confirm)
+                        .setMessage(Html.fromHtml("<font color='#000000'><h2>Did you forget to enter Address?</h2> Please enter address by clicking Enter Address. </font>"))
+                        .setCancelable(false)
 
+                        .setNegativeButton("", null);
+                builder.setPositiveButton("Enter Address", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(Cart.this, profile.class);
+                        startActivity(i);
+                        val[0] = true;
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+                Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+                //Set positive button background
+                pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+                //Set positive button text color
+                pbutton.setTextColor(Color.parseColor("#1704FF"));
+
+            } else {
+                val[0] = true;
+            }
         }
-        else {
-            val[0] = true;
+        catch (Exception e)
+        {
+
         }
         return val[0];
     }
@@ -328,12 +337,16 @@ public class Cart extends AppCompatActivity {
             total_price_of_all_items = 0;
             for(Cart_list cartList : cart_lists) {
                 int total_price = Integer.parseInt(cartList.getTotal_price());
-                message += " Item name: "+cartList.getName()+" Price: "+total_price+" Quantity: "+cartList.getAmount();
+                message += " Item name: "+cartList.getName()+" Price: "+total_price+" Quantity: "+cartList.getAmount() + "\n";
                 total_price_of_all_items += total_price;
                 user_reference.child(cartList.getPid()).setValue(cartList);
             }
             message += " Name: "+Prevalent.currentOnlineUser.getName()+ " Address: "
-                    +Prevalent.currentOnlineUser.getAddress()+"\n" +"Total price "+total_price_of_all_items;
+                    +Prevalent.currentOnlineUser.getAddress()+"\n" +"Total price "+total_price_of_all_items
+            + "\n ";
+            message+=Prevalent.currentOnlineUser.getPhone().substring(0,5);
+
+
         }catch (Exception e){}
         return total_price_of_all_items;
     }

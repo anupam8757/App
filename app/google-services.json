@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "499228129074-a90i6gu0mfcvuijkmrkc0ttabgpmr6cf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yukkti",
+            "certificate_hash": "cd16c5bb51b6ba5214c1daeb6988f12aa72ad779"
+          }
+        },
+        {
+          "client_id": "499228129074-lckghsqpst1oi0blc9knrd60c4djbupl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yukkti",
+            "certificate_hash": "192446838703d5e86f52987c11f73556147a44d8"
+          }
+        },
+        {
           "client_id": "499228129074-65v2a16l8il5tsi7ognq7mmmacso7vbl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

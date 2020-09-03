@@ -157,8 +157,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null) {
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onDeleteClick(position);
+                        try {
+                            if (position != RecyclerView.NO_POSITION) {
+                                listener.onDeleteClick(position);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+
                         }
                     }
                 }
