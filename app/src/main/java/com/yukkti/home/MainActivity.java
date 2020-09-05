@@ -56,6 +56,7 @@ import com.yukkti.login;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.paperdb.Paper;
 
@@ -105,8 +106,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkconnection();
         // for internet connection lost
+        checkconnection();
+
         //for Notification
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
         {
@@ -142,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //       toolbar in main Activity is added
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         // reference of the main layout ie drawer layout
         drawer = findViewById(R.id.drawer_layout);

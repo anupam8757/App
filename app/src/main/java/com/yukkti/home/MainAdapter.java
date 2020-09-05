@@ -62,7 +62,7 @@ public class MainAdapter extends RecyclerView.Adapter <MainAdapter.MainAdapter_H
 
         int index = position % backgroundColors.length;
         int color = ContextCompat.getColor(context, backgroundColors[index]);
-        holder.main_card_view.setBackgroundColor(color);
+        holder.main_card_view.setCardBackgroundColor(color);
     }
 
     @Override

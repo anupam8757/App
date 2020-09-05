@@ -9,7 +9,7 @@
     <string name="you_have_not_ordered_any_thing_yet_n_please_place_your_first_order">You Have Not Ordered Any Thing Yet \n Please Place Your First Order</string>
     <string name="title_activity_register">register</string>
     <string name="title_activity_profile">profile</string>
-    <string name="enter_more_details">Enter More Details</string>
+    <string name="enter_more_details">Personal Information</string>
     <string name="enter_full_name">Enter Full Name</string>
     <string name="enter_email">Enter Email</string>
     <string name="enter_phone_number">Enter Phone Number</string>
@@ -26,6 +26,7 @@
     <string name="title_activity_order__history">Order_History</string>
     <string name="tab_text_1">Current Order</string>
     <string name="tab_text_2">Old Orders</string>
+    <string name="user_name">user_name</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

@@ -39,14 +39,13 @@ import io.paperdb.Paper;
 
 public class profile extends AppCompatActivity {
 
-    private TextView flag;
-    private EditText name,email,phone,address;
+    private TextView flag,user_name,user_phone;
+    private EditText name,email,locality,district,state,pincode;
     private Button register;
     private static User user = new User();
-    private ImageView imageView;
     private ProgressBar progressBar;
     private DatabaseReference FetchDataRef, UploadDataRef;
-    String full_nameDB,Email_DB,Address_DB,phone_db,pass_db;//this we will fetch from database
+    String full_nameDB,Email_DB,phone_db,pass_db,locality_DB,district_DB,state_DB,pincode_DB;//this we will fetch from database
 
     @Override
     public void onBackPressed() {
@@ -66,12 +65,11 @@ public class profile extends AppCompatActivity {
             return;
         }
 
-
-        final String Address= address.getText().toString().trim();
-        if(TextUtils.isEmpty(Address) || address.length()<6)
+        final String Address= locality.getText().toString().trim();
+        if(TextUtils.isEmpty(Address) || locality.length()<6)
         {
-            address.setError("Enter valid address!");
-            address.requestFocus();
+            locality.setError("Enter valid address!");
+            locality.requestFocus();
             return;
         }
         else if(!Email.isEmpty() && !Name.isEmpty() && !Address.isEmpty()){
@@ -98,13 +96,23 @@ public class profile extends AppCompatActivity {
 
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
-        phone = findViewById(R.id.number);
-        phone.setText(phone_db);
-        phone.setEnabled(false);
-        address = findViewById(R.id.address);
+//        phone = findViewById(R.id.number);
+//        phone.setText(phone_db);
+//        phone.setEnabled(false);
+        locality = findViewById(R.id.locality);
+        district=findViewById(R.id.district);
+        state=findViewById(R.id.state);
+        pincode=findViewById(R.id.pincode);
+
         register = findViewById(R.id.register);
         progressBar = findViewById(R.id.profile_progress_bar);
         progressBar.setVisibility(View.GONE);
+
+//
+        user_name=findViewById(R.id.profile_user_name);
+        user_phone=findViewById(R.id.profile_user_phone);
+        user_phone.setText(phone_db);
+
 
         UploadDataRef = FirebaseDatabase.getInstance().getReference().child("Users");
         FetchDataRef = UploadDataRef.child(phone_db);
@@ -113,13 +121,13 @@ public class profile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                    full_nameDB=snapshot.child("name").getValue(String.class);
                    Email_DB = snapshot.child("email").getValue(String.class);
-                   Address_DB=snapshot.child("address").getValue(String.class);
+                   locality_DB=snapshot.child("address").getValue(String.class);
                    pass_db=snapshot.child("password").getValue(String.class);
-
                    name.setText(full_nameDB);
                    email.setText(Email_DB);
-                   address.setText(Address_DB);
-
+                   locality.setText(locality_DB);
+//
+                user_name.setText(full_nameDB);
                    User user1 = snapshot.getValue(User.class);
                    Prevalent.currentOnlineUser = user1;
             }
@@ -129,6 +137,8 @@ public class profile extends AppCompatActivity {
 
             }
         });
+
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,11 +162,11 @@ public class profile extends AppCompatActivity {
                 }
 
 
-                final String Address= address.getText().toString().trim();
-                if(TextUtils.isEmpty(Address) || address.length()<6)
+                final String Address= locality.getText().toString().trim();
+                if(TextUtils.isEmpty(Address) || locality.length()<6)
                 {
-                    address.setError("Enter valid address!");
-                    address.requestFocus();
+                    locality.setError("Enter valid address!");
+                    locality.requestFocus();
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
@@ -164,7 +174,7 @@ public class profile extends AppCompatActivity {
                 user.setEmail(email.getText().toString().trim());
                 user.setPhone(phone_db);
                 user.setPassword(pass_db);
-                user.setAddress(address.getText().toString().trim());
+                user.setAddress(locality.getText().toString().trim());
 
                 progressBar.setVisibility(View.GONE);
                 Prevalent.currentOnlineUser = user;

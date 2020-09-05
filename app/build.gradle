@@ -64,5 +64,7 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.medyo:android-about-page:1.2.6'
+//    to add the color pelette in the profile
+    implementation "androidx.palette:palette:1.0.0"
 
 }
