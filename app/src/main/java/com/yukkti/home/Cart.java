@@ -240,9 +240,6 @@ public class Cart extends AppCompatActivity {
     }
 
     private void sendEmail(String message) {
-        // String message=  "New Order is Placed.";
-//        int num = Integer.parseInt(Prevalent.currentOnlineUser.getPhone()) - 12345;
-       // Toast.makeText(this,"Number" + num,Toast.LENGTH_LONG).show();
 
         String subject= "New Order is Confirmed.";
         String Email="shivanand103kumar@gmail.com";
