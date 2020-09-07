@@ -332,6 +332,7 @@ public class Cart extends AppCompatActivity {
     }
 
     public int total_price(){
+        total_price_of_all_items = 0;
         try{
             for(Cart_list cartList : cart_lists) {
                 int total_price = Integer.parseInt(cartList.getTotal_price());
@@ -344,7 +345,7 @@ public class Cart extends AppCompatActivity {
             + "\n ";
             message+=Prevalent.currentOnlineUser.getPhone().substring(0,5);
 
-
+        Log.d("Cart","price: "+ total_price_of_all_items);
         }catch (Exception e){}
         return total_price_of_all_items;
     }
@@ -352,13 +353,6 @@ public class Cart extends AppCompatActivity {
         // Initializing a new alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        // Set a title for alert dialog
-        // Define the title color to red
-        //builder.setTitle(Html.fromHtml("<font color='#ff0000'>Say Hello!</font>"));
-
-        // Another way to change alert dialog title text color
-
-        // Specify the alert dialog title
         String titleText = "SORRY !";
 
         // Initialize a new foreground color span instance
@@ -401,13 +395,6 @@ public class Cart extends AppCompatActivity {
         // Initializing a new alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        // Set a title for alert dialog
-        // Define the title color to red
-        //builder.setTitle(Html.fromHtml("<font color='#ff0000'>Say Hello!</font>"));
-
-        // Another way to change alert dialog title text color
-
-        // Specify the alert dialog title
         String titleText = "SORRY !";
 
         // Initialize a new foreground color span instance
@@ -428,7 +415,7 @@ public class Cart extends AppCompatActivity {
         builder.setTitle(ssBuilder);
 
         // Show a message on alert dialog
-        builder.setMessage(Html.fromHtml("<font color='#000000'><h5>Please order in between</> <h5>8:00 am to 8:00 pm</h5> "));
+        builder.setMessage(Html.fromHtml("<font color='#000000'><h5>Please order in between</> <h5>8:00 am to 8:30 pm</h5> "));
 
         // Set the positive button
         builder.setPositiveButton("Ok",null);
@@ -455,7 +442,7 @@ public class Cart extends AppCompatActivity {
             calendar1.setTime(time1);
             calendar1.add(Calendar.DATE, 1);
 
-            String string2 = "20:00:00";
+            String string2 = "20:30:00";
             Date time2 = new SimpleDateFormat("HH:mm:ss").parse(string2);
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTime(time2);
