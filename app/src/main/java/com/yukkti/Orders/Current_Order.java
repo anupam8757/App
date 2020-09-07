@@ -138,7 +138,7 @@ public class Current_Order extends Fragment {
         try {
             user_name.setText("Thank you "+ user.getName()+",\n"+"Your Order is Successfully Placed." + " \n We Will Contact You Shortly" );
             address = "";
-            address += user.getName() + ",\n" + user_phone + ", " + user.getAddress();
+            address += user.getName() + ",\n" + user_phone + ",\n" + user.getAddress().replace("#",",");
             fullAddress.setText(address);
         }
         catch (Exception e){
