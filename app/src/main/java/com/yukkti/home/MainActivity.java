@@ -145,10 +145,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         // reference of the main layout ie drawer layout
+
         drawer = findViewById(R.id.drawer_layout);
-//   the reference of the navigation bar
+//      the reference of the navigation bar
         NavigationView navigationView = findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         setcart();
-
 
         View headerView = navigationView.getHeaderView(0);
         TextView userNameHeaderView = headerView.findViewById(R.id.nav_header_name);
