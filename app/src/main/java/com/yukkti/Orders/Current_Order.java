@@ -24,7 +24,6 @@ import com.yukkti.R;
 import com.yukkti.home.Cart_list;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.paperdb.Paper;
@@ -56,6 +55,8 @@ public class Current_Order extends Fragment {
         fullAddress = view.findViewById(R.id.address_full);
         totalPrice = view.findViewById(R.id.total_price_of_order);
         user_name = view.findViewById(R.id.user_name);
+//        DateTime = view.findViewById(R.id.date_time_order);
+//        total_no_items = view.findViewById(R.id.date_time_order);
         orderList = view.findViewById(R.id.list_view_orders);
 
 //        empty list view
@@ -93,7 +94,8 @@ public class Current_Order extends Fragment {
                     FetchedTime = order.child("date_time").getValue().toString();
                 }
                 totalPrice.setText(" Rs. "+total_price);
-
+//                DateTime.setText(FetchedTime);
+//                total_no_items.setText("Total items: "+total_items);
                 ArrayList<Order_list> order_lists = new ArrayList<>();
                 try{
                     for(Cart_list list: cart_list){
@@ -134,10 +136,9 @@ public class Current_Order extends Fragment {
 
         });
         try {
-            String []userAddress = user.getAddress().split("#",2);
             user_name.setText("Thank you "+ user.getName()+",\n"+"Your Order is Successfully Placed." + " \n We Will Contact You Shortly" );
             address = "";
-            address += " "+user.getName() + ",\n" + user_phone + ", " + userAddress[0]+",\npin: "+userAddress[1]+".";
+            address += user.getName() + ",\n" + user_phone + ", " + user.getAddress();
             fullAddress.setText(address);
         }
         catch (Exception e){
