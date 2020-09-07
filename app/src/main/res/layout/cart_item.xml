@@ -23,10 +23,11 @@
             <TextView
                 android:id="@+id/cart_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:text="name"
                 android:maxLines="1"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:paddingLeft="5dp"
                 android:textColor="#272525"
@@ -34,7 +35,7 @@
             <TextView
                android:layout_gravity="center"
                 android:id="@+id/cart_price"
-                android:layout_weight="1.3"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="price"

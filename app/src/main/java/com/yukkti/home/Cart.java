@@ -11,6 +11,9 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -39,8 +42,10 @@ import com.yukkti.Prevalent.Prevalent;
 import com.yukkti.R;
 import com.yukkti.Register.profile;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +65,6 @@ public class Cart extends AppCompatActivity {
     String currentDate, currentTime, message="";
     Button order_button;
     private int total_price_of_all_items = 0,total_items = 0;
-    TextView emptyText;
     TextView emptyView;
 
     @Override
@@ -74,18 +78,22 @@ public class Cart extends AppCompatActivity {
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (total_price()<75){
-                    show_price_pop();
+                if (!time_lies()) {
+                    show_time_constraint();
                 }
-                else {
-                    if (checkAddress()) {
-                        confirmOrder();
+                else{
+                    if (total_price() < 75) {
+                        show_price_pop();
+                    } else {
+                        if (checkAddress()) {
+                            confirmOrder();
+                        }
                     }
                 }
+
             }
 
         });
-
 
         user_phone = Paper.book().read(Prevalent.userPhone);
         cart_toolbar=findViewById(R.id.cart_toolbar);
@@ -139,7 +147,6 @@ public class Cart extends AppCompatActivity {
                 cartAdapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
                     @Override
                     public void onDeleteClick(int position) {
-                        Intent intent = new Intent(Cart.this,Cart.class);
                         String id=cart_lists.get(position).getPid().trim();
                         DatabaseReference driverRef = user_reference.child(id);
                         driverRef.removeValue();
@@ -204,7 +211,6 @@ public class Cart extends AppCompatActivity {
         total_items = cart_lists.size();
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-
         HashMap<String, Object> orderDetails = new HashMap<>();
         orderDetails.put("total_price",Integer.toString(total_price_of_all_items));
         orderDetails.put("Cart",cart_lists);
@@ -267,12 +273,7 @@ public class Cart extends AppCompatActivity {
         builder.setIcon(R.drawable.confirm)
                 .setMessage(Html.fromHtml("<font color='#000000'><h2>Confirm Order?</h2> Total price = Rs. </font>"+total_price()))
                 .setCancelable(false)
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        emptyText.setVisibility(View.GONE);
-                    }
-                });
+                .setNegativeButton("No", null);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 updateDetailsToCart();
@@ -332,7 +333,6 @@ public class Cart extends AppCompatActivity {
 
     public int total_price(){
         try{
-            total_price_of_all_items = 0;
             for(Cart_list cartList : cart_lists) {
                 int total_price = Integer.parseInt(cartList.getTotal_price());
                 message += " Item name: "+cartList.getName()+" Price: "+total_price+" Quantity: "+cartList.getAmount() + "\n";
@@ -349,26 +349,133 @@ public class Cart extends AppCompatActivity {
         return total_price_of_all_items;
     }
     private void show_price_pop() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
-        builder.setIcon(R.drawable.confirm)
-                .setMessage(Html.fromHtml("<font color='#FFFB0505'><h2>Minimum order!! </h2> Please order above Rs 75 . </font>"))
-                .setCancelable(false)
-                .setNegativeButton("", null);
-        builder.setPositiveButton("Add Items", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-//                Intent i = new Intent(Cart.this, profile.class);
-//                startActivity(i);
+        // Initializing a new alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        // Set a title for alert dialog
+        // Define the title color to red
+        //builder.setTitle(Html.fromHtml("<font color='#ff0000'>Say Hello!</font>"));
+
+        // Another way to change alert dialog title text color
+
+        // Specify the alert dialog title
+        String titleText = "SORRY !";
+
+        // Initialize a new foreground color span instance
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.RED);
+
+        // Initialize a new spannable string builder instance
+        SpannableStringBuilder ssBuilder = new SpannableStringBuilder(titleText);
+
+        // Apply the text color span
+        ssBuilder.setSpan(
+                foregroundColorSpan,
+                0,
+                titleText.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+        // Set the alert dialog title using spannable string builder
+        builder.setTitle(ssBuilder);
+
+        // Show a message on alert dialog
+        builder.setMessage(Html.fromHtml("<font color='#000000'><h5>Please order above Rs. 75 "));
+
+        // Set the positive button
+        builder.setPositiveButton("Ok",null);
+
+
+        // Create the alert dialog
+        AlertDialog dialog = builder.create();
+
+        // Finally, display the alert dialog
+        dialog.show();
+        Button pbutton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
         //Set positive button background
         pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
         //Set positive button text color
         pbutton.setTextColor(Color.parseColor("#1704FF"));
 
     }
+    private void show_time_constraint(){
+        // Initializing a new alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Set a title for alert dialog
+        // Define the title color to red
+        //builder.setTitle(Html.fromHtml("<font color='#ff0000'>Say Hello!</font>"));
+
+        // Another way to change alert dialog title text color
+
+        // Specify the alert dialog title
+        String titleText = "SORRY !";
+
+        // Initialize a new foreground color span instance
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.RED);
+
+        // Initialize a new spannable string builder instance
+        SpannableStringBuilder ssBuilder = new SpannableStringBuilder(titleText);
+
+        // Apply the text color span
+        ssBuilder.setSpan(
+                foregroundColorSpan,
+                0,
+                titleText.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+        // Set the alert dialog title using spannable string builder
+        builder.setTitle(ssBuilder);
+
+        // Show a message on alert dialog
+        builder.setMessage(Html.fromHtml("<font color='#000000'><h5>Please order in between</> <h5>8:00 am to 8:00 pm</h5> "));
+
+        // Set the positive button
+        builder.setPositiveButton("Ok",null);
+
+
+        // Create the alert dialog
+        AlertDialog dialog = builder.create();
+
+        // Finally, display the alert dialog
+        dialog.show();
+        Button pbutton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        //Set positive button background
+        pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+        //Set positive button text color
+        pbutton.setTextColor(Color.parseColor("#1704FF"));
+
+    }
+    private boolean time_lies(){
+        boolean value = false;
+        try {
+            String string1 = "08:00:00";
+            Date time1 = new SimpleDateFormat("HH:mm:ss").parse(string1);
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(time1);
+            calendar1.add(Calendar.DATE, 1);
+
+            String string2 = "20:00:00";
+            Date time2 = new SimpleDateFormat("HH:mm:ss").parse(string2);
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(time2);
+            calendar2.add(Calendar.DATE, 1);
+
+            String someRandomTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+            Date d = new SimpleDateFormat("HH:mm:ss").parse(someRandomTime);
+            Calendar calendar3 = Calendar.getInstance();
+            calendar3.setTime(d);
+            calendar3.add(Calendar.DATE, 1);
+            Date x = calendar3.getTime();
+            if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) {
+                value=true;
+            }
+            else value=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
+
 
 }

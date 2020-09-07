@@ -73,7 +73,7 @@
         app:cardCornerRadius="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5.45"
+        android:layout_weight="5.55"
         app:title="date of order"
         >
 
@@ -169,8 +169,8 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.01"
-        android:background="#4C54F3"
+        android:layout_weight="1"
+        android:background="@color/primaryLightColor"
         android:orientation="vertical">
         <View
             android:layout_width="match_parent"
@@ -181,7 +181,7 @@
         <TextView
             android:layout_marginTop="15dp"
             android:id="@+id/text5"
-            android:background="#4C54F3"
+            android:background="@color/primaryLightColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contact us @6202123103\n for any Queries."
