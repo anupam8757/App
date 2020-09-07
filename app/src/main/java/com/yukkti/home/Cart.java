@@ -74,15 +74,18 @@ public class Cart extends AppCompatActivity {
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkAddress();
-                if (checkAddress()) {
-                    confirmOrder();
+                if (total_price()<75){
+                    show_price_pop();
+                }
+                else {
+                    if (checkAddress()) {
+                        confirmOrder();
+                    }
                 }
             }
+
         });
 
-        emptyText = findViewById(R.id.total_amount_cart);
-        emptyText.setVisibility(View.INVISIBLE);
 
         user_phone = Paper.book().read(Prevalent.userPhone);
         cart_toolbar=findViewById(R.id.cart_toolbar);
@@ -259,11 +262,6 @@ public class Cart extends AppCompatActivity {
 
         total_price_of_all_items = 0;
 
-        if(total_price() <= 50){
-            emptyText.setVisibility(View.VISIBLE);
-            emptyText.setText("Minimum Order is 50.");
-            return;
-        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
         builder.setIcon(R.drawable.confirm)
@@ -350,4 +348,27 @@ public class Cart extends AppCompatActivity {
         }catch (Exception e){}
         return total_price_of_all_items;
     }
+    private void show_price_pop() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
+        builder.setIcon(R.drawable.confirm)
+                .setMessage(Html.fromHtml("<font color='#FFFB0505'><h2>Minimum order!! </h2> Please order above Rs 75 . </font>"))
+                .setCancelable(false)
+                .setNegativeButton("", null);
+        builder.setPositiveButton("Add Items", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+//                Intent i = new Intent(Cart.this, profile.class);
+//                startActivity(i);
+
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        //Set positive button background
+        pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+        //Set positive button text color
+        pbutton.setTextColor(Color.parseColor("#1704FF"));
+
+    }
+
 }

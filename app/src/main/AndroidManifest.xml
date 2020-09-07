@@ -35,7 +35,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.yukkti.home.Cart"
-            android:parentActivityName="com.yukkti.home.MainActivity"
+            android:parentActivityName="com.yukkti.home"
             android:screenOrientation="portrait"/>
 
         <activity android:name="com.yukkti.Admin.AdminCategoryActivity" />
