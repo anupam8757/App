@@ -166,18 +166,14 @@
     </com.google.android.material.card.MaterialCardView>
     <LinearLayout
         android:id="@+id/text9"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.01"
+        android:layout_weight="1.07"
         android:background="#4C54F3"
         android:orientation="vertical">
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-
-            android:layout_above="@id/text5"
-            android:layout_alignTop="@id/text5"/>
+            android:layout_height="1dp" />
         <TextView
             android:layout_marginTop="15dp"
             android:id="@+id/text5"
@@ -186,10 +182,10 @@
             android:layout_height="wrap_content"
             android:text="Contact us @6202123103\n for any Queries."
             android:textSize="15sp"
+            android:layout_gravity="center"
             android:textStyle="bold"
             android:gravity="center"
             android:textColor="#FFFFFF"
-
             />
     </LinearLayout>
 </LinearLayout>

@@ -136,9 +136,11 @@ public class Current_Order extends Fragment {
 
         });
         try {
+            String userAddress = user.getAddress();
+            String s[] = userAddress.split("#",2);
             user_name.setText("Thank you "+ user.getName()+",\n"+"Your Order is Successfully Placed." + " \n We Will Contact You Shortly" );
             address = "";
-            address += user.getName() + ",\n" + user_phone + ", " + user.getAddress();
+            address += user.getName() + ",\n" + user_phone + ", " + s[0]+",\n"+"pin: "+s[1];
             fullAddress.setText(address);
         }
         catch (Exception e){

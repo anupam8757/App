@@ -1,12 +1,16 @@
 package com.yukkti.Register;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -31,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.yukkti.Model.User;
 import com.yukkti.Prevalent.Prevalent;
 import com.yukkti.R;
+import com.yukkti.home.Cart;
 import com.yukkti.home.MainActivity;
 
 import java.util.regex.Pattern;
@@ -44,6 +49,7 @@ public class profile extends AppCompatActivity {
     private Button register;
     private static User user = new User();
     private ProgressBar progressBar;
+    private String GumlaPin = "835207";
     private DatabaseReference FetchDataRef, UploadDataRef;
     String full_nameDB,Email_DB,phone_db,pass_db,locality_DB,district_DB,state_DB,pincode_DB;//this we will fetch from database
 
@@ -64,7 +70,7 @@ public class profile extends AppCompatActivity {
             email.requestFocus();
             return;
         }
-
+        final String pin = pincode.getText().toString().trim();
         final String Address= locality.getText().toString().trim();
         if(TextUtils.isEmpty(Address) || locality.length()<6)
         {
@@ -72,7 +78,8 @@ public class profile extends AppCompatActivity {
             locality.requestFocus();
             return;
         }
-        else if(!Email.isEmpty() && !Name.isEmpty() && !Address.isEmpty()){
+
+        else if(!Email.isEmpty() && !Name.isEmpty() && !Address.isEmpty() && !pin.isEmpty()){
             Intent i = new Intent(profile.this, MainActivity.class);
             startActivity(i);
             finish();
@@ -96,12 +103,8 @@ public class profile extends AppCompatActivity {
 
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
-//        phone = findViewById(R.id.number);
-//        phone.setText(phone_db);
-//        phone.setEnabled(false);
+
         locality = findViewById(R.id.locality);
-        district=findViewById(R.id.district);
-        state=findViewById(R.id.state);
         pincode=findViewById(R.id.pincode);
 
         register = findViewById(R.id.register);
@@ -125,7 +128,10 @@ public class profile extends AppCompatActivity {
                    pass_db=snapshot.child("password").getValue(String.class);
                    name.setText(full_nameDB);
                    email.setText(Email_DB);
-                   locality.setText(locality_DB);
+                   try{
+                String[] arrOfStr = locality_DB.split("#", 2);
+                locality.setText(arrOfStr[0]);
+                pincode.setText(arrOfStr[1]);}catch (Exception e){}
 //
                 user_name.setText(full_nameDB);
                    User user1 = snapshot.getValue(User.class);
@@ -152,7 +158,7 @@ public class profile extends AppCompatActivity {
                     name.requestFocus();
                     return;
                 }
-                //    int age = Integer.parseInt();
+
                 final String Email = email.getText().toString().trim();
                 if(TextUtils.isEmpty(Email) || !validEmail(Email))
                 {
@@ -160,7 +166,13 @@ public class profile extends AppCompatActivity {
                     email.requestFocus();
                     return;
                 }
-
+                final String pin = pincode.getText().toString().trim();
+                if(checkPin(pin))
+                {
+                    pincode.setError("Please Enter valid Pincode");
+                    pincode.requestFocus();
+                    return;
+                }
 
                 final String Address= locality.getText().toString().trim();
                 if(TextUtils.isEmpty(Address) || locality.length()<6)
@@ -169,12 +181,13 @@ public class profile extends AppCompatActivity {
                     locality.requestFocus();
                     return;
                 }
+
                 progressBar.setVisibility(View.VISIBLE);
                 user.setName(name.getText().toString().trim());
                 user.setEmail(email.getText().toString().trim());
                 user.setPhone(phone_db);
                 user.setPassword(pass_db);
-                user.setAddress(locality.getText().toString().trim());
+                user.setAddress(locality.getText().toString().trim()+"#"+pin);
 
                 progressBar.setVisibility(View.GONE);
                 Prevalent.currentOnlineUser = user;
@@ -227,5 +240,32 @@ public class profile extends AppCompatActivity {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }
+    private boolean checkPin(String pin){
+        if( pin.isEmpty()){
+            return true;
+        }
+        else if(pin.equals(GumlaPin)){
+            return false;
+        }
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(profile.this);
+            builder.setIcon(R.drawable.confirm)
+                    .setMessage(Html.fromHtml("<font color='#000000'><h3>Sorry! we have not yet started at your pincode.</h3> Please enter Gumla city's pincode to continue.</font>"))
+                    .setCancelable(false)
+                    .setNegativeButton("", null);
+            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
 
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+            Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+            //Set positive button background
+            pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+            //Set positive button text color
+            pbutton.setTextColor(Color.parseColor("#1704FF"));
+        }
+        return true;
+    }
 }
