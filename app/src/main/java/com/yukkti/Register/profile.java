@@ -54,7 +54,7 @@ public class profile extends AppCompatActivity {
     private ProgressBar progressBar;
     private String GumlaPin = "835207";
     private DatabaseReference FetchDataRef, UploadDataRef;
-    String full_nameDB,Email_DB,phone_db,pass_db,locality_DB,district_DB,state_DB,pincode_DB;//this we will fetch from database
+    String full_nameDB,Email_DB,phone_db,pass_db,locality_DB;//this we will fetch from database
 
     @Override
     public void onBackPressed() {
@@ -81,7 +81,12 @@ public class profile extends AppCompatActivity {
             locality.requestFocus();
             return;
         }
-
+        if(TextUtils.isEmpty(pin))
+        {
+            pincode.setError("Enter valid pin code!");
+            pincode.requestFocus();
+            return;
+        }
         else if(!Email.isEmpty() && !Name.isEmpty() && !Address.isEmpty() && !pin.isEmpty()){
             Intent i = new Intent(profile.this, MainActivity.class);
             startActivity(i);
