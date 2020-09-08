@@ -137,10 +137,22 @@ public class Current_Order extends Fragment {
         });
         try
         {
-            String []userAddress = user.getAddress().split("#",2);
-            user_name.setText("Thank you "+ user.getName()+",\n"+"Your Order is Successfully Placed." + " \n We Will Contact You Shortly" );
+            String []userAddress = new String[100];
+            userAddress[0] = user.getAddress();
+            userAddress[1] = " ";
+            if(user.getAddress().contains("#")){
+                userAddress = user.getAddress().split("#",2);
+                userAddress[0] = userAddress[0]+", ";
+                userAddress[1] = userAddress[1] +".";
+            }
+            else {
+                userAddress[0] = user.getAddress();
+                userAddress[1] = " ";
+            }
+            user_name.setText("Thank you "+ user.getName()+",\n"+"Your" +
+                    " Order is Successfully Placed." + " \n We Will Contact You Shortly" );
             address = "";
-            address += user.getName() + ",\n" + user_phone + ", " + userAddress[0]+",\npin: "+userAddress[1]+".";
+            address += user.getName() + ",\n" + user_phone + ", " + userAddress[0]+userAddress[1];
             fullAddress.setText(address);
         }
         catch (Exception e){
