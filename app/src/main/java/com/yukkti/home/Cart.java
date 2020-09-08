@@ -265,7 +265,6 @@ public class Cart extends AppCompatActivity {
 
         total_price_of_all_items = 0;
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
         builder.setIcon(R.drawable.confirm)
                 .setMessage(Html.fromHtml("<font color='#000000'><h2>Confirm Order?</h2> Total price = Rs. </font>"+total_price()))
@@ -458,6 +457,5 @@ public class Cart extends AppCompatActivity {
         }
         return value;
     }
-
 
 }
