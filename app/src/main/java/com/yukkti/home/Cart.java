@@ -272,7 +272,11 @@ public class Cart extends AppCompatActivity {
                 .setNegativeButton("No", null);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+                if(time_lies())
                 updateDetailsToCart();
+                else
+                    show_time_constraint();
+
             }
         });
         AlertDialog alert = builder.create();
@@ -371,8 +375,6 @@ public class Cart extends AppCompatActivity {
 
         // Set the positive button
         builder.setPositiveButton("Ok",null);
-
-
         // Create the alert dialog
         AlertDialog dialog = builder.create();
 
