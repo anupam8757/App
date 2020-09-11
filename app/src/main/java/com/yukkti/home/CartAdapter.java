@@ -71,7 +71,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapter_Ho
         String newprice="Rs. "+current_position.getPrice();
         holder.price.setText(newprice);
         int amt = current_position.getAmount();
-        holder.total_price.setText(Integer.toString(amt*price));
+        holder.total_price.setText("Rs. "+Integer.toString(amt*price));
         holder.amount.setNumber(Integer.toString(amt));
 //        her we will set the final price according to the amount
         final int[] getamount = new int[1];

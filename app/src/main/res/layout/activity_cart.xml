@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.8"
+            android:layout_weight="2.2"
             android:text="Items Name"
             android:textSize="16sp"
             android:layout_gravity="center"
@@ -42,8 +42,8 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Qtys"
+            android:layout_weight=".8"
+            android:text="Quentity"
             android:textSize="16sp"
             android:textColor="#2B211F"
             android:layout_gravity="center"
@@ -52,11 +52,12 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.2"
+            android:layout_weight="1"
             android:text="Price"
             android:textSize="16sp"
             android:layout_gravity="center"
             android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
             android:textColor="#2B211F"
             android:textStyle="bold"/>
     </LinearLayout>

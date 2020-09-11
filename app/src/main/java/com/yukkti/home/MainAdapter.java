@@ -58,7 +58,14 @@ public class MainAdapter extends RecyclerView.Adapter <MainAdapter.MainAdapter_H
                 R.color.list_color4,
                 R.color.list_color5,
                 R.color.list_color6,
-                R.color.list_color7 };
+                R.color.list_color7,
+                 R.color.list_color8,
+                 R.color.list_color9,
+                 R.color.list_color10,
+                 R.color.list_color11,
+                 R.color.list_color12,
+
+         };
 
         int index = position % backgroundColors.length;
         int color = ContextCompat.getColor(context, backgroundColors[index]);
