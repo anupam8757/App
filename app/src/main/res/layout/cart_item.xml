@@ -16,8 +16,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="2"
+            android:layout_weight="1.75"
             android:weightSum="2"
+            android:layout_marginLeft="3dp"
             >
             <TextView
                 android:id="@+id/cart_name"
@@ -33,7 +34,7 @@
                 android:textColor="#272525"
                 />
             <TextView
-               android:layout_gravity="center"
+                android:layout_gravity="center"
                 android:id="@+id/cart_price"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
@@ -51,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight=".9"
+            android:layout_weight="1"
             android:paddingStart="14dp"
             app:backGroundColor="@android:color/transparent"
             app:finalNumber="10"
@@ -64,7 +65,7 @@
             android:id="@+id/total_amount"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="100"
+            android:text="Rs.1000"
             android:textColor="#171717"
             android:layout_weight=".9"
             android:textSize="15sp"

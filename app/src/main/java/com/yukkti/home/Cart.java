@@ -242,7 +242,7 @@ public class Cart extends AppCompatActivity {
     private void sendEmail(String message) {
 
         String subject= "New Order is Confirmed.";
-        String Email="shivanand103kumar@gmail.com";
+        String Email="yukktifastdelivery@gmail.com";
         JavaMailApi javaMailApi= new JavaMailApi(Cart.this, Email, subject, message);
         javaMailApi.execute();
     }

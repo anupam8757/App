@@ -23,9 +23,9 @@ public class AboutUs extends AppCompatActivity {
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
                 .setDescription(" Fast Delivery App")
-                .addItem(new Element().setTitle("Version 1.0"))
+                .addItem(new Element().setTitle("Version 2.0"))
                 .addGroup("CONNECT WITH US!")
-                .addEmail("shivanand103kumar@gmail.com ")
+                .addEmail("yukktifastdelivery@gmail.com ")
 
                  //Enter your youtube link here (replace with my channel link)
                 .addPlayStore("com.yukkti")   //Replace all this with your package name

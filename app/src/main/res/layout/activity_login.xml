@@ -37,19 +37,18 @@
         android:layout_width="277dp"
         android:layout_height="71dp"
         android:fontFamily="cursive"
+        android:gravity="center"
         android:text="Welcome to Yukkti"
         android:textColor="#b2b2b2"
         android:textSize="35sp"
-        android:gravity="center"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintVertical_bias="0.265" />
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="256dp"
         android:layout_height="22dp"
         android:text="Login with your number and password"
@@ -71,6 +70,7 @@
         app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
         app:layout_constraintVertical_bias="0.451"
         >
         <EditText
@@ -108,8 +108,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"
+        app:passwordToggleEnabled="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.532"
+        app:layout_constraintVertical_bias="0.545"
         >
     <EditText
         android:id="@+id/editTextPassword"

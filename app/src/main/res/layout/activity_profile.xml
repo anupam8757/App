@@ -23,8 +23,8 @@
                 android:layout_height="match_parent"
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="160dp"
-                    android:layout_height="150dp"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
                     android:src="@mipmap/profile_pic"
                     android:layout_centerInParent="true"
                     android:id="@+id/profile_pic"
@@ -76,7 +76,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Profile"
-                        android:id="@+id/toolbar_title"
                         android:gravity="center_vertical"
                         android:textColor="@color/text_shadow_white"
                         android:textSize="25sp"
