@@ -11,10 +11,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,23 +38,32 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         checkConnection();
         Paper.init(this);
-        final String phone = ""+Paper.book().read(Prevalent.userPhone);
-        Log.d("SplashActivity"," "+phone);
-        if(phone != null){
-            DatabaseReference user_data= FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            final String phone =  user.getPhoneNumber().substring(3,13);
+            Log.d("SplashActivity"," "+phone);
+            Log.d("SplashActivity"," "+Paper.book().read("User_Name"));
+            Log.d("SplashActivity"," "+Paper.book().read("User_Email"));
+            if(phone != null){
+                DatabaseReference user_data= FirebaseDatabase.getInstance().getReference().child("Users").child(phone);
 
-            user_data.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.getValue(User.class);
-                    Prevalent.currentOnlineUser = user;
-                }
+                user_data.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        String name = user.getName();
+                        Paper.book().write("User_Name",name);
+                        String email = user.getEmail();
+                        Paper.book().write("User_Email",email);
+                        Prevalent.currentOnlineUser = user;
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            }
         }
 
         new Handler().postDelayed(new Runnable() {  // Changes activity after 2 seconds

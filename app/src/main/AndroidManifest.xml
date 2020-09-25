@@ -35,14 +35,11 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.yukkti.home.Cart"
-            android:parentActivityName="com.yukkti.home"
+            android:parentActivityName="com.yukkti.home.MainActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name="com.yukkti.Admin.AdminCategoryActivity" />
         <activity android:name="com.yukkti.Admin.Admin_Add_New_Product_Activity" />
-        <activity android:name="com.yukkti.ForgotPassword" />
-        <activity android:name="com.yukkti.login"
-            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.yukkti.Register.profile"

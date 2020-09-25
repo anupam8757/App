@@ -33,18 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="157dp"
-        android:layout_height="24dp"
-        android:text="Create New User"
-        android:textColor="#b2b2b2"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.02" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="315dp"
@@ -70,38 +58,22 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <Button
         android:id="@+id/button"
-        android:layout_width="130dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/buttons"
         android:text="Get OTP"
         android:textColor="#fff"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPhone_input"
-        app:layout_constraintVertical_bias="0.498" />
-
-    <TextView
-        android:id="@+id/login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:text="Already have an account? Click here!"
-        android:textSize="15dp"
-        android:textColor="@color/primaryDarkColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.265" />
+        app:layout_constraintVertical_bias="0.217" />
 
     <ProgressBar
         android:id="@+id/register_progressbar"
@@ -111,32 +83,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword_input"
-        app:layout_constraintVertical_bias="0.555" />
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="315dp"
-        android:layout_height="47dp"
-        android:layout_margin="10dp"
-        android:id="@+id/editTextTextPassword_input"
-        app:hintTextAppearance="@style/AppTheme.WhiteAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.545"
-        app:passwordToggleEnabled="true"
-        >
-        <EditText
-            android:id="@+id/editTextTextPassword"
-            android:layout_width="315dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="25dp"
-            android:ems="10"
-            android:hint="Create Password"
-            android:inputType="textPassword"
-            android:textColor="#0E0D0D"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhone_input"
+        app:layout_constraintVertical_bias="0.636" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

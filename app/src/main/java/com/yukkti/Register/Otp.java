@@ -19,6 +19,7 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
@@ -44,8 +45,7 @@ public class Otp extends AppCompatActivity {
     private ProgressBar progressBar;
     private EditText editText;
     private TextView tv;
-    private String phonenumber, pass;
-    private User user;
+    private String phonenumber;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -58,19 +58,14 @@ public class Otp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
-
         Paper.init(this);
 
         mAuth = FirebaseAuth.getInstance();
-
         tv = findViewById(R.id.pno);
         progressBar = findViewById(R.id.progressbar);
         editText = findViewById(R.id.editTextNumber);
 
         phonenumber = getIntent().getStringExtra("phonenumber");
-        pass = getIntent().getStringExtra("password");
-
-        Log.d("Otp.java",phonenumber+" "+pass);
 
         tv.setText(phonenumber);
         sendVerificationCode(phonenumber);
@@ -107,57 +102,71 @@ public class Otp extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
-
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if (task.isSuccessful()) {
                             userId = mAuth.getUid();
-                            mAuth.signOut();
-                            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.child("Users").child(phonenumber).exists()) {
-                                        User userData = snapshot.child("Users").child(phonenumber).getValue(User.class);
-                                        Prevalent.currentOnlineUser = userData;
-                                        Paper.book().write(Prevalent.userPhone, phonenumber);
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if(user != null){
 
-                                }
-                            });
+                                rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.child("Users").child(phonenumber).exists()) {
 
-                            Paper.book().write(Prevalent.userPhone, phonenumber);
-                            Paper.book().write(Prevalent.userPassword, phonenumber);
+                                            User userData = snapshot.child("Users").child(phonenumber).getValue(User.class);
+                                            Prevalent.currentOnlineUser = userData;
+                                            Paper.book().write(Prevalent.userPhone, phonenumber);
 
-                            HashMap<String, Object> userdataMap = new HashMap<>();
-                            userdataMap.put("phone",phonenumber);
-                            userdataMap.put("password",pass);
-                            userdataMap.put("name"," ");
-                            userdataMap.put("address"," ");
-                            userdataMap.put("email"," ");
-                            rootRef.child("Users").child(phonenumber).updateChildren(userdataMap)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isComplete()){
-                                                progressBar.setVisibility(View.GONE);
-                                                ProcessPhoenix.triggerRebirth(Otp.this,new Intent(Otp.this, profile.class));
-                                                Intent intent = new Intent(Otp.this, MainActivity.class);
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                            else{
-                                                progressBar.setVisibility(View.GONE);
-                                                Toast.makeText(Otp.this,"Something went wrong",Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(Intent.ACTION_MAIN);
-                                                intent.addCategory(Intent.CATEGORY_HOME);
-                                                startActivity(intent);
-                                                finish();
-                                            }
+                                            Paper.book().write("User_Name",userData.getName());
+                                            Paper.book().write("User_Email",userData.getEmail());
+
+                                            progressBar.setVisibility(View.GONE);
+                                            ProcessPhoenix.triggerRebirth(Otp.this,new Intent(Otp.this, profile.class));
+                                            Intent intent = new Intent(Otp.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
                                         }
-                                    });
+
+                                        else {
+                                            Paper.book().write(Prevalent.userPhone, phonenumber);
+                                            HashMap<String, Object> userdataMap = new HashMap<>();
+                                            userdataMap.put("phone",phonenumber);
+                                            userdataMap.put("password"," ");
+                                            userdataMap.put("name"," ");
+                                            userdataMap.put("address"," ");
+                                            userdataMap.put("email"," ");
+                                            rootRef.child("Users").child(phonenumber).updateChildren(userdataMap)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if(task.isComplete()){
+                                                                progressBar.setVisibility(View.GONE);
+                                                                ProcessPhoenix.triggerRebirth(Otp.this,new Intent(Otp.this, profile.class));
+                                                                Intent intent = new Intent(Otp.this, MainActivity.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                            else{
+                                                                progressBar.setVisibility(View.GONE);
+                                                                Toast.makeText(Otp.this,"Something went wrong",Toast.LENGTH_SHORT).show();
+                                                                Intent intent = new Intent(Intent.ACTION_MAIN);
+                                                                intent.addCategory(Intent.CATEGORY_HOME);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+
                         } else {
                             String message = "Something is wrong, we will fix it soon...";
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -183,7 +192,7 @@ public class Otp extends AppCompatActivity {
         );
     }
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
@@ -202,9 +211,7 @@ public class Otp extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-
             Paper.book().delete(Prevalent.userPhone);
-            Paper.book().delete(Prevalent.userPassword);
             Prevalent.currentOnlineUser = null;
             progressBar.setVisibility(View.GONE);
             Toast.makeText(Otp.this, e.getMessage(),Toast.LENGTH_LONG).show();

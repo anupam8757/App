@@ -8,13 +8,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -30,6 +28,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,14 +50,16 @@ import io.paperdb.Paper;
 
 public class profile extends AppCompatActivity {
 
-    private TextView flag,user_name,user_phone;
-    private EditText name,email,locality,district,state,pincode;
+    private TextView user_name,user_phone;
+    private EditText name,email,locality,pincode;
     private Button register;
     private static User user = new User();
     private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+
     private String GumlaPin = "835207";
     private DatabaseReference FetchDataRef, UploadDataRef;
-    String full_nameDB,Email_DB,phone_db,pass_db,locality_DB;//this we will fetch from database
+    String full_nameDB,Email_DB,phone_db,pass_db,locality_DB;
 
     @Override
     public void onBackPressed() {
@@ -81,12 +86,7 @@ public class profile extends AppCompatActivity {
             locality.requestFocus();
             return;
         }
-        if(TextUtils.isEmpty(pin))
-        {
-            pincode.setError("Enter valid pin code!");
-            pincode.requestFocus();
-            return;
-        }
+
         else if(!Email.isEmpty() && !Name.isEmpty() && !Address.isEmpty() && !pin.isEmpty()){
             Intent i = new Intent(profile.this, MainActivity.class);
             startActivity(i);
@@ -106,11 +106,15 @@ public class profile extends AppCompatActivity {
         checkInternetconnection();
         setContentView(R.layout.activity_profile);
         Paper.init(this);
+
         phone_db= Paper.book().read(Prevalent.userPhone);
         Log.d("profile.java",phone_db);
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user2 = mAuth.getCurrentUser();
 
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
+
 
         locality = findViewById(R.id.locality);
         pincode=findViewById(R.id.pincode);
@@ -123,7 +127,6 @@ public class profile extends AppCompatActivity {
         user_name=findViewById(R.id.profile_user_name);
         user_phone=findViewById(R.id.profile_user_phone);
         user_phone.setText(phone_db);
-
 
         UploadDataRef = FirebaseDatabase.getInstance().getReference().child("Users");
         FetchDataRef = UploadDataRef.child(phone_db);
@@ -151,7 +154,6 @@ public class profile extends AppCompatActivity {
 
             }
         });
-
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +192,24 @@ public class profile extends AppCompatActivity {
                     return;
                 }
 
+                if(user2 != null){
+                    user2.updateEmail(email.getText().toString().trim());
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(name.getText().toString().trim())
+                            .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
+                            .build();
+
+                    user2.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("Profile" ,"User profile updated.");
+                                    }
+                                }
+                            });
+                }
+
                 progressBar.setVisibility(View.VISIBLE);
                 user.setName(name.getText().toString().trim());
                 user.setEmail(email.getText().toString().trim());
@@ -197,8 +217,11 @@ public class profile extends AppCompatActivity {
                 user.setPassword(pass_db);
                 user.setAddress(locality.getText().toString().trim()+"#"+pin);
 
-                progressBar.setVisibility(View.GONE);
+                Paper.book().write("User_Name",name.getText().toString().trim());
+                Paper.book().write("User_Email",email.getText().toString().trim());
                 Prevalent.currentOnlineUser = user;
+                progressBar.setVisibility(View.GONE);
+
                 UploadDataRef.child(phone_db).setValue(user, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -215,9 +238,6 @@ public class profile extends AppCompatActivity {
                 },100);
             }
         });
-
-        final String userId = getIntent().getStringExtra("userId");
-
 
     }
 
@@ -256,48 +276,19 @@ public class profile extends AppCompatActivity {
             return false;
         }
         else{
-            // Initializing a new alert dialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(profile.this);
+            builder.setIcon(R.drawable.confirm)
+                    .setMessage(Html.fromHtml("<font color='#000000'><h3>Sorry! we have not yet started at your pincode.</h3></font>"))
+                    .setCancelable(false)
+                    .setNegativeButton("", null);
+            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
 
-            // Set a title for alert dialog
-            // Define the title color to red
-            //builder.setTitle(Html.fromHtml("<font color='#ff0000'>Say Hello!</font>"));
-
-            // Another way to change alert dialog title text color
-
-            // Specify the alert dialog title
-            String titleText = "SORRY !";
-
-            // Initialize a new foreground color span instance
-            ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.RED);
-
-            // Initialize a new spannable string builder instance
-            SpannableStringBuilder ssBuilder = new SpannableStringBuilder(titleText);
-
-            // Apply the text color span
-            ssBuilder.setSpan(
-                    foregroundColorSpan,
-                    0,
-                    titleText.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            );
-
-            // Set the alert dialog title using spannable string builder
-            builder.setTitle(ssBuilder);
-
-            // Show a message on alert dialog
-            builder.setMessage(Html.fromHtml("<font color='#000000'><h5>We have not started at your pincode "));
-
-            // Set the positive button
-            builder.setPositiveButton("Ok",null);
-
-
-            // Create the alert dialog
-            AlertDialog dialog = builder.create();
-
-            // Finally, display the alert dialog
-            dialog.show();
-            Button pbutton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+            Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
             //Set positive button background
             pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
             //Set positive button text color

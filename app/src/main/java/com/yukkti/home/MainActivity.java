@@ -40,6 +40,7 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,11 +48,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.yukkti.AboutUs;
+import com.yukkti.Model.User;
 import com.yukkti.Orders.Order_History;
 import com.yukkti.Prevalent.Prevalent;
 import com.yukkti.R;
 import com.yukkti.Register.profile;
-import com.yukkti.login;
+import com.yukkti.Register.register;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -126,11 +128,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                       String msg="SuccessFull";
-                       if(!task.isSuccessful())
-                       {
-                           msg="Failed";
-                       }
+                        String msg="SuccessFull";
+                        if(!task.isSuccessful())
+                        {
+                            msg="Failed";
+                        }
 
                     }
                 });
@@ -139,7 +141,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
         Paper.init(this);
         user_phone = Paper.book().read(Prevalent.userPhone);
-        user_reference = cartrefence.child(user_phone);
+        try{
+            user_reference = cartrefence.child(user_phone);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 //       toolbar in main Activity is added
         toolbar = findViewById(R.id.toolbar);
@@ -163,8 +169,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView userNameHeaderView = headerView.findViewById(R.id.nav_header_name);
         TextView userEmailHeaderView = headerView.findViewById(R.id.nav_header_email);
         try {
-            presentName = Prevalent.currentOnlineUser.getName();
-            presentEmail = Prevalent.currentOnlineUser.getEmail();
+            presentName = Paper.book().read("User_Name");
+            presentEmail = Paper.book().read("User_Email");
             userNameHeaderView.setText(presentName);
             userEmailHeaderView.setText(presentEmail);
 
@@ -194,38 +200,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAdapter.setOnItemClickListener(this);
 
         //    getting he reference of the FirebaseData base
-            firebaseDatabase =FirebaseDatabase.getInstance();
+        firebaseDatabase =FirebaseDatabase.getInstance();
 
 //        getting the reference of the database carousel
         image_slider=findViewById(R.id.image_slider);
         final List<SlideModel> slideArray=new ArrayList<>();
-         firebaseDatabase.getReference().child("carousel")
-                 .addListenerForSingleValueEvent(new ValueEventListener() {
-                     @Override
-                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                         for(final DataSnapshot data :snapshot.getChildren()){
-                           slideArray.add(new SlideModel(data.child("url").getValue().toString(), data.child("title").getValue().toString(),ScaleTypes.FIT));
+        firebaseDatabase.getReference().child("carousel")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(final DataSnapshot data :snapshot.getChildren()){
+                            slideArray.add(new SlideModel(data.child("url").getValue().toString(), data.child("title").getValue().toString(),ScaleTypes.FIT));
 //
-                           image_slider.setImageList(slideArray,ScaleTypes.FIT);
+                            image_slider.setImageList(slideArray,ScaleTypes.FIT);
 //                           add the listener
-                             image_slider.setItemClickListener(new ItemClickListener() {
-                                 @Override
-                                 public void onItemSelected(int i) {
-                                      String name= slideArray.get(i).getTitle().trim();
-                                     Intent intent = new Intent(MainActivity.this, Catagories.class);
-                                     intent.putExtra("cat_name",name);
-                                     startActivity(intent);
-                                 }
-                             });
+                            image_slider.setItemClickListener(new ItemClickListener() {
+                                @Override
+                                public void onItemSelected(int i) {
+                                    String name= slideArray.get(i).getTitle().trim();
+                                    Intent intent = new Intent(MainActivity.this, Catagories.class);
+                                    intent.putExtra("cat_name",name);
+                                    startActivity(intent);
+                                }
+                            });
 
-                         }
-                     }
+                        }
+                    }
 
-                     @Override
-                     public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                     }
-                 });
+                    }
+                });
 
     }
 
@@ -364,7 +370,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Paper.book().delete(Prevalent.userPhone);
         Paper.book().delete(Prevalent.userPassword);
         Prevalent.currentOnlineUser = null;
-        Intent intent = new Intent(MainActivity.this, login.class);
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(MainActivity.this, register.class);
         startActivity(intent);
         finish();
     }
@@ -379,24 +386,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void checkconnection()
     {
-     ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-     NetworkInfo networkInfo =  connectivityManager.getActiveNetworkInfo();
-     if(networkInfo== null || !networkInfo.isConnected() || !networkInfo.isAvailable())
-     {
-         Dialog dialog= new Dialog(this);
-         dialog.setContentView(R.layout.alert_dailog);
-         dialog.setCancelable(false);
-         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
-         dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
-         Button button = dialog.findViewById(R.id.internet_lost);
-         button.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 recreate();
-             }
-         });
-         dialog.show();
-     }
+        ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo =  connectivityManager.getActiveNetworkInfo();
+        if(networkInfo== null || !networkInfo.isConnected() || !networkInfo.isAvailable())
+        {
+            Dialog dialog= new Dialog(this);
+            dialog.setContentView(R.layout.alert_dailog);
+            dialog.setCancelable(false);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+            Button button = dialog.findViewById(R.id.internet_lost);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recreate();
+                }
+            });
+            dialog.show();
+        }
     }
 
     private void setcart() {
@@ -405,7 +412,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DatabaseReference cartrefence = firebaseDatabase.getReference("Cart");
 //        here we will pass the user phone number and from that we fetch of
 //        particular user
-        user_reference = cartrefence.child(user_phone);
+        try{
+            user_reference = cartrefence.child(user_phone);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         user_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
