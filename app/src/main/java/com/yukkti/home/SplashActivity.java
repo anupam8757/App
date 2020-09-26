@@ -38,7 +38,13 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         checkConnection();
         Paper.init(this);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = null;
+        try {
+             user= FirebaseAuth.getInstance().getCurrentUser();
+        }catch (NullPointerException e){
+            
+        }
+        
         if(user != null){
             final String phone =  user.getPhoneNumber().substring(3,13);
             Log.d("SplashActivity"," "+phone);
