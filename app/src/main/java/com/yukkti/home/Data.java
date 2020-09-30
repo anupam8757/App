@@ -13,7 +13,7 @@ public class  Data {
         main_list_items.add(new Main_list_item(R.mipmap.restrorennnttt,"RESTAURANT FOODS & CUISINES"));
         main_list_items.add(new Main_list_item(R.mipmap.bakerycakesanddairy_min,"BAKERY,CAKES & DAIRY"));
         main_list_items.add(new Main_list_item(R.mipmap.sweets,"SWEETS"));
-        main_list_items.add(new Main_list_item(R.mipmap.amul,"AMUL"));
+        main_list_items.add(new Main_list_item(R.mipmap.amul,"AMUL ITEMS"));
         main_list_items.add(new Main_list_item(R.mipmap.ptanajli,"PATANJALI ITEMS"));
         main_list_items.add(new Main_list_item(R.mipmap.grocery_min,"GROCERIES"));
         main_list_items.add(new Main_list_item(R.mipmap.fruits,"FRUITS"));

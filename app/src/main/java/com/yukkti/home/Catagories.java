@@ -185,6 +185,12 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                 Log.d("fetched","before fetched");
                 fetchdata(product_child);
                 break;
+            case "AMUL ITEMS":
+                product_child=productrefence.child("amul");
+                Log.d("fetched","before fetched");
+                fetchdata(product_child);
+                break;
+
             default:
                 product_child=productrefence.child("other");
                 Log.d("fetched","before fetched");
