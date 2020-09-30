@@ -78,6 +78,15 @@
         android:gravity="center"
         android:layout_below="@id/linear_category_layout"
         >
+        <TextView
+            android:id="@+id/amul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amul"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginRight="30dp"/>
 
         <TextView
             android:id="@+id/snacks_packed_food"
@@ -88,6 +97,7 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:layout_marginRight="30dp"/>
+
         <TextView
             android:id="@+id/beauty"
             android:layout_width="wrap_content"

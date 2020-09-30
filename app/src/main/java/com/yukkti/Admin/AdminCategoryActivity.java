@@ -12,7 +12,7 @@ import com.yukkti.home.MainActivity;
 
 public class AdminCategoryActivity extends AppCompatActivity {
 
-    private TextView grocery, vegetable, fruits, other,beverages;
+    private TextView grocery, vegetable, amul, fruits, other,beverages;
     private TextView snacks_packed_food, patanjali,cleaning,sweets, non_veg;
     private TextView baby_care, bakery, restaurants;
 
@@ -32,6 +32,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
         fruits = findViewById(R.id.fruits);
         beverages = findViewById(R.id.beverages);
         other = findViewById(R.id.other);
+        amul=findViewById(R.id.amul);
 
         snacks_packed_food = findViewById(R.id.snacks_packed_food);
         patanjali = findViewById(R.id.beauty);
@@ -42,6 +43,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
         baby_care = findViewById(R.id.baby_care);
         bakery = findViewById(R.id.bcd);
         restaurants = findViewById(R.id.rfc);
+
 
         grocery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,15 @@ public class AdminCategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","fruits");
+                startActivity(intent);
+                finish();
+            }
+        });
+        amul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
+                intent.putExtra("category","amul");
                 startActivity(intent);
                 finish();
             }
