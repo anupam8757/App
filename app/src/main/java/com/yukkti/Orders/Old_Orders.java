@@ -24,6 +24,7 @@ import com.yukkti.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -66,12 +67,18 @@ public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
                     order_details.add(data);
 //                    }
                 }
-                int index=order_details.size()-1;
-                if (index!=-1){
-                    order_details.remove(order_details.size() - 1);
+//                Collections.reverse(order_details);
+                Collections.sort(order_details, new Compare());
+                try{
+                    Order_Details curr = order_details.get(0);
+                    Paper.book().write("Key",curr.getDate_time());
+                    int index=order_details.size()-1;
+                    if (index!=-1){
+                        order_details.remove(0);
+                    }
                 }
+                catch (Exception e){}
 
-                Collections.reverse(order_details);
                 orderAdapter = new OrderAdapter(order_details, Old_Orders.this);
 
                 orderRecyclerView.setAdapter(orderAdapter);
@@ -103,5 +110,43 @@ public class Old_Orders extends Fragment implements OrderAdapter.OrderClick {
         intent.putExtra("date_time",order_details.get(position).getDate_time());
         intent.putExtra("total_price",order_details.get(position).getTotal_price());
         startActivity(intent);
+    }
+
+    public class Compare implements Comparator<Order_Details>{
+
+        @Override
+        public int compare(Order_Details o1, Order_Details o2) {
+            String dateTime1 = o1.getDate_time();
+            String dateTime2 = o2.getDate_time();
+            String [] daTi1 = dateTime1.split(" ");
+            String date1 = dateTime1.substring(6,10) + dateTime1.substring(3,5) + dateTime1.substring(0,2);
+            int date11 = Integer.parseInt(date1);
+            String []time1 = daTi1[1].split(":");
+
+
+
+            String [] daTi2 = dateTime2.split(" ");
+            String date2 =  dateTime2.substring(6,10) + dateTime2.substring(3,5) + dateTime2.substring(0,2);
+            int date22 = Integer.parseInt(date2);
+            String []time2 = daTi2[1].split(":");
+
+
+            if(date11 != date22){
+                if(date11 > date22){
+                    return -1;
+                }
+                else{
+                    return 1;
+                }
+            }
+            else{
+                int a = daTi1[1].compareTo(daTi2[1]);
+                if(a>0){
+                    return -1;
+                }else{
+                    return 1;
+                }
+            }
+        }
     }
 }

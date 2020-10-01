@@ -32,7 +32,6 @@ public class Current_Order extends Fragment {
     DatabaseReference ordersRef;
     private static String user_phone = "", FetchedTime, total_price, total_items,address = "";
     List<Cart_list> cart_list;
-    ArrayList<String> key = new ArrayList<>();
     private User user;
     private ListView orderList;
     private TextView fullAddress,totalPrice,DateTime,total_no_items,user_name;
@@ -55,6 +54,7 @@ public class Current_Order extends Fragment {
         fullAddress = view.findViewById(R.id.address_full);
         totalPrice = view.findViewById(R.id.total_price_of_order);
         user_name = view.findViewById(R.id.user_name);
+        user_name.setVisibility(View.GONE);
 //        DateTime = view.findViewById(R.id.date_time_order);
 //        total_no_items = view.findViewById(R.id.date_time_order);
         orderList = view.findViewById(R.id.list_view_orders);
@@ -62,79 +62,60 @@ public class Current_Order extends Fragment {
 //        empty list view
         empty_current_order=view.findViewById(R.id.empty_current_order);
 
+        try{
 
-        cart_list = new ArrayList<>();
+            String Datetime = Paper.book().read("Key");
+            Log.d("Current_Order"," "+Datetime);
 
-        ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(user_phone);
-        Query last_child = ordersRef.orderByKey().limitToLast(1);
+            cart_list = new ArrayList<>();
 
-        last_child.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("In..Cart","Before Loop");
-                for (DataSnapshot order: dataSnapshot.getChildren()){
-                    for(DataSnapshot cart_list1: order.child("Cart").getChildren()){
-                        key.add(cart_list1.getKey());
-                    }
-                    try{
-                        for(String curKey: key){
-                            Cart_list curValue = new Cart_list();
-                            curValue = order.child("Cart").child(curKey).getValue(Cart_list.class);
-                            Log.d("Current Value",order.child("Cart").child(curKey).getValue().toString());
-                            cart_list.add(curValue);
+            ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(user_phone).child(Datetime);
+            ordersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    total_price = (String) dataSnapshot.child("total_price").getValue();
+                    total_items = (String) dataSnapshot.child("total_items").getValue();
+                    if(total_items != null) {
+                        user_name.setVisibility(View.VISIBLE);
+                        for (int i = 0; i < Integer.parseInt(total_items); i++) {
+                            Cart_list cart_list1 = dataSnapshot.child("Cart").child(String.valueOf(i)).getValue(Cart_list.class);
+                            cart_list.add(cart_list1);
                         }
-                    }catch (Exception e){}
+                        totalPrice.setText(" Rs. "+total_price);
+                        ArrayList<Order_list> order_lists = new ArrayList<>();
+                        try{
+                            for(Cart_list list: cart_list){
+                                String name = list.getName();
+                                Log.d("name",""+name);
+                                String price = list.getPrice();
+                                Log.d("price",""+price);
+                                String quantity = Integer.toString(list.getAmount());
+                                Log.d("quantity",""+quantity);
+                                String total_price=list.getTotal_price();
+                                Order_list orderList = new Order_list(name,price,quantity,total_price);
+                                order_lists.add(orderList);
+                            }
+                        }catch (Exception e){}
 
-                    Log.d("Array length",""+key.size());
-                    Log.d("Array length",""+cart_list.size());
-                    try{
-                        Log.d("Array 1st element",""+cart_list.get(key.size()-2).getName());}catch (Exception e){}
-                    total_items = order.child("total_items").getValue().toString();
-                    total_price = order.child("total_price").getValue().toString();
-                    FetchedTime = order.child("date_time").getValue().toString();
-                }
-                totalPrice.setText(" Rs. "+total_price);
-//                DateTime.setText(FetchedTime);
-//                total_no_items.setText("Total items: "+total_items);
-                ArrayList<Order_list> order_lists = new ArrayList<>();
-                try{
-                    for(Cart_list list: cart_list){
-                        String name = list.getName();
-                        Log.d("name",""+name);
-                        String price = list.getPrice();
-                        Log.d("price",""+price);
-                        String quantity = Integer.toString(list.getAmount());
-                        Log.d("quantity",""+quantity);
-                        String total_price=list.getTotal_price();
-                        Order_list orderList = new Order_list(name,price,quantity,total_price);
-                        order_lists.add(orderList);
+                        OrderListAdapter adapter = new OrderListAdapter(getContext(), R.layout.order_list, order_lists);
+                        orderList.setAdapter(adapter);
                     }
-                }catch (Exception e){}
-                OrderListAdapter adapter = new OrderListAdapter(getContext(), R.layout.order_list, order_lists);
-                if(adapter.getCount() == 0){
-                }
-                orderList.setAdapter(adapter);
-                if (adapter.getCount() == 0){
-                    orderList.setAdapter(null);
-                    empty_current_order.setVisibility(View.VISIBLE);
-                    user_name.setVisibility(View.GONE);
-                    totalPrice.setVisibility(View.GONE);
+                    else {
+                        user_name.setVisibility(View.GONE);
+                        empty_current_order.setVisibility(View.VISIBLE);
+                        totalPrice.setVisibility(View.GONE);
+                    }
 
-                } else {
-                    orderList.setAdapter(adapter);
-                    empty_current_order.setVisibility(View.GONE);
-                    user_name.setVisibility(View.VISIBLE);
-                    totalPrice.setVisibility(View.VISIBLE);
                 }
 
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
 
-            }
+            });
+        }catch (Exception e){ }
 
-        });
         try
         {
             String []userAddress = new String[100];

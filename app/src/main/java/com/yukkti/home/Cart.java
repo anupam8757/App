@@ -216,6 +216,7 @@ public class Cart extends AppCompatActivity {
         orderDetails.put("Cart",cart_lists);
         orderDetails.put("date_time",currentDate+" "+currentTime);
         orderDetails.put("total_items",Integer.toString(total_items));
+        Paper.book().write("Key",currentDate+" "+currentTime);
         Toast.makeText(Cart.this,"We Will Contact You Shortly.",Toast.LENGTH_SHORT).show();
         orderRef.child("Orders").child(user_phone).child(currentDate+" "+currentTime).updateChildren(orderDetails)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

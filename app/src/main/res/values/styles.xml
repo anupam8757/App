@@ -17,5 +17,7 @@
     <style name="AppTheme.WhiteAccent">
         <item name="progressBarStyle">@color/primaryDarkColor</item> <!-- Whatever color you want-->
     </style>
-
+    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

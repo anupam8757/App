@@ -36,9 +36,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="315dp"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:hintTextAppearance="@style/AppTheme.WhiteAccent"
+        app:hintTextAppearance="@style/TextLabel"
         android:id="@+id/editTextPhone_input"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
         <EditText
             android:id="@+id/editTextPhone"
             android:layout_width="315dp"
-            android:layout_height="47dp"
+            android:layout_height="48dp"
             android:hint="Enter Phone Number"
             android:inputType="phone"
             android:textColor="#0E0D0D"
