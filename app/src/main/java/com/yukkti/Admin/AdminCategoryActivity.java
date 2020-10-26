@@ -14,7 +14,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
 
     private TextView grocery, vegetable, amul, fruits, other,beverages;
     private TextView snacks_packed_food, patanjali,cleaning,sweets, non_veg;
-    private TextView baby_care, bakery, restaurants;
+    private TextView baby_care, bakery, restaurants,hindustan, dev_hotel,vikash_hotel;
 
     @Override
     public void onBackPressed() {
@@ -43,6 +43,10 @@ public class AdminCategoryActivity extends AppCompatActivity {
         baby_care = findViewById(R.id.baby_care);
         bakery = findViewById(R.id.bcd);
         restaurants = findViewById(R.id.rfc);
+
+        hindustan=findViewById(R.id.hindustan_hotel);
+        dev_hotel=findViewById(R.id.dev_hotel);
+        vikash_hotel=findViewById(R.id.vikash_hotel);
 
 
         grocery.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +173,36 @@ public class AdminCategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
                 intent.putExtra("category","bakery_cakes_dairy");
+                startActivity(intent);
+                finish();
+            }
+        });
+        //        adding the new categories of the item
+//        such as hotel of the different type
+
+        hindustan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
+                intent.putExtra("category","Hindustan_Diary");
+                startActivity(intent);
+                finish();
+            }
+        });
+        dev_hotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
+                intent.putExtra("category","Dev_Fast_Food");
+                startActivity(intent);
+                finish();
+            }
+        });
+        vikash_hotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCategoryActivity.this,Admin_Add_New_Product_Activity.class);
+                intent.putExtra("category","Vikash_Hotel");
                 startActivity(intent);
                 finish();
             }

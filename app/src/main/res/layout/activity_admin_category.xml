@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.yukkti.Admin.AdminCategoryActivity">
 
+
     <TextView
         android:id="@+id/slogan_category"
         android:layout_width="wrap_content"
@@ -12,223 +13,233 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="Add new Product"
+        android:text="Add new Product "
+        android:textColor="@color/primaryColor"
         android:textAlignment="center"
         android:textSize="26sp"
         android:textStyle="bold"
+        android:layout_margin="20dp"
         />
-    <LinearLayout
-        android:id="@+id/linear_category_layout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:layout_below="@id/slogan_category"
-        android:layout_marginTop="35dp"
         >
+        <LinearLayout
+            android:id="@+id/linear_category_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/grocery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Groceries"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginRight="30dp"
-            />
 
-        <TextView
-            android:id="@+id/vegetables"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegetables"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginRight="30dp"/>
 
-        <TextView
-            android:id="@+id/fruits"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fruits"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginRight="30dp"/>
-        <TextView
-            android:id="@+id/beverages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Beverages"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-           />
+            <TextView
+                android:id="@+id/grocery"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Groceries"
+                />
+            <TextView
+                android:id="@+id/amul"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Amul"
+                />
+            <TextView
+                android:id="@+id/dev_hotel"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Dev Hotel"
+                />
+            <TextView
+                android:id="@+id/vikash_hotel"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="vikash hotel"
+                />
+            <TextView
+                android:id="@+id/hindustan_hotel"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="hindustan hotel"
+                />
 
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/linear_category_layout2"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_below="@id/linear_category_layout"
-        >
-        <TextView
-            android:id="@+id/amul"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Amul"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginRight="30dp"/>
+            <TextView
+                android:padding="10dp"
+                android:id="@+id/vegetables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Vegetables"
 
-        <TextView
-            android:id="@+id/snacks_packed_food"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Snacks_Packed Food"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginRight="30dp"/>
+                />
 
-        <TextView
-            android:id="@+id/beauty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Patanjali_Items"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            />
-    </LinearLayout>
+            <TextView
+                android:padding="10dp"
+                android:id="@+id/fruits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Fruits"
+                />
+            <TextView
+                android:padding="10dp"
+                android:id="@+id/beverages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Beverages"
 
-    <LinearLayout
-        android:id="@+id/linear_category_layout3"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_below="@id/linear_category_layout2"
-        >
+                />
 
-        <TextView
-            android:id="@+id/cleaning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CLEANING,HOUSEHOLD"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:layout_marginRight="10dp"/>
-        <TextView
-            android:id="@+id/kgp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sweets"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="14sp"
-           />
-    </LinearLayout>
+            <TextView
+                android:padding="10dp"
+                android:id="@+id/snacks_packed_food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Snacks_Packed Food"
+                />
+            <TextView
+                android:id="@+id/beauty"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Patanjali_Items"
 
-    <LinearLayout
-        android:id="@+id/linear_category_layout4"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_below="@id/linear_category_layout3"
-        >
+                />
 
-        <TextView
-            android:id="@+id/non_veg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EGG,MEAT_FISH"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginRight="30dp"/>
-        <TextView
-            android:id="@+id/baby_care"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Baby Care"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/cleaning"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="CLEANING,HOUSEHOLD"
+                />
+            <TextView
+                android:id="@+id/kgp"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Sweets"
 
-    <LinearLayout
-        android:id="@+id/linear_category_layout5"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_below="@id/linear_category_layout4"
-        >
+                />
 
-        <TextView
-            android:id="@+id/bcd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BAKERY,CAKES_DAIRY"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:layout_marginRight="10dp"/>
-        <TextView
-            android:id="@+id/rfc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RESTAURANT_FOODS"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            />
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/other"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linear_category_layout5"
-        android:text="Other_Items"
-        android:gravity="center"
-        android:textSize="14sp"
-        android:padding="20dp"
-        android:textStyle="bold"
-        />
+            <TextView
+                android:id="@+id/non_veg"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="EGG,MEAT_FISH"
+                />
+            <TextView
+                android:id="@+id/baby_care"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Baby Care"
+
+                />
+
+
+
+
+            <TextView
+                android:id="@+id/bcd"
+                android:padding="10dp"
+
+                android:text="BAKERY,CAKES_DAIRY"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/rfc"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="RESTAURANT_FOODS"
+
+                />
+
+
+            <TextView
+                android:id="@+id/other"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Other_Items"
+
+                />
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

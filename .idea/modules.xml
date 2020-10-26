@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Yukkti.iml" filepath="$PROJECT_DIR$/.idea/modules/Yukkti.iml" group="Yukkti" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="Yukkti/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Yukkti.iml" filepath="$PROJECT_DIR$/.idea/modules/Yukkti.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Yukkti.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Yukkti.app.iml" />
     </modules>
   </component>
 </project>
