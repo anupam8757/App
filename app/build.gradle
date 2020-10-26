@@ -10,7 +10,7 @@ android {
         applicationId 'com.yukkti'
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 11
+        versionCode 12
         versionName "2"
         // Enabling multidex support.
         multiDexEnabled true
