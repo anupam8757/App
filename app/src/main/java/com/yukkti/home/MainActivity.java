@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(aboutus);
                 break;
             case R.id.app_contact:
-                String p = "6202123103";
+                String p = "9631069572";
                 Intent in = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", p, null));
                 startActivity(in);
                 break;

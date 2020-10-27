@@ -2,6 +2,7 @@ package com.yukkti.home;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -13,11 +14,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
@@ -95,8 +98,6 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
         setSupportActionBar(cat_toolbar);
         user_phone = Paper.book().read(Prevalent.userPhone);
 
-        Log.d("catogaroes","in oncreate");
-
 //        adding the title which we will get from the main activity
         cat_name = getIntent().getStringExtra("cat_name");
 //
@@ -145,9 +146,7 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                 fetchdata(product_child);
                 break;
             case "RESTAURANT FOODS & CUISINES":
-                product_child=productrefence.child("restaurants_food_and_cuisines");
-                Log.d("fetched","before fetched");
-                fetchdata(product_child);
+                getSelectionList();
                 break;
             case "BEVERAGES":
                 product_child=productrefence.child("beverages");
@@ -185,22 +184,49 @@ public class Catagories extends AppCompatActivity implements Cat_Adapter.OnItemC
                 Log.d("fetched","before fetched");
                 fetchdata(product_child);
                 break;
-            case "AMUL ITEMS":
-                product_child=productrefence.child("amul");
-                Log.d("fetched","before fetched");
-                fetchdata(product_child);
-                break;
-
             default:
                 product_child=productrefence.child("other");
                 Log.d("fetched","before fetched");
                 fetchdata(product_child);
                 break;
-
         }
         setcart();
     }
 
+    private void getSelectionList(){
+        final String[] nameList = {"Hindustan Diary", "Dev Fast Food", "Vikash Hotel", "All Restaurant Combined"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setIcon(R.drawable.ic_shopping_cart);
+        builder.setTitle("Choose Your Favourite Restaurant");
+        builder.setItems(nameList, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // the user clicked on colors[which]
+                switch(which){
+                    case 0:
+                        product_child = productrefence.child("Hindustan_Diary");
+                        Log.d("fetched","before fetched");
+                        fetchdata(product_child);
+                        break;
+                    case 1:
+                        product_child = productrefence.child("Dev_Fast_Food");
+                        Log.d("fetched","before fetched");
+                        fetchdata(product_child);
+                        break;
+                    case 2:
+                        product_child = productrefence.child("Vikash_Hotel");
+                        Log.d("fetched","before fetched");
+                        fetchdata(product_child);
+                        break;
+                    case 3:
+                        product_child = productrefence.child("restaurants_food_and_cuisines");
+                        fetchdata(product_child);
+                }
+            }
+        });
+        builder.show();
+    }
     private void CheckConnection() {
         ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo =  connectivityManager.getActiveNetworkInfo();

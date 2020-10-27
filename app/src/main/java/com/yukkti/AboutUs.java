@@ -23,7 +23,7 @@ public class AboutUs extends AppCompatActivity {
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
                 .setDescription(" Fast Delivery App")
-                .addItem(new Element().setTitle("Version 2.0"))
+                .addItem(new Element().setTitle("Version 2.1"))
                 .addGroup("CONNECT WITH US!")
                 .addEmail("yukktifastdelivery@gmail.com ")
 
