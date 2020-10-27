@@ -163,7 +163,32 @@
                 android:text="price"
                 android:layout_weight="20"/>
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
+    <LinearLayout
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/deliveryLayout"
+        android:visibility="gone"
+        android:layout_below="@id/card_view4"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:id="@+id/deliveryCharges"
+            android:paddingStart="10dp"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:text="  "
+            android:layout_weight="80"/>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/text9"
         android:layout_alignParentBottom="true"
@@ -172,12 +197,6 @@
         android:layout_weight="1"
         android:background="@color/primaryLightColor"
         android:orientation="vertical">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-
-            android:layout_above="@id/text5"
-            android:layout_alignTop="@id/text5"/>
         <TextView
             android:layout_marginTop="15dp"
             android:id="@+id/text5"
@@ -189,7 +208,6 @@
             android:textStyle="bold"
             android:gravity="center"
             android:textColor="#FFFFFF"
-
             />
     </LinearLayout>
 </LinearLayout>

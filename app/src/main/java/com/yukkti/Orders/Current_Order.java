@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,13 +30,15 @@ import java.util.List;
 import io.paperdb.Paper;
 
 public class Current_Order extends Fragment {
-    DatabaseReference ordersRef;
+    DatabaseReference ordersRef, deliveryRef;
     private static String user_phone = "", FetchedTime, total_price, total_items,address = "";
     List<Cart_list> cart_list;
     private User user;
     private ListView orderList;
+    LinearLayout delivery;
     private TextView fullAddress,totalPrice,DateTime,total_no_items,user_name;
-    TextView empty_current_order;
+    TextView empty_current_order, deliveryCharge;
+    private String deliveryIsApplicable,deliveryCharges,deliveryChargesOnPrice;
 
     @Nullable
     @Override
@@ -50,10 +53,12 @@ public class Current_Order extends Fragment {
 
         user_phone = Paper.book().read(Prevalent.userPhone);
         user = Prevalent.currentOnlineUser;
+        delivery = view.findViewById(R.id.deliveryLayout);
 
         fullAddress = view.findViewById(R.id.address_full);
         totalPrice = view.findViewById(R.id.total_price_of_order);
         user_name = view.findViewById(R.id.user_name);
+        deliveryCharge = view.findViewById(R.id.deliveryCharges);
         user_name.setVisibility(View.GONE);
 //        DateTime = view.findViewById(R.id.date_time_order);
 //        total_no_items = view.findViewById(R.id.date_time_order);
@@ -68,12 +73,31 @@ public class Current_Order extends Fragment {
             Log.d("Current_Order"," "+Datetime);
 
             cart_list = new ArrayList<>();
+            deliveryRef = FirebaseDatabase.getInstance().getReference().child("DeliveryCharges");
+            deliveryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    deliveryIsApplicable = snapshot.child("Applicable").getValue().toString();
+                    deliveryCharges = snapshot.child("Charges").getValue().toString();
+                    deliveryChargesOnPrice = snapshot.child("OnPrice").getValue().toString();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
 
             ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(user_phone).child(Datetime);
             ordersRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     total_price = (String) dataSnapshot.child("total_price").getValue();
+                    if(deliveryIsApplicable.equals("Yes") && Integer.parseInt(total_price) < Integer.parseInt(deliveryChargesOnPrice)){
+                        delivery.setVisibility(View.VISIBLE);
+                        deliveryCharge.setVisibility(View.VISIBLE);
+                        deliveryCharge.setText("Delivery Charge: "+ Integer.parseInt(deliveryCharges));
+                    }
                     total_items = (String) dataSnapshot.child("total_items").getValue();
                     if(total_items != null) {
                         user_name.setVisibility(View.VISIBLE);

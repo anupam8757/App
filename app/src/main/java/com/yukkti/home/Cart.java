@@ -57,12 +57,12 @@ public class Cart extends AppCompatActivity {
     private Toolbar cart_toolbar;
     private RecyclerView cartRecyclerView;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference cartrefence , orderRef;
+    private DatabaseReference cartrefence , orderRef, deliveryRef;
     DatabaseReference user_reference;
     List<Cart_list> cart_lists;
     CartAdapter cartAdapter;
     public String user_phone;
-    String currentDate, currentTime, message="";
+    String currentDate, currentTime, message="",deliveryIsApplicable,deliveryCharges,deliveryChargesOnPrice;
     Button order_button;
     private int total_price_of_all_items = 0,total_items = 0;
     TextView emptyView;
@@ -74,6 +74,23 @@ public class Cart extends AppCompatActivity {
         checkConnection();
         order_button=findViewById(R.id.fab);
         Paper.init(this);
+        //        implement the database
+        firebaseDatabase= FirebaseDatabase.getInstance();
+//        getting the reference of the Cart
+        deliveryRef = firebaseDatabase.getReference("DeliveryCharges");
+        deliveryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                deliveryIsApplicable = snapshot.child("Applicable").getValue().toString();
+                deliveryCharges = snapshot.child("Charges").getValue().toString();
+                deliveryChargesOnPrice = snapshot.child("OnPrice").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         order_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +101,15 @@ public class Cart extends AppCompatActivity {
                 else{
                     if (total_price() < 75) {
                         show_price_pop();
-                    } else {
-                        if (checkAddress()) {
+                    } else if(deliveryIsApplicable.equals("Yes")){
+                        if (checkAddress() && total_price() >= Integer.parseInt(deliveryChargesOnPrice)) {
+                            confirmOrder();
+                        }
+                        else if(checkAddress() && total_price() < Integer.parseInt(deliveryChargesOnPrice)){
+                            confirmOrderWithDeliveryCharges();
+                        }
+                    }else{
+                        if(checkAddress()){
                             confirmOrder();
                         }
                     }
@@ -106,9 +130,7 @@ public class Cart extends AppCompatActivity {
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(cartRecyclerView);
 
-//        implement the database
-        firebaseDatabase= FirebaseDatabase.getInstance();
-//        getting the reference of the Cart
+
         cartrefence = firebaseDatabase.getReference("Cart");
         orderRef = FirebaseDatabase.getInstance().getReference();
 
@@ -206,7 +228,6 @@ public class Cart extends AppCompatActivity {
     }
 
     public void updateDetailsToCart(){
-
         sendEmail(message);// Method to call send Email
         total_items = cart_lists.size();
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -241,7 +262,6 @@ public class Cart extends AppCompatActivity {
     }
 
     private void sendEmail(String message) {
-
         String subject= "New Order is Confirmed.";
         String Email="yukktifastdelivery@gmail.com";
         JavaMailApi javaMailApi= new JavaMailApi(Cart.this, Email, subject, message);
@@ -263,9 +283,7 @@ public class Cart extends AppCompatActivity {
     }
 
     public void confirmOrder(){
-
         total_price_of_all_items = 0;
-
         AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
         builder.setIcon(R.drawable.confirm)
                 .setMessage(Html.fromHtml("<font color='#000000'><h2>Confirm Order?</h2> Total price = Rs. </font>"+total_price()))
@@ -277,7 +295,6 @@ public class Cart extends AppCompatActivity {
                 updateDetailsToCart();
                 else
                     show_time_constraint();
-
             }
         });
         AlertDialog alert = builder.create();
@@ -340,11 +357,11 @@ public class Cart extends AppCompatActivity {
                 user_reference.child(cartList.getPid()).setValue(cartList);
             }
             message += " Name: "+Prevalent.currentOnlineUser.getName()+ " Address: "
-                    +Prevalent.currentOnlineUser.getAddress()+"\n" +"Total price "+total_price_of_all_items
-            + "\n ";
+                    +Prevalent.currentOnlineUser.getAddress()+"\n" +"Total price "+total_price_of_all_items;
+            if(deliveryIsApplicable.equals("Yes") && total_price_of_all_items < Integer.parseInt(deliveryChargesOnPrice)){
+                message += "\n Delivery Charge" + deliveryCharges + "\n";
+            }
             message+=Prevalent.currentOnlineUser.getPhone().substring(0,5);
-
-        Log.d("Cart","price: "+ total_price_of_all_items);
         }catch (Exception e){}
         return total_price_of_all_items;
     }
@@ -429,6 +446,37 @@ public class Cart extends AppCompatActivity {
         //Set positive button text color
         pbutton.setTextColor(Color.parseColor("#1704FF"));
 
+    }
+    private void confirmOrderWithDeliveryCharges(){
+        total_price_of_all_items = 0;
+        int val = total_price() + Integer.parseInt(deliveryCharges);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Cart.this);
+        builder.setIcon(R.drawable.confirm)
+                .setMessage(Html.fromHtml("<font color='#000000'><h2>Confirm Order?</h2> Sub Total = Rs. </font>"+total_price()
+                +"<br>Delivery Charges = Rs. "+ deliveryCharges + "<br>Total Price = Rs. "+  val
+                ))
+                .setCancelable(false)
+                .setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if(time_lies())
+                    updateDetailsToCart();
+                else
+                    show_time_constraint();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+        Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+        //Set negative button background
+        nbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+        //Set negative button text color
+        nbutton.setTextColor(Color.parseColor("#1704FF"));
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        //Set positive button background
+        pbutton.setBackgroundColor(Color.parseColor("#ffffff"));
+        //Set positive button text color
+        pbutton.setTextColor(Color.parseColor("#1704FF"));
     }
     private boolean time_lies(){
         boolean value = false;
